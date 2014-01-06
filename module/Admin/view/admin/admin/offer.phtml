@@ -1,0 +1,246 @@
+<?php if(isset($paginator))   :?> 
+<?php
+$title = 'Oferty pracy';
+$this->headTitle($title);
+?>
+<style>
+    .table {margin-top: 20px !important;}
+    a i {margin-right: 5px;}
+    .pagination-centered {width: 100%;text-align: center;}
+   
+</style>
+
+<div class="row">
+    <div class="col-md-11">
+        <h1><a href="<?php echo $this->url('admin', array('action'=> 'offer')) ?>" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-globe"></i>&ensp;<?php echo $this->translate('Oferty pracy') ?></a> - lista ofert</h1>
+    </div>
+    <div class="col-md-1">
+        <a href='<?php echo $this->url('admin', array('action' => 'addOffer'));?>' style="margin-top:30px" class="btn btn-primary pull-right"><?php echo $this->translate('Dodaj ofertę'); ?></a>
+    </div>
+</div>
+
+<?php if(count($paginator)) :?>
+<table class="table table-striped">
+<tr>
+    <th>ID</th>
+    <th>Tytuł oferty</th>
+    <th>Stanowisko</th>
+    <th>Data dodania</th>
+    <th>Akcje</th>
+</tr>
+
+<?php foreach ($paginator as $p) : ?>
+
+<tr>
+    <td><?php echo $this->escapeHtml($p->offerId);?></td>
+    <td> <a href="<?php echo $this->url('admin',
+            array('action'=>'offer', 'id' => $p->offerId));?>"> <?php echo $this->escapeHtml($p->offerTitle);?> </a></td>
+    <td class="span1"><span class="label label-default"><?php echo  $this->escapeHtml($p->offerType);?></span></td>
+    <td class="span1"><?php echo  date('d-m-Y G:i',$this->escapeHtml($p->offerInsert));?></td>  
+        
+    <td class="span2">
+        <a href="<?php echo $this->url('admin',
+            array('action'=>'offer', 'id' => $p->offerId));?>" title="podgląd"><i class="glyphicon glyphicon-picture"></i></a>
+        <a href="<?php echo $this->url('admin',
+            array('action'=>'delOffer', 'id' => $p->offerId));?>" title="usuń"><i class="glyphicon glyphicon-trash"></i></a>
+    </td>
+</tr>
+<?php endforeach; ?>
+
+</table>
+<?php
+ echo $this->paginationControl(
+     
+     $this->paginator,
+     // the scrolling style
+     'sliding',
+     // the partial to use to render the control
+     array('partial/paginator.phtml', 'Admin'),
+     // the route to link to when a user clicks a control link
+     array(
+         'route' => 'admin',
+         'action' => 'offer'
+     )
+ );
+?>
+
+    <?php else : ?>
+
+<div class="well" style="margin-top:20px;">
+    <p>
+       <strong> Brak ofert ... </strong>
+    </p>
+</div>
+
+<?php endif; ?>
+
+<?php  elseif (isset($form)) :?>
+<?php
+$title = 'Oferty pracy - treść oferty';
+$this->headTitle($title);
+?>
+<style>
+    .form-group .form-control { min-width: 400px;   }
+    .form-group span {  display: block;  }
+    .form-group textarea {  min-width: 400px;   }
+    .form-group ul {list-style: none; margin: 0; padding: 0; color: #ff0000; font-size: 10px;}
+    .well .form-group{ margin-bottom: 0px;}
+    #submitbutton {margin-left: 15px;}
+    .col-lg-10 label {padding: 5px; margin: 0px 10px 0 0; }
+    .my-images {width: 320px; }
+    .btn-del {display: block; margin: 5px 100px;}
+</style>
+
+<h1><a href="<?php echo $this->url('admin', array('action'=> 'offer')) ?>" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-globe"></i>&ensp;<?php echo $this->translate('Oferty pracy') ?></a> - treść oferty</h1>
+
+<hr />
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('admin', array('action' => 'offer',  'id' => $this->id)));
+$form->prepare();
+?>
+
+        <?php echo $this->form()->openTag($form->setAttribute('class', 'form-horizontal')); ?>
+
+        
+        <?php echo $this->formHidden($form->get('offerId'));?>
+        
+
+        <div class="form-group">
+             <label for="offerTitle" class="col-lg-2 control-label">Tytuł</label>
+             <div class="col-lg-10">
+                <?php echo $this->formRow($form->get('offerTitle')); ?>
+             </div>
+        </div>
+        <div class="form-group">
+             <label for="offerDesc" class="col-lg-2 control-label">Opis stanowiska</label>
+             <div class="col-lg-10">
+                <?php echo $this->formRow($form->get('offerDesc')); ?>
+             </div>
+        </div>
+        <div class="form-group">
+             <label for="offerRequire" class="col-lg-2 control-label">Wymagania</label>
+             <div class="col-lg-10">
+                <?php echo $this->formRow($form->get('offerRequire')); ?>
+             </div>
+        </div>
+        <div class="form-group">
+             <label for="offerExtraInfo" class="col-lg-2 control-label">Dodatkowe informacje</label>
+             <div class="col-lg-10">
+                <?php echo $this->formRow($form->get('offerExtraInfo')); ?>
+             </div>
+        </div>
+        <div class="form-group">
+             <label for="offerType" class="col-lg-2 control-label">Stanowisko</label>
+             <div class="col-lg-10">
+                <?php echo $this->formRow($form->get('offerType')); ?>
+             </div>
+        </div>
+        <div class="form-group">
+             <label for="offerCountry" class="col-lg-2 control-label">Kraj</label>
+             <div class="col-lg-10">
+                <?php echo $this->formRow($form->get('offerCountry')); ?>
+             </div>
+        </div>
+        <div class="form-group">
+             <label for="offerCity" class="col-lg-2 control-label">Adres (Miasto)</label>
+             <div class="col-lg-10">
+                <?php echo $this->formRow($form->get('offerCity')); ?>
+             </div>
+        </div>
+        <div class="form-group">
+             <label for="offerCompany" class="col-lg-2 control-label">Pracodawca</label>
+             <div class="col-lg-10">
+                <?php echo $this->formRow($form->get('offerCompany')); ?>
+             </div>
+        </div>
+        <div class="form-group">
+             <label for="offerNumber" class="col-lg-2 control-label">Nr ref.</label>
+             <div class="col-lg-10">
+                <?php echo $this->formRow($form->get('offerNumber')); ?>
+             </div>
+        </div>
+        <div class="form-group">
+             <label for="offerCategory" class="col-lg-2 control-label">Kategoria</label>
+             <div class="col-lg-10">
+                <?php echo $this->formRow($form->get('offerCategory')); ?>
+             </div>
+        </div>
+        <div class="form-group">
+             <label for="offerWebPage" class="col-lg-2 control-label">Strona www</label>
+             <div class="col-lg-10">
+                <?php echo $this->formRow($form->get('offerWebPage')); ?>
+             </div>
+        </div>
+        <div class="form-group">
+             <label for="offerEmail" class="col-lg-2 control-label">Email</label>
+             <div class="col-lg-10">
+                <?php echo $this->formRow($form->get('offerEmail')); ?>
+             </div>
+        </div>
+        <div class="form-group">
+             <label for="offerPhone" class="col-lg-2 control-label">Telefon</label>
+             <div class="col-lg-10">
+                <?php echo $this->formRow($form->get('offerPhone')); ?>
+             </div>
+        </div>
+        <div class="form-group">
+             <label for="offerImage" class="col-lg-2 control-label">Obraz</label>
+             <div class="col-lg-10">
+                  <?php if ($offer->offerImage) { ?>
+                    <input type="hidden" value="<?php echo $offer->offerImage ?>" name="offerImage" />
+                    <a href="<?php echo $this->basePath('upload/offer/'.$offer->offerImage) ?>" class="image-box" title="<?php echo $offer->offerImage ?>" id="single_image"><img src="<?php echo $this->basePath('upload/offer/'.$offer->offerImage) ?>" alt="<?php echo $offer->offerImage; ?>" class="img-thumbnail my-images" alt=""/></a>
+                    <button class="btn btn-default btn-del" name='del-picture' value='yes'><i class="glyphicon glyphicon-trash"></i>&ensp;usuń zdjęcie</button>
+                  <?php } else {?>                  
+                    <?php echo $this->formRow($form->get('offerImage')); ?>
+                  <?php } ?>                
+             </div>
+             
+             
+             
+        </div>
+
+        <div class="well">
+                <div class="form-group" id="action-buttons">
+                     <div class="col-lg-offset-1 col-lg-1">
+                        <a href="<?php echo $this->url('admin', array('action' => 'offer')) ?>" class="btn btn-default"><i class="glyphicon glyphicon-chevron-left"></i>&ensp;Powrót </a>
+                     </div>
+                     <div class="col-lg-1">
+                        <?php echo $this->formSubmit($form->get('submit')); ?>
+                     </div>
+                </div>
+        </div>
+        <?php echo $this->form()->closeTag();?>
+
+
+<?php endif; ?>
+
+<script>
+$(document).ready(function() {
+
+	/* This is basic - uses default settings */
+	
+	$("a#single_image").fancybox({
+		'transitionIn'	:	'elastic',
+		'transitionOut'	:	'elastic',
+		'speedIn'		:	600, 
+		'speedOut'		:	200, 
+		
+                'hideOnContentClick': true
+	});
+	
+	
+	
+});
+
+        tinyMCE.init({
+                // General options
+                language : 'pl',
+                mode : "textareas",
+                height: 175
+                
+                //width : 700
+
+        });
+
+</script>

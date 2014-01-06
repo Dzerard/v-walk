@@ -1,0 +1,159 @@
+<?php if(isset($paginator))   :?> 
+    <?php
+    // module/Album/view/album/album/delete.phtml:
+
+    $title = 'Wiadomości - Opieka - Zapytanie i koszty';
+    $this->headTitle($title);
+    ?>
+
+    <style>
+        .table {margin-top: 20px !important;}
+        a i {margin-right: 5px;}
+        .pagination-centered {width: 100%;text-align: center;}
+    </style>
+    <h1><a href="<?php echo $this->url('admin', array('action' => 'care')) ?>" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-heart-empty"></i>&ensp;Opieka</a> - Zapytanie i koszty</h1>
+
+    <br />
+
+
+    <?php if(count($paginator)) :?>
+    <table class="table table-striped">
+    <tr>
+        <th>ID</th>
+        <th>Imię i Nazwisko</th>    
+        <th>Email</th>
+
+        <th>Data dodania</th>
+        <th>Akcje</th>
+    </tr>
+
+    <?php foreach ($paginator as $p) : ?>
+
+    <tr>
+        <td><?php echo $this->escapeHtml($p->careId);?></td>
+        <td> <a href="<?php echo $this->url('admin',
+                array('action'=>'care', 'id' => $p->careId));?>"> <?php echo $this->escapeHtml($p->careName);?> </a></td>
+        <td><?php echo $this->escapeHtml($p->careEmail);?></td>
+
+        <td class="span1"><?php echo  date('d-m-Y G:i',$this->escapeHtml($p->careInsert));?></td>    
+        <td class="span2">
+            <a href="<?php echo $this->url('admin',
+                array('action'=>'care', 'id' => $p->careId));?>" title="podgląd"><i class="glyphicon glyphicon-picture"></i></a>
+            <a href="<?php echo $this->url('admin',
+                array('action'=>'delCare', 'id' => $p->careId));?>" title="usuń"><i class="glyphicon glyphicon-trash"></i></a>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+
+    </table>
+    <?php
+     echo $this->paginationControl(
+
+         $this->paginator,
+         // the scrolling style
+         'sliding',
+         // the partial to use to render the control
+         array('partial/paginator.phtml', 'Admin'),
+         // the route to link to when a user clicks a control link
+         array(
+             'route' => 'admin',
+             'action'=> 'care'
+         )
+     );
+    ?>
+
+        <?php else : ?>
+
+    <div class="well">
+        <p>
+           <strong> Brak wiadomości :) </strong>
+        </p>
+    </div>
+
+    <?php endif; ?>
+<?php  elseif (isset($care)) :?>
+<?php
+    $title = 'Treść wiadmości - Opieka';
+    $this->headTitle($title);
+    
+    $answer = array ('yes' => '<span class="label label-primary">Tak</span>','no' => '<span class="label label-danger">Nie</span>');    
+    $sex = array('yes' => 'Tak', 'women' => 'Chcę się opiekować kobietą', 'men' => 'Chcę się opiekować mężczyzną', 'mariage' => 'Chcę się opiekować małżeństwem', 'no' => 'Nie');
+    $language = array( 'no' => 'brak', 'basic' => 'podstawowy', 'inter' => 'średniozaawansowany', 'pro' => 'zaawansowany');
+    
+    
+?>
+    <style>
+        .table {margin-top: 20px !important;}
+        a i {margin-right: 5px;}
+        tr:after td {font-weight: bold;}
+    </style>
+
+    <h1><a href="<?php echo $this->url('admin', array('action' => 'care')) ?>" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-heart-empty"></i>&ensp;<?php echo $this->translate('Opieka') ?></a> - treść wiadomości</h1>
+
+    <br />
+
+    <table class="table table-striped">
+        <tr>
+            <td>ID: </td> <td><?php echo $this->escapeHtml($care->careId) ?></td>
+        </tr>
+        <tr>
+            <td>Imię i Nazwisko: </td>   <td><?php echo $this->escapeHtml($care->careName) ?></td> 
+        </tr>
+        <tr>
+            <td>Data urodzenia: </td><td><?php echo $this->escapeHtml($care->careDate) ?></td>
+        </tr>
+        <tr>
+            <td>Telefon komórkowy: </td><td><?php echo $this->escapeHtml($care->careCellphone) ?></td>
+        </tr>
+        <tr>
+            <td>Telefon stacjonarny: </td><td><?php echo $this->escapeHtml($care->carePhone) ?></td>
+        </tr>        
+        <tr>
+            <td>Email: </td><td><?php echo $this->escapeHtml($care->careEmail) ?></td>
+        </tr>
+        <tr>
+            <td>Województwo: </td><td><?php echo $this->escapeHtml($care->careRegion) ?></td>
+        </tr>
+        <tr>
+            <td>Miasto: </td><td><?php echo $this->escapeHtml($care->careCity) ?></td>
+        </tr>
+        <tr>
+            <td>Doświadczenie w charakterze opiekuna/opiekunki os. starszych? </td><td><?php echo $answer[$care->careExp] ?></td>
+        </tr>
+        <tr>
+            <td>Osoba paląca ? </td><td><?php echo $answer[$care->careSmoke] ?></td>
+        </tr>
+        <tr>
+            <td>Czynne prawo jazdy? </td><td><?php echo $answer[$care->careDriving] ?></td>
+        </tr>
+        <tr>
+            <td>Stopień znajomości języka niemieckiego: </td><td><span class="label label-default"><?php echo $this->escapeHtml($language[$care->careLanguage]) ?></span></td>
+        </tr>
+        <tr>
+            <td>Osoba, która mogłaby Pana/Panią zastępować? </td><td><?php echo $answer[$care->careChange] ?></td>
+        </tr>
+        <?php if($care->careChange == 'yes') :?>
+        <tr>
+            <td>Numer kontaktowy do poleconej osoby: </td><td><?php echo $care->careExtraPhone ?></td>
+        </tr>
+        <?php endif; ?>
+        
+        <tr>
+            <td>Czy płeć osoby podopiecznej ma jakieś znaczenie? </td><td><span class="label label-default"><?php echo $this->escapeHtml($sex[$care->careSex]) ?></span></td>
+        </tr>
+        <tr>
+            <td>Od kiedy może rozpocząć pracę: </td><td><?php echo $this->escapeHtml($care->careWhenStart) ?></td>
+        </tr>
+        
+        <tr>
+            <td>Data dodania: </td><td><?php echo  date('d-m-Y G:i',$this->escapeHtml($care->careInsert));?></td>
+        </tr>
+    </table>
+
+    <div class="form-group">
+        <a href="<?php echo $this->url('admin', array('action' => 'care')) ?>" class="btn btn-default"><i class="glyphicon glyphicon-chevron-left"></i>&ensp;Powrót </a>
+
+    </div>
+
+
+<?php endif;?>

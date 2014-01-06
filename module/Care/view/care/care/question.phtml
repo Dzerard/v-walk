@@ -1,0 +1,214 @@
+<?php
+$title = $this->translate('Zapytania i koszty');
+$this->headTitle($title);
+?>
+ <!-- Header Image -->
+        <div id="header-image-container">
+            <div id="header-image">
+                <img src="<?php echo $this->basePath('images/placeholders/2000x330_6.jpg') ?>" alt="" class="stretch-image" />
+            </div>
+        </div>
+
+        <div id="content-container" class="content-width">
+
+            <!-- Breadcrumbs -->
+            <?php
+            echo $this->navigation('navigation') 
+                      ->breadcrumbs()
+                      ->setMinDepth(0)
+                      ->setPartial('partial/breadcrumb.phtml');
+            ?>
+             
+            <!-- Page Intro -->
+            <div id="intro" class="not-homepage row">
+                <div class="large-9 large-centered columns">
+                    <h1><strong><?php echo $this->translate('Zapytanie') ?></strong> <?php echo $this->translate(' i koszty') ?></h1>
+                </div>
+            </div>
+            
+            <div class="row">
+              <div class="large-12 columns for-nested">
+
+                    <div class="row">
+                        <div class="large-12 columns">
+                            
+                            <h2 class="has-line"><?php echo $this->translate('3 kroki do wyjazdu') ?></h2>                                                      
+                            
+                                <p>
+                                   <?php echo $this->translate('Osoby zainteresowane współpracą z Agencją Zatrudnienia Winckler Personal w charakterze opiekuna/opiekunki osób starszych prosimy o kontakt w celu przeprowadzenia rozmowy telefonicznej, podczas której weryfikujemy znajomość języka niemieckiego, następnie ustalamy termin spotkania na rozmowę kwalifikacyjną w naszym biurze w celu omówienia wszelkich szczegółów dotyczących ewentualnej wspólpracy.') ?>
+                                </p>                                                          
+                            
+                            <blockquote>
+                                <p style="font-size: 16px">
+                                   <?php echo $this->translate('Wypełnij Formularz ') ?>&ensp;&ensp;
+                                   <i class="icon-arrow-right"></i>&ensp;&ensp;<?php echo $this->translate('Rozmowa z konsultantem') ?>&ensp;&ensp;
+                                   <i class="icon-arrow-right"></i>&ensp;&ensp;<?php echo $this->translate('Niezbędne formalności') ?>&ensp;&ensp;
+                                   <i class="icon-ok"></i>&ensp;&ensp;<?php echo $this->translate('Wyjazd do pracy za granicą') ?>&ensp;&ensp;
+                                </p>                                
+                            </blockquote>
+                            
+                                                                 
+                                <h3 class="light"><?php echo $this->translate('Skontakuj się z nami jeszcze dziś – Nie czekaj do jutra !') ?></h3>
+                                <p>
+                                    <a class="flat button"><i class="icon-phone"></i>&ensp;&ensp;+48 12 307 00 99</a>
+                                </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div> 
+            
+            <div class="row top-margin">
+                <div class="large-12 columns for-nested">
+
+                    <div class="row">
+                        <div class="large-12 columns">
+                            <h2 class="has-line"><?php echo $this->translate('Formularz Zgłoszeniowy') ?></h2>
+                            <form id="contact-form" method="post" class="validate care-form" >
+                                <div class="row">
+                                    <div class="large-5 columns less-padding">
+                                        <label for="careName">Imię i Nazwisko</label>
+                                        <input class="validate[required]" type="text" name="careName" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="large-5 columns less-padding">
+                                        <label for="careDate">Data urodzenia (dzień, miesiąc, rok)</label>
+                                        <input class="validate[required]" type="text" name="careDate" id="careDate" />
+                                    </div>
+                                </div>                               
+                                <div class="row">
+                                    <div class="large-5 columns less-padding">
+                                        <label for="careCellphone">Telefon komórkowy</label>
+                                        <input class="validate[required]" type="text" name="careCellphone" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="large-5 columns less-padding">
+                                        <label for="carePhone">Telefon stacjonarny</label>
+                                        <input class="" type="text" name="carePhone" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="large-5 columns less-padding">
+                                        <label for="careEmail">Email</label>
+                                        <input class="validate[required,custom[email]]" type="text" name="careEmail" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="large-5 columns less-padding">
+                                        <label for="careRegion">Województwo</label>
+                                        <input class="validate[required]" type="text" name="careRegion" />                                      
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="large-5 columns less-padding">
+                                        <label for="careCity">Miasto</label>
+                                        <input class="validate[required]" type="text" name="careCity" />                                           
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="large-12 columns less-padding">
+                                        <label for="careExp">Czy posiada Pan/i doświadczenie w charakterze opiekuna/opiekunki os. starszych?</label>
+                                        <label class="inline-label"><input type="radio"  class="validate[required] radio" name="careExp" value="yes">&ensp;Tak</label>
+                                        <label class="inline-label"><input type="radio"  class="validate[required] radio" name="careExp" value="no">&ensp;Nie</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="large-12 columns less-padding">
+                                        <label for="careSmoke">Czy jest Pan(-i) osobą palącą ?</label>
+                                        <label class="inline-label"><input type="radio"  class="validate[required] radio" name="careSmoke" value="yes">&ensp;Tak</label>
+                                        <label class="inline-label"><input type="radio"  class="validate[required] radio" name="careSmoke" value="no">&ensp;Nie</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="large-12 columns less-padding">
+                                        <label for="careDriving">Czy posiada Pan(-i) czynne prawo jazdy?</label>
+                                        <label class="inline-label"><input type="radio"  class="validate[required] radio"  name="careDriving" value="yes">&ensp;Tak</label>
+                                        <label class="inline-label"><input type="radio"  class="validate[required] radio"  name="careDriving" value="no">&ensp;Nie</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="large-5 columns less-padding">
+                                        <label for="careLanguage">Wybierz stopień znajomości języka niemieckiego:</label>
+                                        <select name="careLanguage" class="validate[required]">
+                                            <option></option>
+                                            <option value="no">brak</option>
+                                            <option value="basic">podstawowy</option>
+                                            <option value="inter">średniozaawansowany</option>
+                                            <option value="pro">zaawansowany</option>                                            
+                                        </select>                 
+                                       
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="large-12 columns less-padding">
+                                        <label for="careChange">Czy zna Pan(-i) osobę, która mogłaby Pana/Panią zastępować?</label>                                        
+                                        <label class="inline-label"><input type="radio" class="validate[required] radio" name="careChange" value="yes" id="showNUmberPersonYes">&ensp;Tak</label>
+                                        <label class="inline-label"><input type="radio" class="validate[required] radio" name="careChange" value="no" id="showNUmberPersonNo">&ensp;Nie</label>
+                                    </div>
+                                </div>
+                                <div class="row" id="showNumberPerson" style="display: none; ">
+                                    <div class="large-5 columns less-padding">
+                                        <label for="careExtraPhone">Proszę podać numer kontaktowy do tej osoby:</label>
+                                        <input class="" type="text" name="careExtraPhone" />                                           
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="large-5 columns less-padding">
+                                       <label for="careSex">Czy płeć osoby podopiecznej ma jakieś znaczenie?</label>
+                                       <select name="careSex" class="validate[required]">
+                                            <option></option>
+                                            <option value="yes">Tak</option>
+                                            <option value="women">Chcę się opiekować kobietą</option>
+                                            <option value="men">Chcę się opiekować mężczyzną</option>
+                                            <option value="mariage">Chcę się opiekować małżeństwem</option>   
+                                            <option value="no">Nie</option>  
+                                        </select> 
+                                    </div>
+                                </div>                                 
+                                <div class="row">
+                                    <div class="large-5 columns less-padding">
+                                        <label for="careWhenStart">Kiedy chce Pan/Pani rozpocząć pracę (dzień-miesiąc-rok)</label>
+                                        <input class="validate[required]" type="text" name="careWhenStart" id="careWhenStart"/>                                           
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="large-12 columns less-padding">                                     
+                                        <div data-alert="" class="info box" style="background:none; border-color: #999999; color: #444;">
+                                            <p>
+                                                *Niniejszym oświadczam, że zgodnie z art. 23 ust. 1 pkt 1 ustawy z dnia 29 sierpnia 1997 r. o ochronie danych osobowych (Dz.U. z 2002 r. Nr 101, poz. 926) wyrażam zgodę na przetwarzanie wyżej wymienionych moich danych osobowych przez Winckler Personal w celach marketingowo/sprzedażowych oraz dla potrzeb obecnego oraz przyszłych procesów rekrutacyjnych. Informacje, które podałem/podałam w moim formularzu zgłoszeniowym są kompletne i zgodne ze stanem faktycznym.
+                                            </p>
+                                            <a href="#" class="close">×</a>
+                                        </div>                                 
+                                        
+                                        <label class="inline-label"><input class="validate[required] checkbox" type="checkbox" name="contactAccept" value="yes"/>&emsp;<strong>Akceptuje</strong></label>                                          
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="large-5 columns less-padding">
+                                        <input type="submit" class="flat button" value="<?php echo $this->translate('Wyślij') ?>" />
+                                    </div>
+                                </div>
+                            </form>
+                            <div id="success" class="success box">
+                                <?php echo $this->translate('Dziekujemy za wiadomość, wkrótce na nią odpowiemy') ?>                                
+                            </div>
+                            <div id="error" class="error box">
+                                <?php echo $this->translate('Coś poszło nie tak ... Prosimy skontaktować się za pomocą email lub telfonicznie. Przepraszamy za problem.') ?>                               
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+            
+            
+        </div>
+        <!-- End id="content-container" -->
+         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+ 

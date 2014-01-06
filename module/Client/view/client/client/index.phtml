@@ -1,0 +1,73 @@
+<?php
+$title = $this->translate('Pracodawcy');
+$this->headTitle($title);
+?>
+<!-- Header Image -->
+        <div id="header-image-container">
+            <div id="header-image">
+                <img src="<?php echo $this->basePath('images/placeholders/2000x330.jpg') ?>" alt="" class="stretch-image" />
+            </div>
+        </div>
+
+        <div id="content-container" class="content-width">
+
+            <!-- Breadcrumbs -->
+            <?php
+            echo $this->navigation('navigation') 
+                      ->breadcrumbs()
+                      ->setMinDepth(0)
+                      ->setPartial('partial/breadcrumb.phtml');
+            ?>
+
+            <!-- Page Intro -->
+            <div id="intro" class="not-homepage row">
+                <div class="large-9 large-centered columns">
+                    <h1><?php echo $this->translate('Dzięki nam koncentrują się Państwo na swoim biznesie. ') ?></h1>
+                </div>
+            </div>          
+
+            <div class="row">
+                <div class="large-12 columns for-nested">
+
+                    <div class="row">
+                        <div class="large-12 columns">
+                            <h2 class="has-line"><?php echo $this->translate('Pomagamy dotrzeć do właściwych kandydatów') ?></h2>
+                            <h3 class="light"><?php echo $this->translate('Efektywność Firmy zależy od kompetencji Twoich pracowników.') ?></h3>
+                            <h3 class="light"><?php echo $this->translate('Stworzymy możliwości do rozwoju biznesu ') ?></h3>
+                          
+                                <p>
+                                    <?php echo $this->translate('Staranny dobór kandydatów i kompleksowe usługi z zakresu doradztwa zawodowego są naszymi priorytetami. Pracując z klientami i kandydatami, nauczyliśmy się zawsze znajdować optymalne rozwiązanie dla obu stron. Dzięki działalności w zakresie rekrutacji personelu stale poszerzamy naszą bazę kandydatów, co sprzyja znalezieniu odpowiednich pracowników, spełniających oczekiwania naszych kontrahentów. Skrupulatnie selekcjonujemy aplikacje kandydatów, przeprowadzamy rozmowy kwalifikacyjne, sprawdzamy referencje i przedstawiamy naszym kontrahentom tylko odpowiednie, dobrze dobrane kandydatury.') ?>
+                                </p>                                
+                            <h3 class="light"><?php echo $this->translate('Winckler Personal oferuje pełny zakres usług HR:') ?></h3>
+                            <blockquote>
+                                <p>
+                                   <?php echo $this->translate('Rekrutacja stała')?>
+                                </p>                                
+                            </blockquote>
+                            <blockquote>
+                                <p>
+                                    <?php echo $this->translate('Direct & Executive Search')?>
+                                </p>                                
+                            </blockquote>     
+                            <blockquote>
+                                <p><?php echo $this->translate('Rekrutacja pracowników tymczasowych') ?>   </p>
+                            </blockquote>
+                                
+                            
+                            <p>
+                                
+                                <?php echo $this->translate('Z doświadczenia wiemy, że zapotrzebowanie na personel nie jest stałe w trakcie roku, dlatego dysponujemy obszerną bazą pracowników tymczasowych, których zatrudnienie może poprawić Państwa konkurencyjność. Jesteśmy ekspertami w rekrutacji, służymy swoją wiedzą i doświadczeniem.  Outsourcing procesów rekrutacyjnych umożliwia działom HR w Państwa firmie skoncentrować się na kwestiach strategicznych dla biznesu. Personel dobieramy indywidualnie do potrzeb Państwa firmy.') ?>
+
+                            </p>
+
+                          
+                            
+                        </div>
+                    </div>
+
+                </div>
+            </div>     
+  
+            
+        </div>
+        <!-- End id="content-container" -->
