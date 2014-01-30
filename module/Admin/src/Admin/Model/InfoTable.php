@@ -43,9 +43,6 @@ class InfoTable {
             'infoCellPhone' => $info->infoCellPhone,
             'infoEmail'     => $info->infoEmail,
             'infoFax'       => $info->infoFax,
-            'infoNip'       => $info->infoNip,
-            'infoRegon'     => $info->infoRegon,
-            'infoHours'     => $info->infoHours,
             'infoUpdate'    => time(),
            
         );
@@ -64,6 +61,6 @@ class InfoTable {
     
     public function deleteInfo($id)
     {
-        //$this->tableGateway->delete(array('infoId' => $id));
+        $this->tableGateway->delete(array('infoId' => $id));
     }
 }

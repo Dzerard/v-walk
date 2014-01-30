@@ -21,7 +21,7 @@ $this->headTitle($title);
     <th>Imię i Nazwisko</th>    
     <th>Email</th>
    
-    <th>Stanowisko</th>
+    <!--<th>Stanowisko</th>-->
     <th>Data dodania</th>
     <th>Akcje</th>
 </tr>
@@ -34,7 +34,7 @@ $this->headTitle($title);
             array('action'=>'contact', 'id' => $p->contactId));?>"> <?php echo $this->escapeHtml($p->contactName);?> </a></td>
     <td><?php echo $this->escapeHtml($p->contactEmail);?></td>
     
-    <td><?php echo $this->escapeHtml($p->contactPosition);?></td>
+    <!--<td><?php //echo $this->escapeHtml($p->contactPosition);?></td>-->
     <td class="span1"><?php echo  date('d-m-Y G:i',$this->escapeHtml($p->contactInsert));?></td>    
     <td class="span2">
         <a href="<?php echo $this->url('admin',
@@ -98,12 +98,12 @@ $this->headTitle($title);
         <td>Email: </td><td><?php echo $contact->contactEmail ?></td>
     </tr>
     
-    <tr>
-        <td>Numer telefonu: </td><td><?php echo $contact->contactPhone ?></td>
-    </tr>
-    <tr>
-        <td>Stanowisko: </td><td><?php echo $contact->contactPosition ?></td> 
-    </tr>
+<!--    <tr>
+        <td>Numer telefonu: </td><td><?php // echo $contact->contactPhone ?></td>
+    </tr>-->
+<!--    <tr>
+        <td>Stanowisko: </td><td><?php //echo $contact->contactPosition ?></td> 
+    </tr>-->
     <tr>
         <td>Treść wiadomości: </td><td><?php echo $contact->contactMessage ?></td>
     </tr>

@@ -71,21 +71,6 @@ class OfferForm extends Form
         ));
         
         $this->add(array(
-            
-            'name' => 'offerRequire',
-            'type' => 'textarea',
-            'options' => array(
-               // 'label' => 'Wymagania',               
-            ),
-            'attributes' => array(
-                  'class'       => 'form-control',
-                  'rows'        => '10',
-                  'placeholder' => 'wpisz treść ...',
-                  'id'          => 'offerRequire',
-            ),
-        ));
-        
-        $this->add(array(
             'name' => 'offerExtraInfo',
             'type' => 'textarea',
             'options' => array(
@@ -113,12 +98,15 @@ class OfferForm extends Form
         
         $this->add(array(
             'name' => 'offerCountry',
-            'type' => 'radio',
+            'type' => 'select',
             'options' => array(
                // 'label' => 'Kraj',  
                 'value_options' => array(
-                    'pl'=>' Polska',
-                    'de'=>' Niemcy'
+                    'pl'     =>' Polska',
+                    'de'     =>' Niemcy',
+                    'en'     =>' Anglia',
+                    'usa'    =>' USA',
+                    'can'    =>' Kanada',
                 ),               
             ),
             'attributes' => array(
@@ -139,20 +127,20 @@ class OfferForm extends Form
         ));
         
         $this->add(array(
-            'name' => 'offerCompany',
+            'name' => 'offerStreet',
             'type' => 'Text',
             'options' => array(
                // 'label' => 'Pracodawca',                 
             ),
             'attributes' => array(
                   'class' => 'form-control',
-                  'id'    => 'offerCompany',
+                  'id'    => 'offerStreet',
             ),
         ));
         
         $this->add(array(
             'name' => 'offerNumber',
-            'type' => 'Text',
+            'type' => 'Hidden',
             'options' => array(
                 //'label' => 'Nr ref.',                 
             ),

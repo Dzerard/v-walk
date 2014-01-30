@@ -1,256 +1,201 @@
+    <?php echo $this->inlineScript()->prependFile($this->basePath() . '/js/three.walk.js') ?>  
+    <?php echo $this->inlineScript()->prependFile($this->basePath() . '/js/stats.min.js') ?>  
+    <?php echo $this->inlineScript()->prependFile($this->basePath() . '/js/three/examples/js/controls/OrbitControls.js') ?> 
+    <?php echo $this->inlineScript()->prependFile($this->basePath() . '/js/three/examples/js/controls/FirstPersonControls.js') ?> 
+    <?php echo $this->inlineScript()->prependFile($this->basePath() . '/js/three/examples/js/Detector.js') ?> 
+    <?php echo $this->inlineScript()->prependFile('https://rawgithub.com/mrdoob/three.js/master/build/three.js') ?> 
 
-<!-- Home Slider Container -->
-        <div id="home-slider-container">
-
-            <div id="home-slider">
-                <div class="home-slider-item">
-                    <img src="<?php echo $this->basePath('images/placeholders/temp_1aa.jpg') ?>" alt="Slide 1" />
-                    <div class="slider-caption">
-                        <!--<h2>U nas liczą się LUDZIE. Dzięki nim budujemy przyszłość</h2>-->                           
-                    </div>
-                </div>
-                <div class="home-slider-item">
-                    <img src="<?php echo $this->basePath('images/placeholders/temp_2.jpg') ?>" alt="Slide 2" />
-<!--                    <div class="slider-caption" >
-                        
-                        <h2 style="margin-top: 20px; ">Polecam WINCKLER PERSONAL !!</h2>
-                      
-                    </div>-->
-                </div>
-                <div class="home-slider-item">
-                    <img src="<?php echo $this->basePath('images/placeholders/temp_3.jpg') ?>" alt="Slide 3" />
-                </div>
-            </div>
-            <div id="slider-controller" class="content-width">
-                <a href="#" id="slider-prev"><i class="icon-angle-left"></i></a>
-                <a href="#" id="slider-next"><i class="icon-angle-right"></i></a>
-            </div>
-            <div id="header-image-shadow" class="content-width"></div>
-
-        </div>
-<!-- End id="home-slider-container" -->        
-
-<div id="content-container" class="content-width">
-
-            <!-- Page Intro -->
-            <div id="intro" class="row">
-                <div class="large-12 columns">
-                    <h1><?php echo $this->translate('U nas liczą się Ludzie. Dzięki nim budujemy przyszłość') ?></h1>
-                    <div id="intro-line">
-                        <hr class="stick" />                        
-                        <hr />
-                    </div>
-                    <p></p>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="large-12 columns for-nested">
-                     
-                    <div class="row">
-                        <div class="large-12 columns">                            
-                            <p> <?php echo $this->translate('Winckler Personal jest dynamicznie rozwijającą się Agencją Pośrednictwa Pracy, profesjonalnym dostawcą usług w zakresie rekrutacji i selekcji pracowników. Z naszych usług korzystają zarówno małe i średnie przedsiębiorstwa, jak również korporacje na terenie całego kraju, a także poza jego granicami. Wychodząc naprzeciw potrzebom naszych kontrahentów, szukających efektywnych rozwiązań zoptymalizowanych kosztowo postanowiliśmy ułatwić Państwu zadanie w poszukiwaniu odpowiedniego personelu oferując profesjonalne rozwiązania z zakresu selekcji pracowników oraz pracy tymczasowej.
-Zajmujemy się rekrutacją pracowników z wielu branż, począwszy od pracowników niewykwalifikowanych, poprzez fachowców, na kadrze kierowniczej kończąc. Główna siedziba firmy mieści się w Warszawie, natomiast zasięg naszego działania obejmuje teren całego kraju, co sprawia, że potrafimy w szybkim czasie przeprowadzić skuteczną rekrutację. Do każdego zlecenia podchodzimy indywidualnie z takim samym zaangażowaniem, od lat budując zaufanie naszych kontrahentów.
-Winckler Personal jest Agencją Pracy Tymczasowej dysponującą ogromnym doświadczeniem i zaangażowaniem zarówno w rekrutacji jak i współpracy międzynarodowej. Wieloetapowe rekrutacje prowadzone przez naszą agencje umożliwiają dobór właściwego personelu, który z pewnością spełni Państwa oczekiwania i poprzez swoje zaangażowanie podniesie konkurencyjność Pańskiej firmy.') ?>                       
-                   </p>
-                           
-                            
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            
-         
-        
-            
-            <!-- Features -->
-            <div class="row top-margin">
-                <div class="large-6 columns for-nested">
-                    <div class="row">
-                        <div class="large-6 columns height-510 no-padding">
-                            <img src="<?php echo $this->basePath('images/placeholders/f255x510_1.jpg') ?>" alt="" class="stretch-image" />
-                        </div>
-                        <div class="large-6 columns height-510 bottom-line">
-                            <h2 class="smaller">Pracodawcy.</h2>
-                            <h3 class="light uppercase larger">Zapoznaj się z naszą ofertą.</h3>
-                            <p>
-                                W trosce o naszych klientów przygotowaliśmy klika ważnych informacji.
-                            </p>
-                            <a href="<?php  echo $this->url('client') ?>" class="bottom-right angle flat button">Więcej<span class="angle"><i class="icon-angle-right"></i></span></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="large-6 columns for-nested">
-                    <div class="row">
-                        <div class="large-6 columns height-255 no-padding">
-                            <img src="<?php echo $this->basePath('images/placeholders/f255x255_1.jpg')?>" alt="" class="stretch-image" />
-                        </div>
-                        <div class="large-6 columns height-255 bottom-line">
-                            <h2 class="smaller">Kandydaci.</h2>
-                            <p>
-                                Tutaj znajdziesz odpowiedź na nurtujące pytania.
-                            </p>
-                            <a href="<?php  echo $this->url('candidates') ?>" class="bottom-right angle flat button">Więcej<span class="angle"><i class="icon-angle-right"></i></span></a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="large-6 columns height-255 no-padding">
-                            <img src="<?php echo $this->basePath('images/placeholders/f255x255_2.jpg') ?>" alt="" class="stretch-image" />
-                        </div>
-                        <div class="large-6 columns height-255 bottom-line">
-                            <h2 class="smaller">Kontakt.</h2>
-                            <p>
-                                Chcesz nam zadać pytanie ? 
-                            </p>
-                            <a href="<?php  echo $this->url('contact') ?>" class="bottom-right angle flat button">Więcej<span class="angle"><i class="icon-angle-right"></i></span></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row top-margin">
-                <div class="large-12 columns bottom-line">
-                    <h3 class="no-margin"><?php echo $this->translate('Aktualności') ?></h3>
-                    <a href="<?php echo $this->url('news') ?>" class="bottom-right angle flat button">Pozostałe wiadomości<span class="angle"><i class="icon-angle-right"></i></span></a>
-                </div>
-             
-            </div>
-            <div class="row">
-                  
-                   <?php foreach($news as $n) { ?>
-                
-                        <div class="sub-blog-item large-3 columns for-nested">
-                            <div class="right-border row">
-                                <div class="large-12 columns height-155">
-                                    <div class="blog-meta">
-                                        <span class="date"><?php echo  date('d-m-Y',$this->escapeHtml($n->newsInsert));?></span>
-                                    </div>
-                                    <hr />
-                                    <h4 class="sub-blog-title"><a href="<?php echo $this->url('news',array('id' => $n->newsId)) ?>"><?php echo $this->escapeHtml($n->newsTitlePl); ?></a></h4>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="large-12 columns no-padding height-255" style="height:255px; overflow:hidden;">
-                                    <?php if($n->newsPicture != '') :?>
-                                    <img src="<?php echo $this->basePath('upload/news/'.$n->newsPicture)?>" alt="" class="stretch-image" />
-                                    <?php else : ?>
-                                        <img src="<?php echo $this->basePath('images/placeholders/f255x255_defaultt.jpg')?>" alt="" class="stretch-image" />
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-                        </div>          
-                
-                    <?php } ?>
-            </div>
-            
-            <div id="superOffer"  style ="display: none;">
-                    <div class="widget-item row">
-                        
-                        
-                        <div class="large-12 columns" style="padding:25px 40px;">
-                            
-                          <a id="my-closebutton" class="">
-                              <i class="icon-remove"></i>
-                          </a>
-                          
-                          
-                            <div class="posts-widget">
-                                <h5 class="has-line light">Popularne oferty pracy:</h5>
-                                <ul style="margin-top:15px;">
-                                    
-                                     <?php foreach($offer as $o) :?>
-                                    
-                                    <li>
-                                        <div class="post-thumbnail">
-                                            <a href="<?php echo $this->url('candidates',array('action' => 'offer', 'id' => $o->offerId)) ?>"><img src="images/placeholders/logo_small.png" alt="" /></a>
-                                        </div>
-                                        <div class="post-title">
-                                            <a href="<?php echo $this->url('candidates',array('action' => 'offer', 'id' => $o->offerId)) ?>"><?php echo $this->escapeHtml($o->offerType); ?></a>
-                                            <span class="date"><?php echo  date('m.d.Y',$this->escapeHtml($o->offerInsert));?></span>
-                                        </div>
-                                    </li>
-                                    
-                                    <?php endforeach; ?>
-                                    
-                                </ul>
-                                
-                                <hr class="thin divider" style="margin:20px 0;">
-                                
-                              <p class="superOffer-margin">
-                                    <a id="openContact" class="flat button" style="width: 220px;"><i class="icon-info-sign"></i>&ensp;&ensp;Szukam pracy</a>
-                              </p>
-                              <p class="superOffer-margin">                               
-                                    <a id="openFriend" class="flat button" style="width: 220px;"><i class="icon-trophy"></i>&ensp;&ensp;Poleć znajomego</a>
-                              </p>
-                              <p class="superOffer-margin">                               
-                                    <a href="<?php echo $this->url('care', array('action' => 'question')) ?>" class="flat button" style="width: 220px; font-size: 13px;">FORMULARZ ZGŁOSZENIOWY DLA OPIEKUNEK</a>
-                              </p>
-                            </div>
-                        </div>
-                    </div>
-            </div>
-
-            <div id="dialogContact" title="Szukasz pracy ??"  style ="display: none;">
-          
-                    <div class="row">
-                        <hr class="thin divider" style="margin: 0px 0 15px;">
-                        <p class="light" >
-                            Jeśli szukasz obecnie pracy napisz do nas, a będziemy mieć Ciebie na uwadze jeśli otrzymamy ofertę spełniającą Twoje oczekiwania. 
-                        </p>
-                        <p>
-                             <a class="top-left flat button mydialog" href="<?php echo $this->url('candidates') ?>"><i class="icon-envelope"></i>&ensp;&ensp;wypełnij formularz</a>
-                             <a id="openContactClose" class="top-right flat button" style="background-color: #888; color:#fff;  "><i class="icon-remove"></i> </a>
-                        </p>                       
-                    </div>
-                 
-            </div>
-            
-            <div id="dialogFriend" title="Poleć znajomego !" style ="display: none;">
-          
-                    <div class="row">
-                        <hr class="thin divider" style="margin: 0px 0 15px;">
-                        <p class="light">
-                            U nas opłaca się rekomendować znajomych lub bliskich!
-                        </p>
-                        <p class="light">
-                            Za każdą poleconą osobę otrzymasz od nas gotówkę! Warto polecać! Jeśli polecisz nam osobę, która zostanie zatrudniona u naszego kontrahenta i przepracuje 3 miesiące, otrzymasz od nas bon o wartości 200,00 zł, który będziesz mógł zrealizować według własnego uznania.
-                        </p>
-                        <p>
-                             <!--<a class="top-left flat button mydialog"  href="<?php //echo $this->url('candidates', array('action' => 'recommend')) ?>"><i class="icon-envelope"></i>&ensp;&ensp;wypełnij formularz</a>-->
-                             <a id="openFriendClose" class="top-right flat button" style="background-color: #888; color:#fff;  "><i class="icon-remove"></i> </a>
-                        </p>                       
-                    </div>
-                 
-            </div>
-            
-<!--             <div id="dialogLanguage" title="Inne języki !" style ="display: none;">
-          
-                    <div class="row">
-                        <hr class="thin divider" style="margin: 0px 0 15px;">
-                        <p class="light">
-                           Wkrótce aktualizacja !
-                        </p>
-                        <p class="light">
-                            Już niedługo będzie dostępna również wersja naszej strony w języku niemieckim oraz angielskim.
-                        </p>
-                        <p>                        
-                             <a id="openLanguageClose" class="top-right flat button" style="background-color: #888; color:#fff;  "><i class="icon-remove"></i> </a>
-                        </p>                       
-                    </div>
-                 
-            </div>-->
-
-            
-        </div>
-
-        <div data-alert="" id="cookies" class="info box">
-            <h3><i class="icon-info-sign"></i>&ensp;<?php echo $this->translate('Ważne: Strona wykorzystuje pliki cookies.') ?></h3>                                     
-            <p>
-               W ramach naszej witryny stosujemy pliki cookies w celu świadczenia Państwu usług na najwyższym poziomie, w tym w sposób dostosowany do indywidualnych potrzeb. Korzystanie z witryny bez zmiany ustawień dotyczących cookies oznacza, że będą one zamieszczane w Państwa urządzeniu końcowym. Możecie Państwo dokonać w każdym czasie zmiany ustawień dotyczących cookies.
-            </p>
-            <a href="#" class="close">×</a>
-        </div>
+<style>
+    canvas { width: 100%; height: 100% }        
+</style>
     
-  
-        <!-- End id="content-container" -->
+    
+<div class="container-row">
+    <div class="top-title">
+        <!--<h2>Main App - JS</h2>-->   
+    </div>
+</div>    
+<div id="container"></div>
+<script>
+        
+     // treeHouseAnimation();
+     // cubeAnimation(); 
+     //firstTree();   
+     
+     
+     
+     
+     //przestrzen plus poruszanie teraz jeszcze interakcja z kilkaniem w boxy 
+     if( ! Detector.webgl ) Detector.addGetWebGLMessage();
+     
+     var container;
+     var camera, controls, scene, renderer;
+     var light, pointLight;
+     
+     var mesh;
+     var material_sphere1, materail_sphere2;
+     
+     var sound1,sound2;
+     
+     var clock = new THREE.Clock();
+     var Sound = function ( sources, radius, volume ) {
+
+            var audio = document.createElement( 'audio' );
+
+            for ( var i = 0; i < sources.length; i ++ ) {
+
+                    var source = document.createElement( 'source' );
+                    source.src = sources[ i ];
+
+                    audio.appendChild( source );
+
+            }
+
+            this.position = new THREE.Vector3();
+
+            this.play = function () {
+
+                    audio.play();
+
+            }
+
+            this.update = function ( camera ) {
+                    
+                    
+                    var distance = this.position.distanceTo( camera.position );
+
+                    if ( distance <= radius ) {
+                            audio.play();
+                            audio.volume = volume * ( 1 - distance / radius );
+
+                    } else {
+
+                            audio.volume = 0;
+                            audio.pause();
+
+                    }
+
+            }
+
+     }
+     init();
+     animate();
+     
+     function init() {
+        container = document.getElementById('container');
+        camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 10000 );
+        camera.position.set( 0, 25, 0 );
+        
+        controls = new THREE.FirstPersonControls( camera );
+
+        controls.movementSpeed = 70;
+        controls.lookSpeed = 0.05;
+        controls.noFly = true;
+        controls.lookVertical = false;
+        
+        scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2 (0x000000, 0.0020); //mgła
+        
+        light = new THREE.DirectionalLight(0xffffff);
+        light.position.set(0,0.5,1).normalize(); // to check
+        scene.add(light);
+        
+        
+        
+        
+//        var loader = new THREE.JSONLoader();
+//        var sphere = new THREE.SphereGeometry(20,32,16); //tutaj beda boxy :P zaciagane JSONEM
+//        var mesh = new THREE.Mesh(geometry, material); //
+        
+        
+        new THREE.MeshLambertMaterial({color: 0x55B663});
+        loader.load('/js/models/treehouse_logo.js', function(geometry) {
+            var material = new THREE.MeshLambertMaterial({color: 0x55B663});
+            var mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+         });
+        
+        
+        
+        
+        // ------> elementy i textury
+        var sphere = new THREE.SphereGeometry(20,32,16); //tutaj beda boxy :P zaciagane JSONEM
+        
+        material_sphere1 = new THREE.MeshLambertMaterial( {color: 0xffaa00, shading: THREE.FlatShading} );
+        material_sphere2 = new THREE.MeshLambertMaterial( {color: 0xff2200, shading: THREE.FlatShading} );
+        
+        //sound spheres
+        var s = 1;
+        
+        var mesh1 = new THREE.Mesh( sphere, material_sphere1 );
+        mesh1.position.set( 50, 30, 0 );
+        mesh1.scale.set( s, s, s );
+        scene.add( mesh1 );      
+        
+        sound1 = new Sound( ['files/music/Stromae_Papaoutai.mp3'], 275,1);
+        console.log(sound1);
+        sound1.position.copy( mesh1.position );
+      //  sound1.play();
+        
+        //
+        
+        var mesh2 = new THREE.Mesh(sphere,material_sphere2);
+        mesh2.position.set(250,30,0);
+        mesh2.scale.set(s,s,s);
+        
+        
+        scene.add(mesh2);
+        
+        sound2 = new Sound(['files/music/Hey_Brother.mp3'], 275,1);
+        sound2.position.copy(mesh2.position);
+      //  sound2.play();
+        
+        //ground
+        
+        var material = new THREE.MeshLambertMaterial({color: 0x7f7566, wireframe:true, wireframeLinewidth:1});
+        mesh = new THREE.Mesh(new THREE.PlaneGeometry(1000,1000,100,100), material); // to check
+        mesh.position.y = 0.1;
+        mesh.rotation.x = - Math.PI / 2;
+        scene.add(mesh);
+        
+        //renderer
+        
+        renderer = new THREE.WebGLRenderer({antialias: true});
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        
+        container.innerHTML = "";
+        container.appendChild(renderer.domElement); //canvas
+        
+        //listener
+        window.addEventListener('resize', onWindowResize, false);                      
+     }
+     
+     function onWindowResize() {
+        camera.aspect = window.innerWidth/window.innerHeight;
+        camera.updateProjectionMatrix();
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        controls.handleResize();
+     }
+     
+     function animate() {
+         requestAnimationFrame(animate);
+         render();
+     }
+     
+     function render() {
+         var delta = clock.getDelta(); // check
+         var time = clock.getElapsedTime()*5; //check
+         
+         controls.update(delta);
+         
+         material_sphere1.color.setHSL(0.0, 0.3 + 0.7 * (1+ Math.cos(time)) /2, 0.5);
+         material_sphere2.color.setHSL(0.0, 0.3 + 0.7 * (1+ Math.cos(time)) /2, 0.5);
+         
+         renderer.render(scene,camera);
+         sound1.update(camera);
+         sound2.update(camera);
+     }
+       
+   
+    </script>

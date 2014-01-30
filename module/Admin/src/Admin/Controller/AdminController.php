@@ -162,8 +162,7 @@ class AdminController extends AbstractActionController
             return $this->redirect()->toRoute('admin', array('action' => 'login'));
         }
         
-        $id = 1;
-        
+        $id = 1;        
         try {
             $info = $this->getInfoTable()->getInfo($id);
         }
@@ -552,6 +551,56 @@ class AdminController extends AbstractActionController
         }
     }
     
+    
+    public function editOfferAction() {
+        //check
+        if (! $this->getServiceLocator()->get('AuthService')->hasIdentity()){
+            return $this->redirect()->toRoute('admin', array('action' => 'login'));
+        }
+        $id = (int) $this->params()->fromRoute('id', 0);
+         
+        if (!$id) {
+            return $this->redirect()->toRoute('admin', array(
+                'action' => 'offer'
+            ));
+        }
+
+        try {
+            //tutaj inne zpaytnako z joinem :)
+            $offer = $this->getOfferTable()->getOffer($id);
+            $allLocations = $this->getOfferTable()->fetchAllLocations();
+                     
+        }
+        catch (\Exception $ex) {
+            return $this->redirect()->toRoute('admin', array('action' => 'offer'));
+        }       
+        
+        $form  = new OfferForm();
+        $form->bind($offer);         
+       
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+             
+            //save
+            $data = $request->getPost()->toArray();
+            $offer->offerNumber = $data['offerNumber'];
+        
+            $this->getOfferTable()->saveOffer($offer);  
+          
+            //message
+            $this->flashmessenger()->addMessage('Poprawnie zapisano.');
+            //redirect
+            return $this->redirect()->toRoute('admin', array('action'=>'editOffer', 'id'=> $id));
+        }
+       
+        return array(
+            'id'    => $id,        
+            'offer' => $offer,
+            'allLocations' => $allLocations,            
+            'form'         => $form,
+            'messages'     =>  $this->flashmessenger()->getMessages()  
+        );
+    }
     /**
      * @todo FIX walidatorów dla każdego uploadu :)
      * 
@@ -575,6 +624,7 @@ class AdminController extends AbstractActionController
             return new ViewModel(array(
             'paginator' => $paginator,
             'link'      => 'offer',
+            'messages'  => $this->flashmessenger()->getMessages() 
             ));      
       
         }
@@ -610,6 +660,7 @@ class AdminController extends AbstractActionController
                     
                     $offer->offerImage = '';
                     $this->getOfferTable()->saveOffer($offer);
+                    $this->flashmessenger()->addMessage('Zdjęcie zostało usunięte');
                     return $this->redirect()->toRoute('admin', array('action'=>'offer', 'id' => $id));
                 }  
                 
@@ -669,6 +720,7 @@ class AdminController extends AbstractActionController
                         else {
                             
                             $this->getOfferTable()->saveOffer($offer);
+                            $this->flashmessenger()->addMessage('Poprawnie zapisano.');
                             // Redirect to list of albums
                             return $this->redirect()->toRoute('admin', array('action'=>'offer', 'id'=> $id));
                         }
@@ -680,6 +732,7 @@ class AdminController extends AbstractActionController
                 'id' => $id,
                 'form' => $form,
                 'offer' => $offer,
+                'messages' =>  $this->flashmessenger()->getMessages()  
             );
             
         }
@@ -901,7 +954,7 @@ class AdminController extends AbstractActionController
                 
                 $offer->exchangeArray($form->getData());
                 $this->getOfferTable()->saveOffer($offer);
-               
+                $this->flashmessenger()->addMessage("Firma została zapisana.");
                 // Redirect to list of albums
                 return $this->redirect()->toRoute('admin', array('action'=>'offer'));
             }
@@ -1576,7 +1629,18 @@ class AdminController extends AbstractActionController
     }
     
     public function delOfferAction()
-    {
+    {   
+        
+//        // Get the "layout" view model and set an alternate template
+//        $layout = $this->layout();
+//        $layout->setTemplate('article/layout');
+
+//        // Create and return a view model for the retrieved article
+//        $view = new ViewModel(array('article' => $article));
+//        $view->setTemplate('content/article');
+//        return $view;
+        
+        
         //check
         if (! $this->getServiceLocator()->get('AuthService')->hasIdentity()){
             return $this->redirect()->toRoute('admin', array('action' => 'login'));
@@ -1613,16 +1677,25 @@ class AdminController extends AbstractActionController
                
             }
 
-            // Redirect to list of albums
+            // Redirect and message
+            $this->flashmessenger()->addMessage('Firma została usunięta');
             return $this->redirect()->toRoute('admin', array(
-                'action' => 'offer'
+                'action' => 'offer',              
             ));
         }
+        //content
+        $viewContent = $this->getOfferTable()->getOffer($id);
 
-        return array(
-            'id'    => $id,
-            'offer' => $this->getOfferTable()->getOffer($id)
-        );
+        $view = new ViewModel(array('id'=> $id,
+                                    'viewContentId'  => $viewContent->offerId,
+                                    'action' => 'delOffer',
+                                    'back'   => 'offer',
+                                    'icon'   => 'users',
+                                    'title'  => $viewContent->offerTitle,
+                                    'name'   => 'Firmy'
+        ));
+        $view->setTemplate('partial/delete');
+        return $view;
         
     }
     
@@ -1715,16 +1788,19 @@ class AdminController extends AbstractActionController
         $request = $this->getRequest();  
 
         if ($request->isPost()) {          
-            
+            //przydałaby się walidacja
             //pustych maili nie przyjmuje ;)
             if($request->getPost('emailTitle') != '' && $request->getPost('emailDesc') != '') {
-                
-                // sending e-mails
-                $mail = new Mailer();
-                $mail->sendServiceMail($request->getPost());                   
-                //custom message switcher                                
-                $this->flashmessenger()->addMessage('Wiadomość została wysłana');
-                
+                try {
+                    // sending e-mails
+                    $mail = new Mailer();
+                    $mail->sendServiceMail($request->getPost());                   
+                    //custom message switcher                                
+                    $this->flashmessenger()->addMessage('Wiadomość została wysłana');
+                }
+                catch(\Exception $e) {
+                    $this->flashmessenger()->addMessage('Niestety wystapił błąd podczas wysyłania - spróbuj jeszcze raz.');
+                }
              
                 return $this->redirect()->toRoute('admin', array('action' => 'settings'));         
             }

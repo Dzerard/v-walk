@@ -1,46 +1,114 @@
 body {
-    padding-top: 60px;
-    padding-bottom: 40px;
+    padding-top: 0px;
+    padding-bottom: 0px;
     font-family: HelvNeue,Tahoma !important;
+    /*background:#ebebeb;*/
+     background-color: #000000;
 }
-
 @font-face {
-    font-family: 'HelvNeue';
+/*    font-family: 'HelvNeue';
     src: url('../fonts/HelvNeue.ttf');
     font-weight: normal;
-    font-style: normal;
-    
+    font-style: normal;    */
 }
-
-.zf-green {
-    color: #68b604;
+.top-title h2 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 36px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    text-align:center;
+    font-weight:100;
+    margin:0px;
+    top: 60px;
+    position: absolute;
+    color: #fff; 
 }
-
-.btn-success {
-  background-color: #57a900;
-  background-image: -moz-linear-gradient(top, #70d900, #57a900);
-  background-image: -ms-linear-gradient(top, #70d900, #57a900);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#70d900), to(#57a900));
-  background-image: -webkit-linear-gradient(top, #70d900, #57a900);
-  background-image: -o-linear-gradient(top, #70d900, #57a900);
-  background-image: linear-gradient(top, #70d900, #57a900);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#70d900', endColorstr='#57a900', GradientType=0);
+#container {
+    width:100%;
+    height:100%;
+    text-align:center;
 }
-
-.btn-success:hover,
-.btn-success:active,
-.btn-success.active,
-.btn-success.disabled,
-.btn-success[disabled] {
-  background-color: #57a900;
+#footer {
+    /*margin-top: 60px;*/
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    color: #fff;
+    position:fixed;
+    bottom:0;
+    width: 100%;
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    background: rgba(255, 255, 255, 0.2);
+    border-top: 1px #ccc;
+    font-size: 12px;
+    height: 35px;
+    padding: 4px;
+    overflow: hidden;
 }
-
-.btn-success:active, .btn-success.active {
-  background-color: #57a900;
+#footer .btn-sm {
+    font-size:10px;
 }
-
-div.container a.brand {
-    background: url("../img/zf2-logo.png") no-repeat scroll 0 10px transparent;
-    margin-left: 0;
-    padding: 8px 20px 12px 40px;
+.default-loader {
+    text-align: center;
+}
+.navbar-default a.navbar-brand {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    font-size: 30px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); 
+    color: #1f8dd6;
+}
+.navbar-default.navbar-fixed-top {
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+    background:rgba(255, 255, 255, 0.2);
+    border-bottom: 1px #ccc;
+    overflow:hidden;
+}
+.expand-button { 
+    width: 35px; 
+    color: #fff;
+    transition: color 0.6s, background 0.6s;
+    margin: 9px 0;
+    padding: 5px 7px 2px 7px;
+    border-radius: 17px; 
+}
+.expand-button:hover { 
+    background: #fff;
+    color: #555; 
+    transition: color 0.6s, background 0.6s; 
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,0.4);
+    -moz-box-shadow: 0 0 1px rgba(255,255,255,0.4);
+    box-shadow: 0 0 1px rgba(255,255,255,0.4);
+}
+.expand-button i { 
+    font-size:24px; 
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+.top-title {
+    margin-top:0px;
+}
+.show-navbar-menu {
+    position: fixed;
+    top: 0px;
+    right: 10px;
+}
+.navbar-default a.navbar-brand:hover {
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+    color: #1f8dd6;
+    opacity:0.8;
+}
+.navbar-nav > li > a {
+    text-transform: uppercase;
+}
+.navbar-default .navbar-nav > li > a  {
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+}
+.navbar-default .navbar-nav > li > a:hover {
+     color: #fff;
+     opacity:0.8;
+     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.3);
+    -webkit-font-smoothing: antialiased;
 }

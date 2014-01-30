@@ -11,9 +11,12 @@ return array(
     'router' => array(
         'routes' => array(
             'home' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'type' => 'segment', //Zend\Mvc\Router\Http\Literal
                 'options' => array(
-                    'route'    => '/',
+                    'route'    => '/[:action]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',                       
+                    ),
                     'defaults' => array(
                         'controller' => 'Application\Controller\Index',
                         'action'     => 'index',
@@ -122,111 +125,100 @@ return array(
             'route' => 'home'
           ),
           array(
-              'label' => 'O firmie',
+              'label' => 'O Projekcie',
               'route' => 'about',
               'pages' => array(
                   array(
                       'label'  => 'Kariera w Winckler Personal',
                       'route'  => 'about',
                       'action' => 'career'
-                  ),
-                  array(
-                      'label'  => 'Nasz Zespół',
-                      'route'  => 'about',
-                      'action' => 'team',
-                  ), 
-                  array(
-                      'label'  => 'Media o nas',
-                      'route'  => 'about',
-                      'action' => 'media',
-                  ),
-                  
+                  ),               
               ),
           ),
-          array(
-              'label' => 'Dla Pracodawców',
-              'route' => 'client',
-              'pages' => array(
-                  array(
-                      'label'  => 'Praca tymczasowa',
-                      'route'  => 'client',
-                      'action' => 'work'
-                  ),  
-                  array(
-                      'label'  => 'Zamów usługę',
-                      'route'  => 'client',
-                      'action' => 'order'
-                  ),  
-                  
-              ),
-          ),
-          array(
-              'label' => 'Dla Kandydatów',
-              'route' => 'candidates',
-              'pages' => array(
-                  array(
-                      'label'  => 'Oferty pracy',
-                      'route'  => 'candidates',
-                      'action' => 'offer'
-                  ),
-                  array(
-                      'label'  => 'Poleć znajomego',
-                      'route'  => 'candidates',
-                      'action' => 'recommend',
-                  ), 
-                
-                  array(
-                      'label'  => 'Wybór właściwej firmy',
-                      'route'  => 'candidates',
-                      'action' => 'apply',
-                  ), 
-                  array(
-                      'label'  => 'Referencje',
-                      'route'  => 'candidates',
-                      'action' => 'reference',
-                  ), 
-                  
-                  
-              ),
-          ),
-          
-          array(
-              'label' => 'Praca za granicą',
-              'route' => 'care',
-              'pages' => array(
-                  array(
-                      'label'  => 'Opieka os. starszych',
-                      'route'  => 'care',
-                      'action' => 'index'
-                  ),   
-                  array(
-                      'label'  => 'Oferta',
-                      'route'  => 'care',
-                      'action' => 'offer'
-                  ),    
-                  array(
-                      'label'  => '3 kroki do wyjazdu',
-                      'route'  => 'care',
-                      'action' => 'question'
-                  ), 
-                  array(
-                      'label'  => 'FAQ',
-                      'route'  => 'care',
-                      'action' => 'faq'
-                  ), 
-                  array(
-                      'label'  => 'Przygotowania do wyjazdu',
-                      'route'  => 'care',
-                      'action' => 'departure'
-                  ), 
-                  array(
-                      'label'  => 'Personel medyczny',
-                      'route'  => 'care',
-                      'action' => 'personel'
-                  ), 
-                  
-              ),
-          ),
+//          array(
+//              'label' => 'Dla Pracodawców',
+//              'route' => 'client',
+//              'pages' => array(
+//                  array(
+//                      'label'  => 'Praca tymczasowa',
+//                      'route'  => 'client',
+//                      'action' => 'work'
+//                  ),  
+//                  array(
+//                      'label'  => 'Zamów usługę',
+//                      'route'  => 'client',
+//                      'action' => 'order'
+//                  ),  
+//                  
+//              ),
+//          ),
+//          array(
+//              'label' => 'Dla Kandydatów',
+//              'route' => 'candidates',
+//              'pages' => array(
+//                  array(
+//                      'label'  => 'Oferty pracy',
+//                      'route'  => 'candidates',
+//                      'action' => 'offer'
+//                  ),
+//                  array(
+//                      'label'  => 'Poleć znajomego',
+//                      'route'  => 'candidates',
+//                      'action' => 'recommend',
+//                  ), 
+//                
+//                  array(
+//                      'label'  => 'Wybór właściwej firmy',
+//                      'route'  => 'candidates',
+//                      'action' => 'apply',
+//                  ), 
+//                  array(
+//                      'label'  => 'Referencje',
+//                      'route'  => 'candidates',
+//                      'action' => 'reference',
+//                  ), 
+//                  
+//                  
+//              ),
+//          ),
+//          
+//          array(
+//              'label' => 'Praca za granicą',
+//              'route' => 'care',
+//              'pages' => array(
+//                  array(
+//                      'label'  => 'Opieka os. starszych',
+//                      'route'  => 'care',
+//                      'action' => 'index'
+//                  ),   
+//                  array(
+//                      'label'  => 'Oferta',
+//                      'route'  => 'care',
+//                      'action' => 'offer'
+//                  ),    
+//                  array(
+//                      'label'  => '3 kroki do wyjazdu',
+//                      'route'  => 'care',
+//                      'action' => 'question'
+//                  ), 
+//                  array(
+//                      'label'  => 'FAQ',
+//                      'route'  => 'care',
+//                      'action' => 'faq'
+//                  ), 
+//                  array(
+//                      'label'  => 'Przygotowania do wyjazdu',
+//                      'route'  => 'care',
+//                      'action' => 'departure'
+//                  ), 
+//                  array(
+//                      'label'  => 'Personel medyczny',
+//                      'route'  => 'care',
+//                      'action' => 'personel'
+//                  ), 
+//                  
+//              ),
+//          ),
           array(
               'label' => 'Kontakt',
               'route' => 'contact',              

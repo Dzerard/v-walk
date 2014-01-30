@@ -10,12 +10,11 @@ class Offer implements InputFilterAwareInterface
     public $offerId;
     public $offerTitle;    
     public $offerDesc;
-    public $offerRequire;
     public $offerExtraInfo;
     public $offerType;
     public $offerCountry;
     public $offerCity;
-    public $offerCompany;
+    public $offerStreet;
     public $offerNumber;	
     public $offerCategory;
     public $offerWebPage;
@@ -33,12 +32,11 @@ class Offer implements InputFilterAwareInterface
         $this->offerId         = (!empty($data['offerId'])) ? $data['offerId'] : null;
         $this->offerTitle      = (!empty($data['offerTitle'])) ? $data['offerTitle'] : null;
         $this->offerDesc       = (!empty($data['offerDesc'])) ? $data['offerDesc'] : null;
-        $this->offerRequire    = (!empty($data['offerRequire'])) ? $data['offerRequire'] : null;
         $this->offerExtraInfo  = (!empty($data['offerExtraInfo'])) ? $data['offerExtraInfo'] : null;
         $this->offerType       = (!empty($data['offerType'])) ? $data['offerType'] : null;
         $this->offerCountry    = (!empty($data['offerCountry'])) ? $data['offerCountry'] : null;              
         $this->offerCity       = (!empty($data['offerCity'])) ? $data['offerCity'] : null;
-        $this->offerCompany    = (!empty($data['offerCompany'])) ? $data['offerCompany'] : null;
+        $this->offerStreet    = (!empty($data['offerStreet'])) ? $data['offerStreet'] : null;
         $this->offerNumber     = (!empty($data['offerNumber'])) ? $data['offerNumber'] : null;
         $this->offerCategory   = (!empty($data['offerCategory'])) ? $data['offerCategory'] : null;
         $this->offerWebPage    = (!empty($data['offerWebPage'])) ? $data['offerWebPage'] : null;
@@ -88,7 +86,7 @@ class Offer implements InputFilterAwareInterface
                         'name'    => 'StringLength',
                         'options' => array(
                             'encoding' => 'UTF-8',
-                            'min'      => 5,
+                            'min'      => 3,
                            
                         ),
                     ),
@@ -107,27 +105,8 @@ class Offer implements InputFilterAwareInterface
                         'name'    => 'StringLength',
                         'options' => array(
                             'encoding' => 'UTF-8',
-                            'min'      => 5,
+                            'min'      => 3,
                            
-                        ),
-                    ),
-                ),
-            ));
-
-            $inputFilter->add(array(
-                'name'     => 'offerRequire',
-                'required' => true,
-                'filters'  => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            
                         ),
                     ),
                 ),
@@ -191,7 +170,7 @@ class Offer implements InputFilterAwareInterface
             ));
             
             $inputFilter->add(array(
-                'name'     => 'offerCompany',
+                'name'     => 'offerStreet',
                 'required' => true,
                 'filters'  => array(
                     array('name' => 'StripTags'),

@@ -3,6 +3,7 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Admin\Controller\Admin' => 'Admin\Controller\AdminController',
+            'Admin\Controller\Ajax'  => 'Admin\Controller\AjaxController',
         ),
     ),
 
@@ -22,7 +23,21 @@ return array(
                         'action'     => 'index',
                     ),
                 ),
-            ),            
+            ), 
+            'ajax' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/ajax[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Admin\Controller\Ajax',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
         ),
     ),
 

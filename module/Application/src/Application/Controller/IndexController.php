@@ -61,8 +61,7 @@ class IndexController extends AbstractActionController
     }
     
     public function indexAction()
-    {
-        //langSwithing
+    {       
         //  $this->langSwitch();  now in Module (Application)     
         $request = $this->getRequest();        
         if($request->isPost()) {
@@ -72,9 +71,13 @@ class IndexController extends AbstractActionController
 
         return new ViewModel(array(
             'home'  => TRUE,
-            'news'  => $this->getNewsTable()->fetchLimit(),
-            'offer' => $this->getOfferTable()->fetchLimit(),
+           // 'news'  => $this->getNewsTable()->fetchLimit(),
+           // 'offer' => $this->getOfferTable()->fetchLimit(),
         ));
+    }
+    
+    public function walkAction() {
+        
     }
     
     

@@ -43,3 +43,10 @@ footer {margin-top:300px;}
 hr {
     border-top: 1px solid #999;
 }
+
+.form-signin, .form-signin .form-signin-heading,footer {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+}
+.form-signin .form-signin-heading {font-size: 300%;}
+.alert { font-family: 'Roboto', sans-serif; font-size: 18px; font-weight: 100;}

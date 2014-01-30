@@ -15,9 +15,6 @@ class Info implements InputFilterAwareInterface
     public $infoCellPhone;
     public $infoEmail;
     public $infoFax;
-    public $infoNip;
-    public $infoRegon;
-    public $infoHours;
     public $infoUpdate;
    
     protected $inputFilter;
@@ -32,10 +29,7 @@ class Info implements InputFilterAwareInterface
         $this->infoPhone      = (!empty($data['infoPhone'])) ? $data['infoPhone'] : null;
         $this->infoCellPhone  = (!empty($data['infoCellPhone'])) ? $data['infoCellPhone'] : null;   
         $this->infoEmail      = (!empty($data['infoEmail'])) ? $data['infoEmail'] : null;        
-        $this->infoFax        = (!empty($data['infoFax'])) ? $data['infoFax'] : null;
-        $this->infoNip        = (!empty($data['infoNip'])) ? $data['infoNip'] : null;
-        $this->infoRegon      = (!empty($data['infoRegon'])) ? $data['infoRegon'] : null;
-        $this->infoHours      = (!empty($data['infoHours'])) ? $data['infoHours'] : null;
+        $this->infoFax        = (!empty($data['infoFax'])) ? $data['infoFax'] : null;      
         $this->infoUpdate     = (!empty($data['infoUpdate'])) ? $data['infoUpdate'] : null;
 
     }

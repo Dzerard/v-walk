@@ -14,7 +14,7 @@
 return array(
     'db' => array(
         'driver'    => 'Pdo',
-        'dsn'       => 'mysql:dbname=winckler;host=localhost',
+        'dsn'       => 'mysql:dbname=mgr;host=localhost',
         'username' => 'root',
         'password' => 'admin',
         'driver_options' => array(

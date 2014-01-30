@@ -4,6 +4,7 @@ namespace Admin\Model;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\Sql\Select;
+use Zend\Db\Sql\Sql;
 use Zend\Paginator\Adapter\DbSelect;
 use Zend\Paginator\Paginator;
 
@@ -50,6 +51,20 @@ class OfferTable {
         return $resultSet;
     }
     
+    public function fetchAllLocations() {
+        
+        $adapter = $this->tableGateway->getAdapter();
+        
+        $sql = new Sql($adapter);
+        $select = $sql->select();
+        $select->from('offer')->columns(array('position' => 'offerNumber','name' =>'offerTitle','id' => 'offerId'));
+
+        $statement = $sql->prepareStatementForSqlObject($select);
+        $resultSet = $statement->execute();
+        
+        return $resultSet;    
+    }
+    
     public function fetchLimit()
     {
        $resultSet = $this->tableGateway->select(function (Select $select) {
@@ -78,12 +93,11 @@ class OfferTable {
 
             'offerTitle'        => $offer->offerTitle,
             'offerDesc'         => $offer->offerDesc,
-            'offerRequire'      => $offer->offerRequire,
             'offerExtraInfo'    => $offer->offerExtraInfo,
             'offerType'         => $offer->offerType,
             'offerCountry'      => $offer->offerCountry, 
             'offerCity'         => $offer->offerCity,
-            'offerCompany'      => $offer->offerCompany,
+            'offerStreet'      => $offer->offerStreet,
             'offerNumber'       => $offer->offerNumber,
             'offerCategory'     => $offer->offerCategory,
             'offerWebPage'      => $offer->offerWebPage,                    
