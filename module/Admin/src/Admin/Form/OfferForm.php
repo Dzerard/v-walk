@@ -10,28 +10,14 @@ class OfferForm extends Form
     public static function getCategories() {
         
     return array(
-        'automotive'     => 'mechanika samochodowa',
+       
         'office'         => 'biuro i administracja',
-        'budownictwo'    => 'budownictwo',        
-        'gastronomia'    => 'gastronomia',
+        'budownictwo'    => 'budownictwo',                
         'hr_kadry'       => 'hr, kadry i rekrutacja',
-        'telekom'        => 'telekomunikacja',
-        'telemark'       => 'telemarketing i call center',
-        'turystyka'      => 'turystyka',
-        'tworzywa'       => 'tworzywa sztuczne',
+        'telekom'        => 'telekomunikacja',  
         'energetyka'     => 'energetyka',
         'elektryka'      => 'elektryka/elektronika',
-        'informatyka'    => 'informatyka',
-        'logistyka'      => 'logistyka',
-        'media'          => 'media',
-        'medycyna'       => 'medycyna',
-        'motoryzacja'    => 'motoryzacja',
-        'opieka'         => 'opieka',
-        'poligrafia'     => 'poligrafia',
-        'produkcja'      => 'przemysł/produkcja',
-        'spedycja'       => 'spedycja',        
-        'pomocdom'       => 'sprzątanie i pomoc domowa',
-        'default'        => 'domyślna',
+        'informatyka'    => 'informatyka'
         
         );
         
@@ -110,7 +96,8 @@ class OfferForm extends Form
                 ),               
             ),
             'attributes' => array(
-                 'id'    => 'offerCountry',               
+                 'id'    => 'offerCountry',    
+                 'class' => 'form-control',
             ),
         ));
         
@@ -187,6 +174,7 @@ class OfferForm extends Form
                   'class'        => 'form-control',
                   'placeholder'  => 'email ...',
                   'id'           => 'offerEmail',
+                  'required'     => true,
             ),
         ));
         
@@ -200,8 +188,15 @@ class OfferForm extends Form
                   'class' => 'form-control',  
                   'id'    => 'offerPhone',
             ),
-        ));        
-       
+        )); 
+        
+        $this->add(array(
+            'name' => 'offerVisible',
+            'type' => 'checkbox',
+            'attributes' => array(                  
+                  'id'    => 'offerVisible',
+            ),
+        ));
         
         $this->add(array(
             'name' => 'offerImage',
@@ -213,6 +208,19 @@ class OfferForm extends Form
                   'id'    => 'offerImage',
             ),
         ));
+        
+        $this->add(array(
+            'name' => 'offerVideo',
+            'type' => 'text',
+            'options' => array(
+                //'label' => 'Dodatkowe zdjęcie',
+            ),
+            'attributes' => array(                  
+                'id'    => 'offerImage',
+                'class' => 'form-control'                
+            ),
+        ));
+        
         
         $this->add(array(
             'name' => 'submit',

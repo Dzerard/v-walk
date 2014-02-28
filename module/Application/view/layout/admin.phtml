@@ -59,21 +59,31 @@
                               <li <?php  echo ($_SERVER['REQUEST_URI'] == '/admin/contact' ? 'class="active"' : '') ?>><a href="<?php echo $this->url('admin', array('action' => 'contact')) ?>"><i class="fa fa-envelope-o"></i>&ensp;<?php echo $this->translate('Formularz kontaktowy') ?></a></li>                        
                             </ul>
                           </li>                                   
-                        <li <?php  echo ($_SERVER['REQUEST_URI'] == '/admin/offer' ? 'class="active"' : '') ?>><a href="<?php echo $this->url('admin', array('action' => 'offer')) ?>"><i class="fa fa-users"></i>&ensp;<?php echo $this->translate('Firmy') ?></a></li>                                  
+                        <li <?php  echo ($_SERVER['REDIRECT_URL'] == '/admin/offer' ? 'class="active"' : '') ?>><a href="<?php echo $this->url('admin', array('action' => 'offer')) ?>"><i class="fa fa-users"></i>&ensp;<?php echo $this->translate('Firmy') ?></a></li>                                  
+                        <li <?php  echo ($_SERVER['REDIRECT_URL'] == '/admin/view'  ? 'class="active"' : '') ?>><a href="<?php echo $this->url('admin', array('action' => 'view')) ?>"><i class="fa fa-desktop"></i>&ensp;<?php echo $this->translate('Przestrzeń') ?></a></li>                                  
+                        <li <?php  echo ($_SERVER['REDIRECT_URL'] == '/admin/about' ? 'class="active"' : '') ?>><a href="<?php echo $this->url('admin', array('action' => 'about')) ?>"><i class="fa fa-info-circle"></i>&ensp;<?php echo $this->translate('O Projekcie') ?></a></li>                                  
                     </ul>                    
-                    <a href="<?php echo $this->url('admin', array('action' => 'logout')) ?>" class="logout-button pull-right" title="wyloguj" data-toggle="tooltip" data-placement="left"><i class="fa fa-power-off"></i></a>
+                    <a href="<?php echo $this->url('admin', array('action' => 'logout')) ?>" class="logout-button pull-right" rel="tooltip" title="wyloguj" data-placement="left"><i class="fa fa-power-off"></i></a>
                 </div><!--/.nav-collapse -->   
             </div>
           </div>
         
-        
-        <div class="container">  
-            
+           <?php //wyrenderowac przy pomocy menuHelpera ?>
+        <div class="container main" >  
+           
+             <?php //  echo $this->navigation('navigation') 
+//                          ->breadcrumbs()
+//                          ->setMinDepth(0)
+//                          ->setPartial('partial/breadcrumb');             
+                ?>
+                     <?php //echo $this->navigation()->menu('navigation')->setUlClass('sf-menu');   ?>
+         <?php //echo $this->basePath('images/poland.png') ?>
+         <?php //echo $this->url('shome') ?> 
             <?php echo $this->content; ?>            
            
             <hr>
             <footer>
-                <p>&copy; 2014 - Panel administracyjny <a href="<?php echo $this->url('home') ?>">V-Walk</a>.</p>
+                <p>&copy; <?php echo date('Y') ?> - <?php echo $this->translate('Panel administracyjny') ?></p>
             </footer>
         </div> <!-- /container -->
         <?php echo $this->inlineScript() ?>

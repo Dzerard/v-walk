@@ -1,0 +1,59 @@
+<?php
+
+$title = $this->translate('O projekcie');
+$this->headTitle($title);
+
+?>
+<h1><a href="<?php echo $this->url('admin', array('action'=> 'about')) ?>" class="btn btn-default btn-lg"><i class="fa fa-info-circle"></i>&ensp;<?php echo $title ?></a></h1>
+
+<hr />
+
+<a href="<?php echo $this->url('ajax', array('action'=> 'getElementCode')) ?>"  class="btn btn-default" id="ajax-get-all-elements">test</a>
+
+<script>
+    
+    $('#ajax-get-all-elements').click(function(e){
+        
+        
+        var url = $(this).attr('href');
+        var val =  4;
+        url = url+"/"+val;
+        $.getJSON( url, function(data) {
+            //console.log(data[0]);
+        }).done(function(data) {
+               
+            console.log(data);
+        }).fail(function( jqxhr, textStatus, error ) {
+            var err = textStatus + ", " + error;
+            console.log( "Request Failed: " + err );
+        });
+ // var data = [{offerid : 4}];
+//  $.ajax({
+//            type : 'GET',                       
+////            url : url,
+//            dataType: "json",
+//            url: url,
+//            //data: data,
+////            success: success
+////             data : contactForm.serialize(),
+//
+//            success : function(result) {
+//                alert('fuck yeah');
+//                
+//                console.log(result);
+//            },
+//            
+//            error: function(xmlHttpRequest, textStatus, errorThrown) {
+//                alert('blad..');
+//                console.log(xmlHttpRequest);
+//                console.log(textStatus);
+//                 console.log(errorThrown);
+//            }
+//    
+//
+//        });
+
+
+        return false;
+    });
+</script>

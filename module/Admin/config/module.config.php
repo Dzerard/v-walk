@@ -30,7 +30,7 @@ return array(
                     'route'    => '/ajax[/:action][/:id]',
                     'constraints' => array(
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id'     => '[0-9]+',
+                        'id'     => '[0-9]+',                        
                     ),
                     'defaults' => array(
                         'controller' => 'Admin\Controller\Ajax',
@@ -47,6 +47,10 @@ return array(
         ),  
         'template_map' => array(
             'partial/bread'         => __DIR__ . '/../view/partial/bread-crumbs.phtml',  
+        ),
+         // let the view manager know which strategies to use
+        'strategies' => array(
+            'ViewJsonStrategy',
         ),
     ),
     

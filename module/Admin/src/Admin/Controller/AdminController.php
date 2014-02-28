@@ -4,22 +4,24 @@ namespace Admin\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\View\Helper\Partial;
 
 use Admin\Model\Contact;        //Contact
-use Admin\Model\Care;           //Care
-use Admin\Model\Client;         //Client
 use Admin\Model\Notification;   //Noification
-use Admin\Model\Personel;       //Personel
-use Admin\Model\Candidates;     //Candidates
 use Admin\Model\News;           //News
 use Admin\Model\Offer;          //Offer
 use Admin\Model\User;           //User
-use Admin\Model\Info;           //User
+use Admin\Model\Visualization;  //Visualization
+use Admin\Model\Info;           //Info
+use Admin\Model\Message;        //Message
 
 use Admin\Form\NewsForm;
+use Admin\Form\ViewForm;
 use Admin\Form\OfferForm;
 use Admin\Form\UserForm;
 use Admin\Form\InfoForm;
+use Admin\Form\VisualizationForm;
+use Admin\Form\DesignForm;
 
 use Admin\Help\Help;            //helpers
 use Admin\Mail\Mailer;          //Sending e-mail
@@ -28,23 +30,27 @@ use Zend\Validator\File\Extension; //file extension
 
 class AdminController extends AbstractActionController
 {
-  //  protected $aboutTable;
-    
+    //odwołania do tabel w bazie
     protected $contactTable;
-    protected $careTable;
-    protected $clientTable;
     protected $notificationTable;
-    protected $personelTable;
-    protected $candidatesTable;
     protected $newsTable;
     protected $offerTable;
     protected $infoTable;
+    protected $visualizationTable;
+    protected $designTable;
+    protected $messageTable;
     
 //    <------------------
 //    auth
     protected $form;
     protected $storage;
     protected $authservice;
+    
+    protected $nameTab = array(         
+        'date' => 'offerInsert',
+        'name' => 'offerTitle',
+        'desc' => 'offerDesc'                
+    );
      
     public function getAuthService()
     {
@@ -65,21 +71,7 @@ class AdminController extends AbstractActionController
          
         return $this->storage;
     }
-        
-    public function loginAction() 
-    {
-        if ($this->getAuthService()->hasIdentity()){
-            return $this->redirect()->toRoute('admin');
-        }
-        
-        $form = new UserForm();
-        return array(
-            'form'     => $form,
-            'messages' =>  $this->flashmessenger()->getMessages()            
-        );
-      
-    }
-    
+          
     public function authenticateAction()
     {
         $form     = new UserForm(); 
@@ -134,25 +126,46 @@ class AdminController extends AbstractActionController
          
         $this->flashmessenger()->addMessage("Zostałeś wylogowany z panelu admina !");
         return $this->redirect()->toRoute('admin', array('action'=> 'login'));
-    }
-    
+    }    
     
     
 //    end auth
 //    ---------------------->
+    public function loginAction() 
+    {
+        if ($this->getAuthService()->hasIdentity()){
+            return $this->redirect()->toRoute('admin');
+        }
+        
+        $form = new UserForm();
+        return array(
+            'form'     => $form,
+            'messages' =>  $this->flashmessenger()->getMessages()            
+        );
+      
+    }
     
     public function indexAction() 
-    {
-        //check
+    { 
         if (! $this->getServiceLocator()->get('AuthService')->hasIdentity()){
             return $this->redirect()->toRoute('admin', array('action' => 'login'));
         }
+        //check
+       
         
         return new ViewModel();       
     }
     
    
-    
+    public function aboutAction() {
+        if (! $this->getServiceLocator()->get('AuthService')->hasIdentity()){
+            return $this->redirect()->toRoute('admin', array('action' => 'login'));
+        }
+        
+//        $view = new ViewModel();
+//        var_dump($this->getController());
+        return;
+    }
     
     
     public function settingsAction()
@@ -170,7 +183,7 @@ class AdminController extends AbstractActionController
             return $this->redirect()->toRoute('admin', array('action' => 'settings'));
         }
 
-        $form  = new infoForm();
+        $form  = new InfoForm();
         $form->bind($info);          
 
         $request = $this->getRequest();        
@@ -348,42 +361,74 @@ class AdminController extends AbstractActionController
         }
     }
     
-    public function clientAction() 
+    public function messageOfferAction() 
     {
-        //check
         if (! $this->getServiceLocator()->get('AuthService')->hasIdentity()){
             return $this->redirect()->toRoute('admin', array('action' => 'login'));
         }
         
-        $id = (int) $this->params()->fromRoute('id', 0);
+        $id = (int) $this->params()->fromRoute('id', 0); 
         
-        if (!$id) {
-            $paginator = $this->getClientTable()->fetchAll(true);
-            $paginator->setCurrentPageNumber((int) $this->params()->fromQuery('page', 1));
-            $paginator->setItemCountPerPage(10);
-
-            return new ViewModel(array(
-            'paginator' => $paginator,
-            'link'      => 'client',
-            ));      
-      
-        }
-        else {
-            try {
-                $client = $this->getClientTable()->getClient($id);
-            }
-            catch (\Exception $ex) {
-                return $this->redirect()->toRoute('admin', array(
-                    'action' => 'client'
-                ));
-            }
-
-            return new ViewModel(array(
-                'client' => $client,
-                ));
+        if($id) {
+            $company    = $this->getOfferTable()->getOffer($id);
+            $oCompany   = $company->offerTitle;
+            $oCompanyID = $company->offerId;
+        } else {
+            $oCompany = " ---- ";
+            $oCompanyID = '';
+        }     
         
-        }
+        $paginator = $this->getMessageTable()->fetchAll(true, $id);
+        $paginator->setCurrentPageNumber((int) $this->params()->fromQuery('page', 1));
+        $paginator->setItemCountPerPage(10);
+
+        return new ViewModel(array(
+            'paginator'   => $paginator,
+            'link'        => 'contact',
+            'company'     => $oCompany,            
+            'companyID'   => $oCompanyID, 
+            'messages'    =>  $this->flashmessenger()->getMessages()  
+        ));
     }
+    
+    public function messageOfferShowAction() 
+    {
+        if (! $this->getServiceLocator()->get('AuthService')->hasIdentity()){
+            return $this->redirect()->toRoute('admin', array('action' => 'login'));
+        }
+        
+        $id = (int) $this->params()->fromRoute('id', 0); 
+        
+        if($id) {
+            
+            try {
+                $message = $this->getMessageTable()->getMessage($id);            
+                $company  = $this->getOfferTable()->getOffer($message->messageOfferId);
+                $companyID = $company->offerId; //jeszcze sprawdzanie uprawnień :)
+                
+            } catch (\Exception $ex) {
+                return $this->redirect()->toRoute('admin', array(
+                    'action' => 'offer'
+                ));
+            }
+        
+            return  new ViewModel(array(            
+                'message'     => $message,            
+                'companyID'   => $companyID,   
+            ));
+            
+        } else {
+            return $this->redirect()->toRoute('admin', array('action' => 'offer'));
+        }       
+    }
+    
+    
+    public function fileAction() {
+        
+        
+        
+    }
+    
     
     public function notificationAction() 
     {
@@ -550,8 +595,7 @@ class AdminController extends AbstractActionController
             );
         }
     }
-    
-    
+        
     public function editOfferAction() {
         //check
         if (! $this->getServiceLocator()->get('AuthService')->hasIdentity()){
@@ -566,27 +610,44 @@ class AdminController extends AbstractActionController
         }
 
         try {
-            //tutaj inne zpaytnako z joinem :)
-            $offer = $this->getOfferTable()->getOffer($id);
+            //tutaj inne zpaytnako z joinem by sie zdało :)
+            $offer = $this->getOfferTable()->getOffer($id);           
             $allLocations = $this->getOfferTable()->fetchAllLocations();
+            
+            //visualization jak nie ma to utworzyc ...
+            $visualization = $this->getVisualizationTable()->getVisualization($id);
+            
                      
         }
         catch (\Exception $ex) {
             return $this->redirect()->toRoute('admin', array('action' => 'offer'));
         }       
+       
+        //zmiany
+        $form   = new OfferForm();
+        $vForm  = new VisualizationForm();
         
-        $form  = new OfferForm();
-        $form->bind($offer);         
+        $form->bind($offer);       
+        $vForm->bind($visualization); 
        
         $request = $this->getRequest();
         if ($request->isPost()) {
-             
+            
+            
             //save
             $data = $request->getPost()->toArray();
-            $offer->offerNumber = $data['offerNumber'];
+         
+            $visualization->visualizationElement      = $data['visualizationElement'];
+            $visualization->visualizationElementSize  = $data['visualizationElementSize']; 
+            $visualization->visualizationElementScale = $data['visualizationElementScale'];              
+            $visualization->visualizationElementCode  = $data['visualizationElementCode'];             
+            $visualization->visualizationColor        = $data['visualizationColor']; 
+            
+            $offer->offerNumber = $data['offerNumber']; //miejscówka ;)
         
             $this->getOfferTable()->saveOffer($offer);  
-          
+            $this->getVisualizationTable()->saveVisualization($visualization); 
+            
             //message
             $this->flashmessenger()->addMessage('Poprawnie zapisano.');
             //redirect
@@ -596,14 +657,16 @@ class AdminController extends AbstractActionController
         return array(
             'id'    => $id,        
             'offer' => $offer,
-            'allLocations' => $allLocations,            
-            'form'         => $form,
-            'messages'     =>  $this->flashmessenger()->getMessages()  
+            'allLocations'  => $allLocations,      
+            'visualization' => $visualization,
+            'form'          => $form,
+            'vForm'         => $vForm,
+            'messages'      => $this->flashmessenger()->getMessages()  
         );
     }
     /**
      * @todo FIX walidatorów dla każdego uploadu :)
-     * 
+     * problem z walidacją i fajnie jkaby oddzielic logike walidacji do modelu ..
      * 
      */
     
@@ -617,10 +680,33 @@ class AdminController extends AbstractActionController
         $id = (int) $this->params()->fromRoute('id', 0);
         
         if (!$id) {
-            $paginator = $this->getOfferTable()->fetchAll(true);
+              
+            $request = $this->getRequest();
+          
+            if ($request->getQuery('s')) {
+               
+                $col     = $request->getQuery('c');
+                $search  = $request->getQuery('s');
+                if (array_key_exists($col, $this->nameTab)) {                   
+                    $paginator = $this->getOfferTable()->fetchAll(true,null,$this->nameTab[$col],$search);
+                } else {
+                    $paginator = $this->getOfferTable()->fetchAll(true,null,'offerTitle',$search);
+                }           
+              
+            } else if($request->getQuery()->s === '') {
+                
+                return $this->redirect()->toRoute('admin', array('action' => 'offer'));
+               
+            } else {
+                 $paginator = $this->getOfferTable()->fetchAll(true);
+            }
+            
+   
             $paginator->setCurrentPageNumber((int) $this->params()->fromQuery('page', 1));
             $paginator->setItemCountPerPage(10);
 
+            
+            
             return new ViewModel(array(
             'paginator' => $paginator,
             'link'      => 'offer',
@@ -648,9 +734,9 @@ class AdminController extends AbstractActionController
             $form->bind($offer);          
 
             $request = $this->getRequest();
-            if ($request->isPost()) {
+            if ($request->isPost()) {              
                 
-                   //usuwanie zdjecia
+                //usuwanie zdjecia
                 if ($request->getPost('del-picture'))
                 {
                      //usuwanie zalacznika
@@ -724,135 +810,100 @@ class AdminController extends AbstractActionController
                             // Redirect to list of albums
                             return $this->redirect()->toRoute('admin', array('action'=>'offer', 'id'=> $id));
                         }
-                    }                
-                }    
+                    }     
+                    var_dump($form->getMessages());
+                    die;
+                }  
+                
             }
 
             return array(
-                'id' => $id,
-                'form' => $form,
-                'offer' => $offer,
+                'id'       => $id,
+                'form'     => $form,
+                'offer'    => $offer,              
                 'messages' =>  $this->flashmessenger()->getMessages()  
             );
             
         }
-    }
+    }   
     
-    public function personelAction() 
-    {
+    public function viewAction() 
+    {       
         //check
         if (! $this->getServiceLocator()->get('AuthService')->hasIdentity()){
             return $this->redirect()->toRoute('admin', array('action' => 'login'));
         }
+                    
+        $id = (int) 1; //static id (fix)
         
-        $id = (int) $this->params()->fromRoute('id', 0);
-        
-        if (!$id) {
-            $paginator = $this->getPersonelTable()->fetchAll(true);
-            $paginator->setCurrentPageNumber((int) $this->params()->fromQuery('page', 1));
-            $paginator->setItemCountPerPage(10);
-
-            return new ViewModel(array(
-            'paginator' => $paginator,
-            'link'      => 'personel',
-            ));      
-      
+        try {
+            $design = $this->getDesignTable()->getDesign($id);            
         }
-        else {
-            try {
-                $personel = $this->getPersonelTable()->getPersonel($id);
-            }
-            catch (\Exception $ex) {
-                return $this->redirect()->toRoute('admin', array(
-                    'action' => 'personel'
-                ));
-            }
-
-            return new ViewModel(array(
-                'personel' => $personel,
-                ));
+        catch (\Exception $ex) {
+            return $this->redirect()->toRoute('admin', array('action' => 'settings'));
+        }   
         
-        }
+        $designFog    = unserialize($design->designFog);
+        $designPlane  = unserialize($design->designPlane);
+        $designLights = unserialize($design->designLights);
+        
+        $form   = new DesignForm();  
+        //$form->bind($design);    
+        $request = $this->getRequest();
+        
+        if ($request->isPost()) {
+            
+            $data = $request->getPost()->toArray();
+            
+            $design->designFog       = (empty($data['designFog']['on']) ? null : serialize($data['designFog'])); //do funkcji
+            $design->designPlane     = (empty($data['designPlane']['param1']) ? null : serialize($data['designPlane'])); //do funkcji
+            $design->designLights    = $this->fixLights($data['designLights']); 
+
+//            
+//            $offer->offerNumber = $data['offerNumber']; //miejscówka ;)
+//        
+            $this->getDesignTable()->saveDesign($design);  
+//           
+            
+            //message
+            $this->flashmessenger()->addMessage('Poprawnie zapisano.');
+            //redirect
+            return $this->redirect()->toRoute('admin', array('action'=>'view'));
+        }   
+         
+        return array(
+            'js'           => '<script> resetActions();</script>',
+            'form'         => $form,
+            'design'       => $design,
+            'designFog'    => $designFog,
+            'designPlane'  => $designPlane,            
+            'designLights' => $designLights,  
+            'messages'     => $this->flashmessenger()->getMessages()  
+        ); 
     }
     
-    public function candidatesAction() 
-    {
-        //check
-        if (! $this->getServiceLocator()->get('AuthService')->hasIdentity()){
-            return $this->redirect()->toRoute('admin', array('action' => 'login'));
-        }
+    public function fixLights($lights) {
         
-        $id = (int) $this->params()->fromRoute('id', 0);
+        $oLights = array();
         
-        if (!$id) {
-            $paginator = $this->getCandidatesTable()->fetchAll(true);
-            $paginator->setCurrentPageNumber((int) $this->params()->fromQuery('page', 1));
-            $paginator->setItemCountPerPage(10);
-
-            return new ViewModel(array(
-            'paginator' => $paginator,
-            'link'      => 'candidates',
-            ));      
-      
-        }
-        else {
-            try {
-                $candidates = $this->getCandidatesTable()->getCandidates($id);
+        if(empty($lights)) {
+            $oDefault = array('type'=>'gLight','param1'=>'1','param2' => '1', 'param3' => '1', 'color' => '#ffffff');
+            return $oDefault;
+        } else {
+            $count = 1;
+            foreach($lights as $k=> $v) {
+                $oLights[$count]['type']   = $v['type'];
+                $oLights[$count]['param1'] = $v['param1'];
+                $oLights[$count]['param2'] = $v['param2'];
+                $oLights[$count]['param3'] = $v['param3'];
+                $oLights[$count]['color']  = $v['color'];            
+                $count++;
             }
-            catch (\Exception $ex) {
-                return $this->redirect()->toRoute('admin', array(
-                    'action' => 'candidates'
-                ));
-            }
-
-            return new ViewModel(array(
-                'candidates' => $candidates,
-                ));
+        }      
         
-        }
+        return serialize($oLights);
     }
     
-    public function careAction()
-    {
-        //check
-        if (! $this->getServiceLocator()->get('AuthService')->hasIdentity()){
-            return $this->redirect()->toRoute('admin', array('action' => 'login'));
-        }
-        
-        $id = (int) $this->params()->fromRoute('id', 0);
-        
-        if (!$id) {
-            $paginator = $this->getCareTable()->fetchAll(true);
-            $paginator->setCurrentPageNumber((int) $this->params()->fromQuery('page', 1));
-            $paginator->setItemCountPerPage(10);
-
-            return new ViewModel(array(
-            'paginator' => $paginator,
-            'link'      => 'care',
-            ));      
-      
-        }
-        else {
-            try {
-                $care = $this->getCareTable()->getCare($id);
-            }
-            catch (\Exception $ex) {
-                return $this->redirect()->toRoute('admin', array(
-                    'action' => 'care'
-                ));
-            }
-
-            return new ViewModel(array(
-                'care' => $care,
-                ));
-        
-        }
-        
-    }
-    
-    /*
-     * problem z walidacją i fajnie jkaby oddzielic logike walidacji do modelu ..
-     */
     //dodawanie newsow
     public function addNewsAction()
     {
@@ -937,7 +988,7 @@ class AdminController extends AbstractActionController
         if (! $this->getServiceLocator()->get('AuthService')->hasIdentity()){
             return $this->redirect()->toRoute('admin', array('action' => 'login'));
         }
-        $form = new OfferForm();
+        $form = new OfferForm();        
      //   $form->get('submit')->setValue('Add');
 
         $request = $this->getRequest();
@@ -949,11 +1000,14 @@ class AdminController extends AbstractActionController
             $form->setInputFilter($offer->getInputFilter());
             $form->setData($request->getPost());
      
-            
+                         
             if ($form->isValid()) {
                 
                 $offer->exchangeArray($form->getData());
                 $this->getOfferTable()->saveOffer($offer);
+                
+                $this->getVisualizationTable()->saveVisualizationDefault($this->getOfferTable()->lastInsertID()); //default save 
+                
                 $this->flashmessenger()->addMessage("Firma została zapisana.");
                 // Redirect to list of albums
                 return $this->redirect()->toRoute('admin', array('action'=>'offer'));
@@ -963,363 +1017,54 @@ class AdminController extends AbstractActionController
     }
     
     
-    //    <----------------- Ajax ---------------------->
-    //wysyłanie i dodawnie wiadmości z formularza konatktowego :)
-    public function addAction() 
-    {
-        $response = $this->getResponse();
-        $response->setStatusCode(200);
-        
-        $request = $this->getRequest();  
-
-            if ($request->isPost()) {          
-
-                $contact = new Contact();              
-                $contact->exchangeArray($request->getPost());                
-                $this->getContactTable()->saveContact($contact);               
-                
-                              
-                $response->setContent("true"); 
-                // sending e-mails
-                
-                $mail = new Mailer();
-                $mail->sendContactMail($request->getPost());    
-                
-            }        
-           
-        return $response;  
-        
-    }
-    //Ajax
-    public function addCareAction() 
-    {
-       
-         
-        $response = $this->getResponse();
-        $response->setStatusCode(200);
-        
-        $request = $this->getRequest();  
-
-            if ($request->isPost()) {          
-
-                $care = new Care();  
-                                
-                $care->exchangeArray($request->getPost());                
-                $this->getCareTable()->saveCare($care);               
-                
-                              
-                $response->setContent("true");
-                // sending e-mails
-                
-                $mail = new Mailer();
-                $mail->sendCareMail($request->getPost());    
-                
-            }        
-           
-        return $response;  
-        
-    }
-    //Ajax
-    public function addNotificationAction() 
-    {       
-         
-        $response = $this->getResponse();
-        $response->setStatusCode(200);
-        
-        $request = $this->getRequest();  
-
-            if ($request->isPost()) {          
-
-                $notification = new Notification();  
-                                
-                $notification->exchangeArray($request->getPost());                
-                $this->getNotificationTable()->saveNotification($notification);               
-                
-                              
-                $response->setContent("true");
-                // sending e-mails
-               
-                $mail = new Mailer();
-                $mail->sendNotificationMail($request->getPost());    
-               
-                
-            }        
-           
-        return $response;  
-        
-    }
-    //Ajax
-    public function addClientAction() 
-    {
-         
-        $response = $this->getResponse();
-        $response->setStatusCode(200);
-        
-        $request = $this->getRequest();  
-        
+    //    <----------------- Ajax teraz w oddzielnym kontrolerze---------------------->
       
-            if ($request->isPost()) {        
-             
-                //new client model
-                $client = new Client();                
-               
-                $nonFile = $request->getPost()->toArray(); 
-                $File = $request->getFiles()->toArray();            
-                
-                //check if file is posted
-                if($File['clientAttach']['name'] != '') {                    
-                
-                    $opis = $File['clientAttach']['name'];        
-         
-                    //validators
-                    $size = new Size(array('max'=>5242880));
-                    $extension = new Extension('txt,doc,docx,pdf,jpg,png,zip');
-
-                    $adapter = new \Zend\File\Transfer\Adapter\Http();
-                    //zmiana nazwy
-                     $fileExt = pathinfo($opis, PATHINFO_EXTENSION);
-               //   @  $fileExt = end(explode('.', $opis));
-                    $fileName = 'client_'.date("H_i_d_m_y").'_s'.date("s").'.'.$fileExt;
-                    
-                    $adapter->addFilter('Rename', './public/upload/client/'.$fileName, $File['clientAttach']['name']);
-                    
-                    //maybe fix
-                    $adapter->setValidators(array($size), $File['clientAttach']['size']);
-                    $adapter->setValidators(array($extension), $File['clientAttach']);
-
-                   if(!$adapter->isValid()) {
-
-                        $response->setContent("Prawdopopodobnie plik nie spełnia wymagań ... Spróbuj jeszcze raz :)");
-
-                    }
-                    else {
-                        
-                        //if ok directory to upload
-                       $adapter->setDestination('./public/upload/client');      
-                    
-                        
-                        if($adapter->receive($File['clientAttach']['name'])) {
-                            
-                            //$adapter->setFilters(array('name' => 'BlockCipher'));
-                          //  $adapter->addFilter($filter);
-                            $data = array_merge($nonFile, array('clientAttach' => $fileName));
-                            $client->exchangeArray($data);  
-                            $this->getClientTable()->saveClient($client);   
-                            $response->setContent("true");
-                            
-                            // sending e-mails
-                            $data['fileType'] = $File['clientAttach']['type'];
-                            $mail = new Mailer();
-                            $mail->sendClientMail($data);    
-                        }
-                    }
-
-                }
-                
-                else {
-                    
-                     $data = array_merge($nonFile, array('clientAttach' => ' '));
-                    
-                     $client->exchangeArray($data);                    
-                     $this->getClientTable()->saveClient($client);  
-                     
-                     $response->setContent("true");
-                    
-                     
-                     // sending e-mails
-                     $mail = new Mailer();
-                     $mail->sendClientMail($data);  
-                     
-                }
-              
-            }        
-           
-        return $response;  
-        
-    }
-    //Ajax
-    public function addPersonelAction() 
-    {
-         
-        $response = $this->getResponse();
-        $response->setStatusCode(200);
-        
-        $request = $this->getRequest();  
-        
-      
-            if ($request->isPost()) {        
-             
-                //new personel model
-                $personel = new Personel();                
-               
-                $nonFile = $request->getPost()->toArray(); 
-                $File = $request->getFiles()->toArray();            
-                
-                //check if file is posted
-                if($File['personelAttach']['name'] != '') {                    
-                
-                    $opis = $File['personelAttach']['name'];        
-         
-                    //validators
-                    $size = new Size(array('max'=>5242880));
-                    $extension = new Extension('txt,doc,docx,pdf,jpg,png,zip');
-
-                    $adapter = new \Zend\File\Transfer\Adapter\Http();
-                    //zmiana nazwy
-                       
-                    //maybe fix
-                    $adapter->setValidators(array($size), $File['personelAttach']['size']);
-                    $adapter->setValidators(array($extension), $File['personelAttach']);
-
-                   if(!$adapter->isValid()) {
-
-                        $response->setContent("Prawdopopodobnie plik nie spełnia wymagań ... Spróbuj jeszcze raz :)");
-
-                    }
-                    else {
-                        
-                        $fileExt = pathinfo($opis, PATHINFO_EXTENSION);               
-                        $fileName = 'personel_'.date("H_i_d_m_y").'_s'.date("s").'.'.$fileExt;
-
-                        $adapter->addFilter('Rename', './public/upload/personel/'.$fileName, $File['personelAttach']['name']);
-
-                        
-                        //if ok directory to upload
-                       $adapter->setDestination('./public/upload/personel');      
-                    
-                        
-                        if($adapter->receive($File['personelAttach']['name'])) {
-                            
-                            //$adapter->setFilters(array('name' => 'BlockCipher'));
-                          //  $adapter->addFilter($filter);
-                            $data = array_merge($nonFile, array('personelAttach' => $fileName));
-                            $personel->exchangeArray($data);  
-                            $this->getPersonelTable()->savePersonel($personel);   
-                            $response->setContent("true");
-                            
-                            // sending e-mails
-                            $data['fileType'] = $File['personelAttach']['type'];
-                            $mail = new Mailer();
-                            $mail->sendPersonelMail($data);    
-                        }
-                    }
-
-                }
-                
-                else {
-                    
-                     $data = array_merge($nonFile, array('personelAttach' => ' '));
-                    
-                     $personel->exchangeArray($data);                    
-                     $this->getPersonelTable()->savePersonel($personel);  
-                     
-                     $response->setContent("true");
-                    
-                     
-                     // sending e-mails
-                     $mail = new Mailer();
-                     $mail->sendPersonelMail($data);  
-                     
-                }
-              
-            }        
-           
-        return $response;  
-        
-    }
-    //Ajax
-    public function addCandidatesAction() 
-    {
-         
-        $response = $this->getResponse();
-        $response->setStatusCode(200);
-        
-        $request = $this->getRequest();  
-        
-     
-            if ($request->isPost()) {        
-             
-                //new candidates model
-                $candidates = new Candidates();                
-               
-                $nonFile = $request->getPost()->toArray(); 
-                $File = $request->getFiles()->toArray();            
-                
-                //check if file is posted
-                if($File['candidatesAttach']['name'] != '') {                    
-                
-                    $opis = $File['candidatesAttach']['name'];        
-         
-                    //validators
-                    $size = new Size(array('max'=>5242880));
-                    $extension = new Extension('txt,doc,docx,pdf,jpg,png,zip');
-
-                    $adapter = new \Zend\File\Transfer\Adapter\Http();
-                    //zmiana nazwy
-                       
-                    //maybe fix
-                    $adapter->setValidators(array($size), $File['candidatesAttach']['size']);
-                    $adapter->setValidators(array($extension), $File['candidatesAttach']);
-
-                   if(!$adapter->isValid()) {
-
-                        $response->setContent("Prawdopopodobnie plik nie spełnia wymagań ... Spróbuj jeszcze raz :)");
-                        return false;
-                    }
-                    else {
-                        
-                        $fileExt = pathinfo($opis, PATHINFO_EXTENSION);               
-                        $fileName = 'candidates_'.date("H_i_d_m_y").'_s'.date("s").'.'.$fileExt;
-
-                        $adapter->addFilter('Rename', './public/upload/candidates/'.$fileName, $File['candidatesAttach']['name']);
-
-                        
-                        //if ok directory to upload
-                       $adapter->setDestination('./public/upload/candidates');      
-                    
-                        
-                        if($adapter->receive($File['candidatesAttach']['name'])) {
-                            
-                            //$adapter->setFilters(array('name' => 'BlockCipher'));
-                          //  $adapter->addFilter($filter);
-                            $data = array_merge($nonFile, array('candidatesAttach' => $fileName));
-                            $candidates->exchangeArray($data);  
-                            $this->getCandidatesTable()->saveCandidates($candidates);   
-                            $response->setContent("true");
-                            
-                            // sending e-mails
-                            $data['fileType'] = $File['candidatesAttach']['type'];
-                            $mail = new Mailer();
-                            $mail->sendCandidatesMail($data);    
-                        }
-                    }
-
-                }
-                
-                else {
-                    
-                     $data = array_merge($nonFile, array('candidatesAttach' => ' '));
-                    
-                     $candidates->exchangeArray($data);                    
-                     $this->getCandidatesTable()->saveCandidates($candidates);  
-                     
-                     $response->setContent("true");
-                    
-                     
-                     // sending e-mails
-                     $mail = new Mailer();
-                     $mail->sendCandidatesMail($data);  
-                     
-                }
-              
-            }        
-           
-        return $response;  
-        
-    }
-    
-    
     //akcje do usuwania
+    
+    public function messageOfferDelAction()
+    {
+        //check
+        if (! $this->getServiceLocator()->get('AuthService')->hasIdentity()){
+            return $this->redirect()->toRoute('admin', array('action' => 'login'));
+        }
+        
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            
+            $del = $request->getPost('del');
+            if ($del == 'Usuń') {
+                $id = (int) $request->getPost('id');
+                $this->getMessageTable()->deleteMessage($id);
+            
+
+                // Redirect to list of albums
+                $this->flashmessenger()->addMessage('Wiadomość została usunięta');
+                return $this->redirect()->toRoute('admin', array(
+                    'action' => 'message-offer', 'id' => $request->getPost('offerID')
+                ));
+            } else {
+                return $this->redirect()->toRoute('admin', array(
+                    'action' => 'offer'
+                ));
+            }
+        }
+        
+        $id = (int) $this->params()->fromRoute('id', 0);
+        
+        if (!$id) {
+            return $this->redirect()->toRoute('admin', array('action' => 'offer'));
+        }
+        
+        $message = $this->getMessageTable()->getMessage($id);
+        $companyID = $message->messageOfferId; // sprawdzanie czy uzytkownik ma pozwolenie
+        
+        return array(
+            'companyID' => $companyID,
+            'message'   => $message,            
+        );
+        
+    }
+    
     public function delContactAction()
     {
         //check
@@ -1354,7 +1099,7 @@ class AdminController extends AbstractActionController
         );
         
     }
-     //akcje do usuwania
+    
     public function delNotificationAction()
     {
         //check
@@ -1388,194 +1133,7 @@ class AdminController extends AbstractActionController
             'notification' => $this->getNotificationTable()->getNotification($id)
         );
         
-    }
-    
-    public function delClientAction()
-    {
-        //check
-        if (! $this->getServiceLocator()->get('AuthService')->hasIdentity()){
-            return $this->redirect()->toRoute('admin', array('action' => 'login'));
-        }
-        
-        $id = (int) $this->params()->fromRoute('id', 0);
-        
-        if (!$id) {
-            return $this->redirect()->toRoute('admin', array('action' => 'client'));
-        }
-
-        $request = $this->getRequest();
-        if ($request->isPost()) {
-            $del = $request->getPost('del', 'Powrót');
-            
-            if ($del == 'Usuń') {
-                $id = (int) $request->getPost('id');
-                
-                
-            try {
-                $client = $this->getClientTable()->getClient($id);
-            
-                //usuwanie zalacznika
-                if($client->clientAttach != '') {
-                    unlink ('./public/upload/client/'.$client->clientAttach);
-                }
-         
-              }
-              catch (\Exception $ex) {             } 
-              
-                //usuwanie rekordu
-                $this->getClientTable()->deleteClient($id);
-                
-               
-            }
-
-            // Redirect to list of albums
-            return $this->redirect()->toRoute('admin', array(
-                'action' => 'client'
-            ));
-        }
-
-        return array(
-            'id'    => $id,
-            'client' => $this->getClientTable()->getClient($id)
-        );
-        
-    }
-    
-    public function delCareAction()
-    {
-        //check
-        if (! $this->getServiceLocator()->get('AuthService')->hasIdentity()){
-            return $this->redirect()->toRoute('admin', array('action' => 'login'));
-        }
-        
-        $id = (int) $this->params()->fromRoute('id', 0);
-        
-        if (!$id) {
-            return $this->redirect()->toRoute('admin', array('action' => 'care'));
-        }
-
-        $request = $this->getRequest();
-        if ($request->isPost()) {
-            $del = $request->getPost('del', 'Powrót');
-            
-            if ($del == 'Usuń') {
-                $id = (int) $request->getPost('id');
-                $this->getCareTable()->deleteCare($id);
-            }
-
-            // Redirect to list of albums
-            return $this->redirect()->toRoute('admin', array(
-                'action' => 'care'
-            ));
-        }
-
-        return array(
-            'id'    => $id,
-            'care' => $this->getCareTable()->getCare($id)
-        );
-        
-    }
-    
-    public function delCandidatesAction()
-    {
-        //check
-        if (! $this->getServiceLocator()->get('AuthService')->hasIdentity()){
-            return $this->redirect()->toRoute('admin', array('action' => 'login'));
-        }
-        $id = (int) $this->params()->fromRoute('id', 0);
-        
-        if (!$id) {
-            return $this->redirect()->toRoute('admin', array('action' => 'candidates'));
-        }
-
-        $request = $this->getRequest();
-        if ($request->isPost()) {
-            $del = $request->getPost('del', 'Powrót');
-            
-            if ($del == 'Usuń') {
-                $id = (int) $request->getPost('id');
-                
-                
-            try {
-                $candidates = $this->getCandidatesTable()->getCandidates($id);
-            
-                //usuwanie zalacznika
-                if($candidates->candidatesAttach != '') {
-                    unlink ('./public/upload/candidates/'.$candidates->candidatesAttach);
-                }
-         
-              }
-              catch (\Exception $ex) {             } 
-              
-                //usuwanie rekordu
-                $this->getCandidatesTable()->deleteCandidates($id);
-                
-               
-            }
-
-            // Redirect to list of albums
-            return $this->redirect()->toRoute('admin', array(
-                'action' => 'candidates'
-            ));
-        }
-
-        return array(
-            'id'    => $id,
-            'candidates' => $this->getCandidatesTable()->getCandidates($id)
-        );
-        
-    }
-    
-    public function delPersonelAction()
-    {
-        //check
-        if (! $this->getServiceLocator()->get('AuthService')->hasIdentity()){
-            return $this->redirect()->toRoute('admin', array('action' => 'login'));
-        }
-        $id = (int) $this->params()->fromRoute('id', 0);
-        
-        if (!$id) {
-            return $this->redirect()->toRoute('admin', array('action' => 'personel'));
-        }
-
-        $request = $this->getRequest();
-        if ($request->isPost()) {
-            $del = $request->getPost('del', 'Powrót');
-            
-            if ($del == 'Usuń') {
-                $id = (int) $request->getPost('id');
-                
-                
-            try {
-                $personel = $this->getPersonelTable()->getPersonel($id);
-            
-                //usuwanie zalacznika
-                if($personel->personelAttach != '') {
-                    unlink ('./public/upload/personel/'.$personel->personelAttach);
-                }
-         
-              }
-              catch (\Exception $ex) {             } 
-              
-                //usuwanie rekordu
-                $this->getPersonelTable()->deletePersonel($id);
-                
-               
-            }
-
-            // Redirect to list of albums
-            return $this->redirect()->toRoute('admin', array(
-                'action' => 'personel'
-            ));
-        }
-
-        return array(
-            'id'    => $id,
-            'personel' => $this->getPersonelTable()->getPersonel($id)
-        );
-        
-    }
-    
+    }    
      
     public function delNewsAction()
     {
@@ -1670,15 +1228,12 @@ class AdminController extends AbstractActionController
          
                 }
                 catch (\Exception $ex) {             } 
-                          
-                //usuwanie rekordu
-                $this->getOfferTable()->deleteOffer($id);
-                
-               
-            }
 
-            // Redirect and message
-            $this->flashmessenger()->addMessage('Firma została usunięta');
+                //Message & usuwanie rekordu
+                $this->flashmessenger()->addMessage('Firma została usunięta');
+                $this->getOfferTable()->deleteOffer($id);               
+            }
+           
             return $this->redirect()->toRoute('admin', array(
                 'action' => 'offer',              
             ));
@@ -1700,7 +1255,14 @@ class AdminController extends AbstractActionController
     }
     
     
-    
+    public function getMessageTable()
+    {
+        if (!$this->messageTable) {
+            $sm = $this->getServiceLocator();
+            $this->messageTable = $sm->get('Admin\Model\MessageTable');
+        }
+        return $this->messageTable;
+    }
     
     public function getContactTable()
     {
@@ -1711,24 +1273,6 @@ class AdminController extends AbstractActionController
         return $this->contactTable;
     }
     
-    public function getCareTable()
-    {
-        if (!$this->careTable) {
-            $sm = $this->getServiceLocator();
-            $this->careTable = $sm->get('Admin\Model\CareTable');
-        }
-        return $this->careTable;
-    }
-    
-    public function getClientTable()
-    {
-        if (!$this->clientTable) {
-            $sm = $this->getServiceLocator();
-            $this->clientTable = $sm->get('Admin\Model\ClientTable');
-        }
-        return $this->clientTable;
-    }
-    
     public function getNotificationTable()
     {
         if (!$this->notificationTable) {
@@ -1736,16 +1280,7 @@ class AdminController extends AbstractActionController
             $this->notificationTable = $sm->get('Admin\Model\NotificationTable');
         }
         return $this->notificationTable;
-    }
-    
-    public function getPersonelTable()
-    {
-        if (!$this->personelTable) {
-            $sm = $this->getServiceLocator();
-            $this->personelTable = $sm->get('Admin\Model\PersonelTable');
-        }
-        return $this->personelTable;
-    }
+    }    
     
     public function getNewsTable()
     {
@@ -1754,15 +1289,6 @@ class AdminController extends AbstractActionController
             $this->newsTable = $sm->get('Admin\Model\NewsTable');
         }
         return $this->newsTable;
-    }
-    
-    public function getCandidatesTable()
-    {
-        if (!$this->candidatesTable) {
-            $sm = $this->getServiceLocator();
-            $this->candidatesTable = $sm->get('Admin\Model\CandidatesTable');
-        }
-        return $this->candidatesTable;
     }
     
     public function getOfferTable()
@@ -1782,6 +1308,25 @@ class AdminController extends AbstractActionController
         }
         return $this->infoTable;
     }
+    
+    public function getDesignTable()
+    {
+        if (!$this->designTable) {
+            $sm = $this->getServiceLocator();
+            $this->designTable = $sm->get('Admin\Model\DesignTable');
+        }
+        return $this->designTable;
+    }
+    
+    public function getVisualizationTable()
+    {
+        if (!$this->visualizationTable) {
+            $sm = $this->getServiceLocator();
+            $this->visualizationTable = $sm->get('Admin\Model\VisualizationTable');
+        }
+        return $this->visualizationTable;
+    }
+    
     
     public function serviceMailAction() {
                

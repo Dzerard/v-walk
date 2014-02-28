@@ -25,7 +25,7 @@ body {
 #container {
     width:100%;
     height:100%;
-    text-align:center;
+    /*text-align:center;*/
 }
 #footer {
     /*margin-top: 60px;*/
@@ -44,6 +44,12 @@ body {
     height: 35px;
     padding: 4px;
     overflow: hidden;
+}
+#footer {
+    text-shadow: 1px 1px 1px #999;
+}
+#footer a {
+    text-shadow: 0px 0px 0px #fff;
 }
 #footer .btn-sm {
     font-size:10px;
@@ -64,7 +70,7 @@ body {
     box-shadow: 0 0 10px rgba(0,0,0,0.1); 
     background:rgba(255, 255, 255, 0.2);
     border-bottom: 1px #ccc;
-    overflow:hidden;
+    /*overflow:hidden;*/
 }
 .expand-button { 
     width: 35px; 
@@ -111,4 +117,618 @@ body {
      opacity:0.8;
      text-shadow: 0 1px 1px rgba(255, 255, 255, 0.3);
     -webkit-font-smoothing: antialiased;
+}
+.formErrorArrow.formErrorArrowBottom {
+    display: none !important; 
+}
+.nav.navbar-nav.navbar-right {
+    margin-right: 10px;
+}
+.mgr-visualization .tooltip .tooltip-inner{
+    /*font-size: 100px !important;*/
+     font-family: 'Roboto', sans-serif;
+    max-width: 200px;
+    padding: 3px 8px;
+    color: #000000;
+    text-align: center;
+    text-decoration: none;
+    background-color: #FDFDFD;
+    border-radius: 4px;
+    font-size: 13px;
+}
+.mgr-visualization .tooltip.left .tooltip-arrow {
+    border-left-color: #FDFDFD;
+}
+.mgr-visualization .tooltip.right .tooltip-arrow {
+    border-right-color: #FDFDFD;
+}
+.mgr-visualization .tooltip.bottom .tooltip-arrow {
+    border-bottom-color: #FDFDFD;
+}
+.modal .modal-header .modal-title{
+     font-family: 'Roboto', sans-serif;
+     font-size: 20px;
+     font-weight: 100;
+}
+
+canvas { width: 100%; height: 100% }     
+
+.ajaxShadow {
+	width: 100%;
+	height: 100%;
+	top:0;
+	display: block;
+	background: rgba(255, 255, 255, 0.85);
+	z-index: 10000;
+	transition: opacity 0.5s;
+	background-image: url('spinners/load.gif');
+	background-repeat: no-repeat;
+	background-position: center;
+	position:fixed;
+}
+.ajaxShadow  p {
+	display: block;
+	text-align: center;
+	top: 68%;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	font-size: 20px;
+	font-weight: 100;
+	font-family: Roboto;
+	text-shadow: 0px 0px 1px #999;
+}
+#stats { position: fixed;bottom: 8px;left: 0; }
+#stats #fps { background: transparent !important }
+
+#stats #fps #fpsText {
+    color: #fff !important;
+    font-family: 'Roboto', sans-serif !important;
+    font-size: 12px !important;
+    text-shadow: 1px 1px 1px #999;
+    font-weight: normal !important;
+    width:90px;
+}
+/*#stats #fps #fpsGraph { display: none !important;}*/
+#stats #fps #fpsGraph  {
+    position: absolute !important;
+    width: 74px;
+    height: 30px;
+    background-color: #1f8dd6 !important;
+    left: 90px;
+    top: -6px;
+}
+.company-dialog.modal-dialog {width:1180px; }
+
+
+/*customizing modal :)*/
+.company-dialog .modal-header {
+    padding: 0px !important;
+    box-shadow: 0px -1px 3px #666 !important;
+    border-bottom: 0px !important;    
+}
+.modal-content {
+    border-radius: 2px !important;
+}
+#company-modal .modal-body {
+    padding: 0px;
+}
+
+#company-modal .modal-body img {
+    /*max-width: 1178px;*/
+}
+#company-modal .modal-body .row-fluid.pattern {
+    
+    background: url('patterns/food.png') repeat-x;
+    height:200px;
+    font-family: 'Roboto', sans-serif !important;
+    font-size: 14px;
+    font-weight: normal;
+}
+#company-modal .modal-body .row-fluid.pattern .comapny-basic-data h4 {
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.company-dialog .img-responsive {
+    width: 100%;
+}
+.close-button-modal {
+    display: block;
+    padding: 15px 0;
+}
+.navbar-modal .navbar-brand img {
+    max-height: 64px;
+    box-shadow: 0px 0px 3px #999 !important;
+    border-radius: 32px;
+}
+.navbar-modal .navbar-default a.navbar-brand {
+    font-size: 22px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+.company-dialog .modal-header .navbar-default {
+    background: #fff;
+    border-radius: 0px;
+}
+.navbar-modal .navbar.navbar-default .navbar-nav > li > a{
+    color: #999;
+    border-bottom: 2px solid #fff;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+}
+.navbar-modal .navbar.navbar-default .navbar-nav > li > .companyAboutNav:hover,
+.navbar-modal .navbar.navbar-default .navbar-nav > li > .companyWorkNav:hover,
+.navbar-modal .navbar.navbar-default .navbar-nav > li > .companyContactNav:hover{
+    border-bottom: 2px solid #3e4347;
+}
+.navbar-modal .navbar.navbar-default .navbar-nav > li > .companyFilesNav:hover{
+    border-bottom: 2px solid #1f8dd6;
+}
+.navbar-modal .navbar-nav > li {
+    padding: 20px 10px;
+    
+}
+.close-button-modal {
+    padding:30px 0px !important;
+    margin-left:100px;
+    margin-right: -25px;
+}
+.close-button-modal a.close, .close-modal-button  a.close {
+    display: inline-block;
+    border-bottom: 1px solid #ccc !important;
+    width: 33px;
+    height: 33px;
+    border-radius: 50%;
+    padding: 3px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -o-border-radius: 50%;
+    text-align: center;
+    border: 1px solid #ccc;
+    transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+     box-shadow: 0px 0px 1px #999 !important;
+   
+    
+}
+.close-button-modal a.close:hover, .close-modal-button a.close:hover{
+
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    border: 1px solid #fff !important;
+    background-color: #999 !important;
+    color: #fff  !important;
+    
+
+}
+
+.company-dialog .tooltip .tooltip-inner{
+    /*font-size: 100px !important;*/
+     font-family: 'Roboto', sans-serif;
+    max-width: 200px;
+    padding: 3px 8px;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    background-color: #666;
+    border-radius: 4px;
+    font-size: 13px;
+}
+.company-dialog .tooltip.left .tooltip-arrow {
+    border-left-color: #666;
+}
+.company-dialog .tooltip.right .tooltip-arrow {
+    border-right-color: #666;
+}
+.company-dialog .tooltip.bottom .tooltip-arrow {
+    border-bottom-color: #666;
+}
+.company-dialog .tooltip.top .tooltip-arrow {
+    border-top-color: #666;
+}
+.company-dialog .modal-body .caption-section {
+    text-align: center;
+}
+.company-dialog .modal-body .caption-section h1 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 26px;
+    font-weight: 300;
+    margin-top: -43px;
+    margin-bottom: 20px;
+}
+.company-dialog .modal-body .caption-section h1 .btn.btn-default {
+    background: #fff;
+    opacity: 1;
+    border-color: #ebebeb;
+    font-size: 20px;
+    font-weight: 300;
+    box-shadow: 0px 0px 3px #ccc !important;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    padding: 5px 30px;
+}
+.caption-section hr {
+    margin-top: 35px;
+}
+/*animations*/
+
+.bounceIn {
+    -webkit-animation-name: bounceIn;
+    -moz-animation-name: bounceIn;
+    -o-animation-name: bounceIn;
+    animation-name: bounceIn;
+}
+
+.animation {
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -ms-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-duration: 1.5s;
+    -moz-animation-duration: 1.5s;
+    -ms-animation-duration: 1.5s;
+    -o-animation-duration: 1.5s;
+    animation-duration: 1.5s;
+}
+.img-relative {
+    position: relative;
+    box-shadow: 0px 0px 2px #999;
+}
+.hover-box {
+    color: #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(31, 141, 214, 0.8);
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -webkit-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    -webkit-transform: rotateY(-90deg) scale(0.8);
+    -moz-transform: rotateY(-90deg) scale(0.8);
+    -ms-transform: rotateY(-90deg) scale(0.8);
+    -o-transform: rotateY(-90deg) scale(0.8);
+    transform: rotateY(-90deg) scale(0.8);
+}
+.link-button,  .info-button, .btn-file{
+    padding: 15px 20px;
+    border-radius: 26px !important;
+     -moz-transition: all 0.15s ease-in-out;
+    -webkit-transition: all 0.15s ease-in-out;
+    -o-transition: all 0.15s ease-in-out;
+/*    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -ms-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
+    transform: rotateY(180deg);*/
+ 
+}
+.link-button:hover,  .info-button:hover {
+    color: #fff;
+    background: #666;
+    opacity: 0.9;
+   -webkit-transform: scale(1.1);
+    -moz-transform:  scale(1.1);
+    -ms-transform:  scale(1.1);
+    -o-transform:  scale(1.1);
+    transform:  scale(1.1);
+}
+
+.hover-box .inner-hover-box h2{
+    font-weight: 300;
+    font-family: 'Roboto', sans-serif; 
+}
+.hover-box .inner-hover-box {
+    text-align: center;
+    position: absolute;    
+    top: 50%;
+    margin-top: -63px;
+    left: 0;
+    width: 100%;
+    font-family: 'Roboto', sans-serif; 
+    font-weight: 300;
+}
+.img-relative:hover .hover-box{   
+
+    visibility: visible;
+    opacity: 1;
+    -webkit-transform: rotateX(0deg) scale(1);
+    -moz-transform: rotateX(0deg) scale(1);
+    -ms-transform: rotateX(0deg) scale(1);
+    -o-transform: rotateX(0deg) scale(1);
+    transform: rotateX(0deg) scale(1);
+}
+.modal-body-company-about {
+    
+    /*background: #ebebeb;*/
+    font-family: 'Roboto', sans-serif;
+}
+
+.btn.btn-default {
+    border-radius: 2px;
+}
+.btn.btn-primary {
+    border-radius: 2px;
+}
+.company-fetures li span {
+    display: inline-block;
+    float: left;
+    width: 52px;
+    height: 52px;
+    background: rgba(31, 141, 214, 0.8);
+    border-radius: 2px;
+    -o-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    text-align: center;
+    margin-right: 20px;
+    -moz-transition: all 0.15s ease-in-out;
+    -webkit-transition: all 0.15s ease-in-out;
+    -o-transition: all 0.15s ease-in-out;
+    
+}
+.company-fetures li span:hover{
+    opacity: 0.8;  
+}
+
+.company-fetures li span i{
+    color: #fff;
+    font-size: 26px;
+    line-height: 52px;
+}
+.company-fetures li h4 {
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif !important;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+}
+.company-fetures li p{
+    font-size: 12px;
+}
+.modal-body-company-files {
+    background: #3e4347;
+    padding: 20px 20px;
+    color: #cdd2d8;
+}
+
+.btn-file:hover {
+    box-shadow: 0px 0px 5px #999;
+    transform: rotate(360deg) scale(1.1);
+    -webkit-transform: rotate(360deg) scale(1.1);
+    -moz-transform: rotate(360deg) scale(1.1);
+    -o-transform: rotate(360deg) scale(1.1);
+     color: #fff;
+    background: #666;
+    opacity: 0.9;
+
+}
+
+.alert.alert-warning {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    font-weight:300;
+    border-radius: 2px;
+    text-align: center;    
+}
+
+.alert.alert-info {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    font-weight:300;
+    border-radius: 2px;
+  
+}
+.alert.alert-danger {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    font-weight:300;
+    border-radius: 2px;
+   
+}
+.sendContactFormAjax .alert.alert-danger, .alert.alert-info {
+    margin: 0 15px;
+
+}
+
+.modal-body-company-files .col-md-1:hover {
+    background: #fff;
+    color: #666;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    
+}
+.modal-body-company-files .col-md-1 {
+    padding: 10px 0;
+    border: 1px solid #fff;
+    border-radius: 2px;
+    text-align: center;
+    -moz-transition: all 0.15s ease-in-out;
+    -webkit-transition: all 0.15s ease-in-out;
+    -o-transition: all 0.15s ease-in-out;
+}
+.modal-body-company-files .col-md-1 p {
+    
+    border-top: 1px solid #999;
+    margin: 10px 5px;
+    font-size: 10px; 
+}
+
+.text-fields .input-group {
+    margin-bottom: 10px;
+    color: #848484;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+}
+.text-fields .input-group span {
+    border-radius: 2px 0 0 2px;
+    background: #fff;
+}
+.text-fields .input-group i {
+    border: 1px solid #ccc;
+    /*padding: 6px 8px;*/
+    border-radius: 20px;
+    width: 32px;
+    height: 32px;
+    line-height: 29px;
+    font-size: 16px;
+    padding: 0;
+     -moz-transition: all 0.15s ease-in-out;
+    -webkit-transition: all 0.15s ease-in-out;
+    -o-transition: all 0.15s ease-in-out;
+}
+.text-fields .input-group .form-control {
+    height: 46px;
+    border-radius:  0 2px 2px 0;
+}
+.modal-body-company-contact h1 {
+    font-family: 'Roboto', sans-serif !important;
+    font-weight: 300;
+    font-size: 32px;
+    padding: 10px 15px;
+    
+}
+.sendContactFormAjax textarea.form-control {
+    min-height: 158px;
+    border-radius: 2px;
+}
+.contact-button {
+    width: 100%;
+    text-transform: uppercase;
+    height: 46px;
+    letter-spacing: 1px;
+    background: rgba(31, 141, 214, 0.8);
+    border:0px;
+     -moz-transition: all 0.15s ease-in-out;
+    -webkit-transition: all 0.15s ease-in-out;
+    -o-transition: all 0.15s ease-in-out;
+}
+.contact-button:hover {
+    background-color:  rgba(31, 141, 214, 0.6);
+    border-color: transparent;
+}
+
+.text-fields .input-group i.active {
+    color: #fff;
+    background: #666;
+    opacity: 0.9;
+    border:0px;
+    padding: 1px;
+   -webkit-transform: scale(1.1);
+    -moz-transform:  scale(1.1);
+    -ms-transform:  scale(1.1);
+    -o-transform:  scale(1.1);
+    transform:  scale(1.1);
+}
+
+#contact-form input[type="text"]:focus {
+  
+}
+.modal-body-company-contact  .contact-info {
+    padding-bottom: 10px;
+}
+
+.modal-body-company-contact  .contact-info h1 {
+     padding: 10px 15px 10px 0px;
+}
+.modal-body-company-contact  .contact-info .btn-default {
+    width:54px;
+    text-align: center;
+    height: 54px;
+    font-size: 26px;
+    /*padding: 15px 20px;*/
+    border-radius: 26px !important;
+     -moz-transition: all 0.15s ease-in-out;
+    -webkit-transition: all 0.15s ease-in-out;
+    -o-transition: all 0.15s ease-in-out;
+}
+.modal-body-company-contact  .contact-info .btn-default:hover{
+    color: #fff;
+    background: #666;
+    opacity: 0.7;
+    border:0px; 
+    /*padding: 6px;*/
+   -webkit-transform: scale(1.1);
+    -moz-transform:  scale(1.1);
+    -ms-transform:  scale(1.1);
+    -o-transform:  scale(1.1);
+    transform:  scale(1.1);
+}
+.modal-body-company-contact  .contact-info .btn-default.b-twitter:hover {  
+    background: #43d8fb;    
+}
+.modal-body-company-contact  .contact-info .btn-default.b-faceebok:hover {  
+    background: #005fbe;   
+}
+.modal-body-company-contact  .contact-info .btn-default.b-linkedin:hover {    
+    background: #005da0;
+}
+
+.modal-body-company-contact  .contact-info-list {
+
+    margin: 0;
+    padding: 5px 0;
+    border-top: 1px solid #ebebeb;
+    margin-right: 15px;
+    text-align: center;
+}
+.modal-body-company-contact  .contact-info-list   li {
+     display: inline-block;
+    font-size: 14px;
+    color: #919191;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    margin-right: 20px;
+    line-height: 22px;
+    
+}
+.modal-body-company-contact  .contact-info-list   li a {
+    color: #999;
+}
+
+.modal-body-company-contact  .contact-info-list   li i {
+   color: rgba(31, 141, 214, 0.8);
+}
+.modal-body-company-contact  .contact-info p {
+    font-size: 15px;
+    color: #999;
+    line-height: 22px;
+    margin-bottom: 5px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+}
+.modal-body-company-contact  .contact-info h4 {
+    font-size: 20px;
+    color: #999;
+    line-height: 22px;
+    margin-bottom: 15px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+}
+.modal-body-company-contact  .contact-info span {
+    font-size: 10px;
+    color: #ccc;
+    line-height: 22px;
+    /*margin-bottom: 15px;*/
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+}
+.modal-backdrop.in {
+    opacity: 0.9;
+    filter: alpha(opacity=90);
 }

@@ -78,15 +78,14 @@
                 <?php echo $this->formRow($form->get('offerPhone')); ?>
              </div>
         </div>
-        <div class="form-group">
+<!--        <div class="form-group">
              <label for="offerNumber" class="col-lg-2 control-label"><?php echo $this->translate('Loaklizacja stanowiska') ?></label>
              <div class="col-lg-10">
                  <?php echo $this->formRow($form->get('offerNumber')); ?>   
-                 <a href="#" title="<?php echo $this->translate('aby wybrać miejsce wypełnij wyszystkie pola') ?>"class="btn btn-default" rel="tooltip"><?php echo $this->translate('wizualizacja') ?></a>
-                                  
+                 <a href="#" title="<?php echo $this->translate('aby wybrać miejsce wypełnij wyszystkie pola') ?>"class="btn btn-default" rel="tooltip" disabled><?php echo $this->translate('wizualizacja') ?></a>                                  
                  
              </div>
-        </div>      
+        </div>      -->
         <div class="form-group">
              <label for="offerImage" class="col-lg-2 control-label"><?php echo $this->translate('Pliki') ?></label>
              <div class="col-lg-10">
@@ -111,20 +110,7 @@
 <script>
 $(document).ready(function() {
 
-	$("a#single_image").fancybox({
-		'transitionIn'	:	'elastic',
-		'transitionOut'	:	'elastic',
-		'speedIn'		:	600, 
-		'speedOut'		:	200, 
-		
-                'hideOnContentClick': true
-	});
-        tinyMCE.init({
-                // General options
-                language : 'pl',
-                mode : "textareas",
-                height: 175                
-                //width : 700
-        });	
+	fireFancybox();
+        fireTinyMCE();
 });
 </script>

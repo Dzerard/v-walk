@@ -13,6 +13,8 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;    
 use Zend\Http\Header\SetCookie;
 use Zend\Http\Header;
+use Zend\Json\Json;
+use Zend\Json\Expr;
 
 class IndexController extends AbstractActionController
 {
@@ -20,14 +22,17 @@ class IndexController extends AbstractActionController
     
     protected $lastNews;
     protected $lastOffer;    
-    protected $langs = array('pl','eng','deu');    
+    protected $langs = array(
+        'PL' => 'pl',
+        'UK' => 'us'
+    );    
       
     //zmiana jezyka
     public function  langSwitch() {
         
-        if(isset($_COOKIE['wincklerLang'])) {
+        if(isset($_COOKIE['vwalkMgr'])) {
             
-            $langFile = $_COOKIE['wincklerLang'];
+            $langFile = $_COOKIE['vwalkMgr'];
             $translator = $this->getServiceLocator()->get('translator');
             $translator->setLocale($langFile);
         }    
@@ -36,38 +41,60 @@ class IndexController extends AbstractActionController
     //ustawianie cookies
     public function setCookies($value) {
         
-        $cookie = new SetCookie('wincklerLang', $value, time() + 365 * 60 * 60 * 24); // now + 1 year
+        $cookie = new SetCookie('vwalkMgr', $value, time() + 30 * 60 * 60 * 24); // now + 30 days
         $response = $this->getResponse()->getHeaders();
         $response->addHeader($cookie);
     }         
     //setting cookie
-    public function languageFunction($lang) {
+    public function languageFunction($lang, $response) {
              
         if($lang) {      
             
-            if(in_array($lang, $this->langs)) {
-                 $this->setCookies($lang);
+            if(array_key_exists($lang, $this->langs)) {
+                 $this->setCookies($this->langs[$lang]);
             }
             else {
                 $this->setCookies('pl');
             }                        
+      
+            $response->setContent(Json::encode(array("OK" => 'succes_messge')));
            
-            return $this->redirect()->toRoute('home');
+         
+            //return $this->redirect()->toRoute('home');
         }        
         else {
-            
-            return $this->redirect()->toRoute('home');
-        }       
+            $response->setContent(Json::encode(array('ERR' => 'error_message')));
+           // return $this->redirect()->toRoute('home');
+        }  
+        
+        $response->setStatusCode(200);        
+        return $response;
+    }
+    
+    public function testAction() 
+    {
+         return new ViewModel(array(
+             'ok' => 'ok'
+             ));
     }
     
     public function indexAction()
-    {       
-        //  $this->langSwitch();  now in Module (Application)     
-        $request = $this->getRequest();        
-        if($request->isPost()) {
+    {           
+        $response = $this->getResponse();
+        $response->setStatusCode(200);
+        $request = $this->getRequest(); 
+        
+        if ($request->isXmlHttpRequest()) {          
            
-            $this->languageFunction($request->getPost('buttonLang'));
+           return $this->languageFunction($request->getPost('langId'), $response);
         }
+//        if($request->isPost()) {
+//            
+//            var_dump($request->getPost());
+//            die;
+//            $this->languageFunction($request->getPost('buttonLang'));
+//            return;
+//        }
 
         return new ViewModel(array(
             'home'  => TRUE,

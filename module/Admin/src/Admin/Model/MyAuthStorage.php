@@ -10,8 +10,7 @@ class MyAuthStorage extends Storage\Session
     {
         if($rememberMe == 1) {
             $this->session->getManager()->rememberMe($time);
-        }
-        
+        }        
     }
     
     public function forgetMe()

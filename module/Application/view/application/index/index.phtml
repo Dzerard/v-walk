@@ -1,174 +1,355 @@
-    <?php echo $this->inlineScript()->prependFile($this->basePath() . '/js/three.walk.js') ?>  
-    <?php echo $this->inlineScript()->prependFile($this->basePath() . '/js/stats.min.js') ?>  
-    <?php echo $this->inlineScript()->prependFile($this->basePath() . '/js/three/examples/js/controls/OrbitControls.js') ?> 
-    <?php echo $this->inlineScript()->prependFile($this->basePath() . '/js/three/examples/js/controls/FirstPersonControls.js') ?> 
-    <?php echo $this->inlineScript()->prependFile($this->basePath() . '/js/three/examples/js/Detector.js') ?> 
-    <?php echo $this->inlineScript()->prependFile('https://rawgithub.com/mrdoob/three.js/master/build/three.js') ?> 
+<div id="container" style="display:none;"></div>
 
-<style>
-    canvas { width: 100%; height: 100% }        
-</style>
-    
-    
-<div class="container-row">
-    <div class="top-title">
-        <!--<h2>Main App - JS</h2>-->   
-    </div>
-</div>    
-<div id="container"></div>
 <script>
-        
-     // treeHouseAnimation();
-     // cubeAnimation(); 
-     //firstTree();   
+$(document).ready(function($){    
+
+     $('#company-modal').modal('hide');     
+//     $('#company-modal').modal('show');    
+     myTHREEapp(); //fireApp     
      
+   }); 
+   
+   function myTHREEapp() {   
+   
+    //ładowanie
+    $('body').append('<div class="ajaxShadow"><p>'+translator('loading')+'</p></div>'); 
+    
+    if( ! Detector.webgl ) Detector.addGetWebGLMessage(); // wiadomosc o braku obsĹ‚ugi webGL
+
+    var settingsUrl = '<?php echo $this->url('ajax', array('action'=> 'design'),null) ?>';
+    var container, settings;
+    var camera, controls, scene, renderer, stats;
+    var light, pointLight;
+
+    var mesh;
+    var clock    = new THREE.Clock();
+    var keyboard = new THREEx.KeyboardState(); // tuaj mozna dodawac eventy do klawiszy
+    
+    // custom global variables
+    var targetList = [];
+    var projector, mouse = { x: 0, y: 0 };
      
+    //before render load settings !!
+    $.getJSON( settingsUrl, function(data) {       
+        settings = data;            
+    }).done(function() {
+            
+        //run
+        init();
+        animate(); 
+        setTimeout(function(){
+            $('body .ajaxShadow').fadeOut(function() {
+                  $('#container').fadeIn();
+            });     
+        },1000);            
+          
+    }).fail(function( jqxhr, textStatus, error ) {
+            var err = textStatus + ", " + error;
+            // wazne jak fail redirect na defaultowa strone 
+            console.log( "Request Failed: " + err); 
+    });
+
      
-     
-     //przestrzen plus poruszanie teraz jeszcze interakcja z kilkaniem w boxy 
-     if( ! Detector.webgl ) Detector.addGetWebGLMessage();
-     
-     var container;
-     var camera, controls, scene, renderer;
-     var light, pointLight;
-     
-     var mesh;
-     var material_sphere1, materail_sphere2;
-     
-     var sound1,sound2;
-     
-     var clock = new THREE.Clock();
-     var Sound = function ( sources, radius, volume ) {
-
-            var audio = document.createElement( 'audio' );
-
-            for ( var i = 0; i < sources.length; i ++ ) {
-
-                    var source = document.createElement( 'source' );
-                    source.src = sources[ i ];
-
-                    audio.appendChild( source );
-
-            }
-
-            this.position = new THREE.Vector3();
-
-            this.play = function () {
-
-                    audio.play();
-
-            }
-
-            this.update = function ( camera ) {
-                    
-                    
-                    var distance = this.position.distanceTo( camera.position );
-
-                    if ( distance <= radius ) {
-                            audio.play();
-                            audio.volume = volume * ( 1 - distance / radius );
-
-                    } else {
-
-                            audio.volume = 0;
-                            audio.pause();
-
-                    }
-
-            }
-
-     }
-     init();
-     animate();
-     
-     function init() {
+    function init() {
+   
         container = document.getElementById('container');
         camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 10000 );
         camera.position.set( 0, 25, 0 );
         
         controls = new THREE.FirstPersonControls( camera );
 
-        controls.movementSpeed = 70;
-        controls.lookSpeed = 0.05;
+        controls.movementSpeed = 80;
+        controls.lookSpeed = 0.03;
         controls.noFly = true;
         controls.lookVertical = false;
         
         scene = new THREE.Scene();
-        scene.fog = new THREE.FogExp2 (0x000000, 0.0020); //mgła
         
-        light = new THREE.DirectionalLight(0xffffff);
-        light.position.set(0,0.5,1).normalize(); // to check
-        scene.add(light);
+        //mgla     
+        if(settings.fog.on > 0) {
+            scene.fog = new THREE.FogExp2 (settings.fog.color, settings.fog.blur); 
+        }
+        //swiatla
+        $.each(settings.lights, function(key,item) {
+            //@todo wiecej typow swiatel
+            if(item.type === 'dLight') {
+                light  = new THREE.DirectionalLight(item.color);
+            } else if (item.type === 'aLight') {
+                light  = new THREE.AmbientLight(item.color);
+            } else {
+                light = new THREE.SpotLight(item.color);
+            }            
+            var param1 = parseFloat(item.param1);
+            var param2 = parseFloat(item.param2);
+            var param3 = parseFloat(item.param3);            
+            
+            light.position.set(param1, param2, param3).normalize(); //check
+            //@todo light.rotation.set(), light.width, light.height
+            scene.add(light);          
+        });
         
+        //modele
+        var url = '<?php echo $this->url('ajax', array('action'=> 'getAllElements'),null) ?>';    
+        var oGeometry, oMaterial, oMesh;  
+        var oItemSize, oItemPosition, oItemScale, oItemMaterial;
         
+        $.getJSON( url, function(data) {
+            
+            $.each(data.items, function( i, item) {
+                
+                oItemSize     = item.elementSize;
+                oItemPosition = item.elementPosition;
+                oItemScale    = item.elementScale;
+                oItemMaterial = item.elementMaterial;
+
+                if(item.elementType === 'SphereGeometry') {
+                    oGeometry = new THREE.SphereGeometry(oItemSize[0],oItemSize[1],oItemSize[2]);
+                } if(item.elementType === 'CubeGeometry'){
+                    oGeometry = new THREE.CubeGeometry(oItemSize[0],oItemSize[1],oItemSize[2]); 
+                } if(item.elementType === 'other') {
+                        
+                        var loader    = new THREE.JSONLoader();    
+                        var color     = item.elementMaterial;
+                        var scale     = item.elementScale;
+                        var position  = item.elementPosition;
+                        var offerId   = item.offerId;
+                    
+                        loader.load('js/models/stoisko.js', function(geometry) {
+
+                            //stoisko na staĹ‚e skala
+                            var material = new THREE.MeshLambertMaterial({color: color,  shading: THREE.FlatShading});
+                            var oStand = new THREE.Mesh(geometry, material);   
+                            oStand.position.set(position[0],0,position[2]); //fix
+                            oStand.scale.set( 2, 2, 2);    
+                            oStand.name    = 'stoisko';
+                            oStand.offerID = parseInt(offerId); // po tym doĹ‚adowywujemy ajax
+                           
+                            scene.add(oStand);
+                            targetList.push(oStand); // important rozpoznwanie elementĂłw
+                            
+                            //monitor
+                            var mat = new THREE.MeshLambertMaterial({color:'#000000'});
+                            var planeMesh = new THREE.Mesh(new THREE.PlaneGeometry(7*scale[0],4*scale[1],0,0), mat); // to check  
+                            planeMesh.position.set(position[0] - 8.5,17.5,position[2] - 10.7); //91.5, 17.5,  39.3
+                            planeMesh.rotation.x = 0;
+                            planeMesh.rotation.y = 0.78; //.77
+                            planeMesh.rotation.z = 0;     
+                            planeMesh.name = 'AddScrren';
+                            scene.add(planeMesh);
+                        });                                    
+                }
+                
+                
+                // Nazwa firmy @todo konfiguracja w adminie               
+                var titleMesh = addTitleonTop(item);
+                scene.add(titleMesh);
+                
+                //dodwanie materiaĹ‚u (kolor,siatka, ...) ++ dodaÄ‡ wybĂłr typu materiaĹ‚u
+                oMaterial = new THREE.MeshLambertMaterial({color: oItemMaterial, wireframe:false, shading: THREE.FlatShading });
+                //tworzenie siatki
+                oMesh     = new THREE.Mesh(oGeometry, oMaterial);
+                //pozycja siatki
+                oMesh.position.set(oItemPosition[0],oItemPosition[1],oItemPosition[2]);
+                //skalowanie
+                oMesh.scale.set( oItemScale[0], oItemScale[1], oItemScale[0]);
+                //dodawanie do sceny
+                scene.add(oMesh);
+            });  
+        });        
         
+        //flor @todo
+        var floorTexture = new THREE.ImageUtils.loadTexture( 'js/models/materials/green_cup.png' );
+	floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping; 
+	floorTexture.repeat.set( 1, 1 );
+	var floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, side: THREE.DoubleSide } );
+	var floorGeometry = new THREE.PlaneGeometry(1000, 1000, 10, 10);
+	var floor = new THREE.Mesh(floorGeometry, floorMaterial);
+	floor.position.y = -0.5;
+	floor.rotation.x = Math.PI / 2;
+	floor.name = "Checkerboard Floor";
+	scene.add(floor);
+//        
+//        
         
-//        var loader = new THREE.JSONLoader();
-//        var sphere = new THREE.SphereGeometry(20,32,16); //tutaj beda boxy :P zaciagane JSONEM
-//        var mesh = new THREE.Mesh(geometry, material); //
-        
-        
-        new THREE.MeshLambertMaterial({color: 0x55B663});
-        loader.load('/js/models/treehouse_logo.js', function(geometry) {
-            var material = new THREE.MeshLambertMaterial({color: 0x55B663});
-            var mesh = new THREE.Mesh(geometry, material);
-            scene.add(mesh);
-         });
-        
-        
-        
-        
-        // ------> elementy i textury
-        var sphere = new THREE.SphereGeometry(20,32,16); //tutaj beda boxy :P zaciagane JSONEM
-        
-        material_sphere1 = new THREE.MeshLambertMaterial( {color: 0xffaa00, shading: THREE.FlatShading} );
-        material_sphere2 = new THREE.MeshLambertMaterial( {color: 0xff2200, shading: THREE.FlatShading} );
-        
-        //sound spheres
-        var s = 1;
-        
-        var mesh1 = new THREE.Mesh( sphere, material_sphere1 );
-        mesh1.position.set( 50, 30, 0 );
-        mesh1.scale.set( s, s, s );
-        scene.add( mesh1 );      
-        
-        sound1 = new Sound( ['files/music/Stromae_Papaoutai.mp3'], 275,1);
-        console.log(sound1);
-        sound1.position.copy( mesh1.position );
-      //  sound1.play();
-        
-        //
-        
-        var mesh2 = new THREE.Mesh(sphere,material_sphere2);
-        mesh2.position.set(250,30,0);
-        mesh2.scale.set(s,s,s);
-        
-        
-        scene.add(mesh2);
-        
-        sound2 = new Sound(['files/music/Hey_Brother.mp3'], 275,1);
-        sound2.position.copy(mesh2.position);
-      //  sound2.play();
-        
-        //ground
-        
-        var material = new THREE.MeshLambertMaterial({color: 0x7f7566, wireframe:true, wireframeLinewidth:1});
-        mesh = new THREE.Mesh(new THREE.PlaneGeometry(1000,1000,100,100), material); // to check
-        mesh.position.y = 0.1;
-        mesh.rotation.x = - Math.PI / 2;
+//        //p configured in admin oY, rX, oX
+//        mesh = designPlane(settings.plane , 0.1, (- Math.PI / 2 ), null, false );        //bottom1
+//        scene.add(mesh);        
+//        mesh = designPlane(settings.plane , 0.1, ( Math.PI / 2 ), null, false);     //bootom2   
+//        scene.add(mesh);
+//sides
+        mesh = designPlane(settings.plane , 100, ( Math.PI / 2 ), null, false);       //top 
         scene.add(mesh);
+        mesh = designPlane(settings.plane , 50, ( Math.PI ), null, true, 500);       //sideleft
+        scene.add(mesh);
+        mesh = designPlane(settings.plane , 50, 0,  null, true, -500);       //sideright
+        scene.add(mesh);
+        mesh = designPlane(settings.plane , 50, 0, 500, true,  0, ( - Math.PI /2));        //bottom1
+        scene.add(mesh);
+        mesh = designPlane(settings.plane , 50, 0, 500, true,  0, ( Math.PI /2));        //bottom1
+        scene.add(mesh);
+        mesh = designPlane(settings.plane , 50, 0, -500, true,  0, ( Math.PI /2));        //bottom1
+        scene.add(mesh);
+        mesh = designPlane(settings.plane , 50, 0, -500, true,  0, ( -Math.PI /2));        //bottom1
+     //   alertOnClick(mesh);
+        scene.add(mesh);
+//        mesh = designPlane(settings.plane , 50, ( - Math.PI ), 500, true, 500);       //side1
+//        scene.add(mesh);
+//        mesh = designPlane(settings.plane , oX, oY );        
+//        scene.add(mesh);
         
-        //renderer
-        
+        //renderer        
         renderer = new THREE.WebGLRenderer({antialias: true});
         renderer.setSize(window.innerWidth, window.innerHeight);
-        
+        //nasz kontner  na wszystko
         container.innerHTML = "";
         container.appendChild(renderer.domElement); //canvas
-        
+        // EVENTS
+	//THREEx.WindowResize(renderer, camera);
+	THREEx.FullScreen.bindKey({ charCode : '`'.charCodeAt(0) });
         //listener
-        window.addEventListener('resize', onWindowResize, false);                      
+        window.addEventListener('resize', onWindowResize, false);         
+        // STATS
+//        stats = new Stats();
+//        container.appendChild( stats.domElement );
+                              
+                    
+        //////////////////////////////////////////////////////////////////////
+	
+	// initialize object to perform world/screen calculations
+	projector = new THREE.Projector();
+	
+	// when the mouse moves, call the given function
+	document.addEventListener( 'mousedown', onDocumentMouseDown, false );
      }
+    
+    var clickMe = true;
+    function onDocumentMouseDown( event ) 
+    {
+        
+        // blokada eventĂłw do funckji :)
+        if($('#contactModal').is(':visible') || event.target.className === 'navbar-collapse collapse') {         
+            event.preventDefault();
+            return false;
+        }
+		
+	//console.log("Click.");
+	
+	// update the mouse variable
+	mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+	
+	// find intersections
+
+	// create a Ray with origin at the mouse position
+	// and direction into the scene (camera direction)
+	var vector = new THREE.Vector3( mouse.x, mouse.y, 1 );
+	projector.unprojectVector( vector, camera );
+	var ray = new THREE.Raycaster( camera.position, vector.sub( camera.position ).normalize() );
+
+	// create an array containing all objects in the scene with which the ray intersects
+	var intersects = ray.intersectObjects( targetList );
+	
+	// if there is one (or more) intersections
+	if ( intersects.length > 0 )
+	{
+            if(clickMe === true) {
+               
+                $('body').append('<div class="ajaxShadow"><p>'+translator('loading')+'</p></div>');   
+                var oLoader = $(document).find('.ajaxShadow');
+                
+                //settings
+                clickMe = false; //flag
+		
+                var oModal = $(document).find('#company-modal');
+                var oBody  = $(document).find('#company-modal .modal-body'); 
+                oBody.html('');
+                //pobieranie infroamcji url
+                var oItem  = intersects[0].object;                      
+                var oUrl   = 'ajax/company/'+oItem.offerID;
+
+                $.ajax({
+                    dataType : 'json',
+                    type     : 'GET', 
+                    url      : oUrl,         
+
+                success : function(result) {
+
+                   //console.log(result);
+
+                    setTimeout(function(){
+                        oLoader.fadeOut(function() {                         
+                            
+                            oBody.html(result.html); 
+                            oBody.hide();
+                            oModal.modal('show');
+                            oLoader.remove();                
+                         });                        
+                    },1000);
+
+                     oModal.on('shown.bs.modal', function (e) {
+                            oBody.fadeIn();                            
+                            $().contactPlugin(); //fix   
+                         
+                     });
+                    
+                    oModal.on('hidden.bs.modal', function (e) {
+                        clickMe = true;
+                    });
+                                      
+                    }
+                });
+                
+                //thank U but not used
+                //console.log(intersects[ 0 ].object);
+		// change the color of the closest face.
+		//intersects[ 0 ].face.color.setRGB( 0.8 * Math.random() + 0.2, 0, 0 ); 
+		//intersects[ 0 ].object.geometry.colorsNeedUpdate = true;
+                //console.log("Hit @ " + toString( intersects[0].point ) );
+            }
+        }
+
+    }
+
+    function toString(v) { return "[ " + v.x + ", " + v.y + ", " + v.z + " ]"; }
+    
+
+     
+     //dodaje dodatkowy opis nad stoiskiem
+     function addTitleonTop(item) {
+        
+	// add 3D text
+	var materialFront = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
+	var materialSide  = new THREE.MeshBasicMaterial( { color: 0x000088 } );
+	var materialArray = [ materialFront, materialSide ];
+	var textGeom = new THREE.TextGeometry( item.offerName, 
+	{
+		size: 8, height: 2, curveSegments: 4,
+		font: "helvetiker", weight: "bold", style: "normal",
+		bevelThickness: 1, bevelSize: 2, bevelEnabled: false,
+		material: 0, extrudeMaterial: 1
+	});
+	// font: helvetiker, gentilis, droid sans, droid serif, optimer
+	// weight: normal, bold
+	
+	var textMaterial = new THREE.MeshFaceMaterial(materialArray);
+	var textMesh     = new THREE.Mesh(textGeom, textMaterial );
+	
+	textGeom.computeBoundingBox();
+	var textWidth = textGeom.boundingBox.max.x - textGeom.boundingBox.min.x;
+	
+	textMesh.position.set( item.elementPosition[0], 45, item.elementPosition[2] );
+	textMesh.rotation.x = -Math.PI /8 ;
+	return textMesh;
+     }
+        
+//    function createScene( geometry, materials, x, y, z, b, s ) {
+//
+//        var mesh = new THREE.Mesh( geometry, new THREE.MeshFaceMaterial( materials ) );
+//        mesh.position.set( x, y, z );
+//        mesh.scale.set( s, s, s );
+//        scene.add( mesh );
+//
+//    }
      
      function onWindowResize() {
         camera.aspect = window.innerWidth/window.innerHeight;
@@ -181,21 +362,68 @@
      function animate() {
          requestAnimationFrame(animate);
          render();
+//         stats.update();
+        
      }
      
      function render() {
          var delta = clock.getDelta(); // check
-         var time = clock.getElapsedTime()*5; //check
+         var time  = clock.getElapsedTime()*5; //check
          
          controls.update(delta);
          
-         material_sphere1.color.setHSL(0.0, 0.3 + 0.7 * (1+ Math.cos(time)) /2, 0.5);
-         material_sphere2.color.setHSL(0.0, 0.3 + 0.7 * (1+ Math.cos(time)) /2, 0.5);
+       //  material_sphere1.color.setHSL(0.0, 0.3 + 0.7 * (1+ Math.cos(time)) /2, 0.5);
+       //  material_sphere2.color.setHSL(0.0, 0.3 + 0.7 * (1+ Math.cos(time)) /2, 0.5);
          
          renderer.render(scene,camera);
-         sound1.update(camera);
-         sound2.update(camera);
+//         sound1.update(camera);
+//         sound2.update(camera);
      }
-       
-   
-    </script>
+     
+     //helper functions
+    function designPlane(planeSettings, oY, rX, oX, side, oZ, rY) {            
+//        console.log(oY, rX, oX, side);
+//        console.log(planeSettings);
+        var color     = planeSettings.color;
+        var param1    = planeSettings.param1;
+        var param2    = planeSettings.param2;
+        var param3    = planeSettings.param3;
+        var param4    = planeSettings.param4;
+        var wireframe = false;
+        
+        if(planeSettings.wireframe === '1') {
+            wireframe = true;
+        }  
+        
+        var material = new THREE.MeshLambertMaterial({color: color, wireframe: wireframe, wireframeLinewidth:1});
+        if(side) {            
+            var planeMesh = new THREE.Mesh(new THREE.PlaneGeometry(param1,100,0,0), material); // to check 
+//        } else if(rY) {
+//            var planeMesh = new THREE.Mesh(new THREE.PlaneGeometry(100,param2,param3,param4), material); // to check    
+        } else {
+             var planeMesh = new THREE.Mesh(new THREE.PlaneGeometry(param1,param2,param3,param4), material); // to check    
+        }
+        planeMesh.position.y = oY;
+        planeMesh.rotation.x = rX;
+        if(rY) {
+           planeMesh.rotation.y = rY;  
+        }
+        if(oX) {
+            
+            planeMesh.position.x = oX;
+        }
+        if(oZ) {
+            
+            planeMesh.position.z = oZ;
+        }
+        return planeMesh;
+     }
+    
+        $('.take-snapshot').on('click', function(){
+
+            window.open( renderer.domElement.toDataURL('image/png'), 'mywindow' );
+            return false;
+
+        });
+     }
+</script>

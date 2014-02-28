@@ -21,6 +21,8 @@ class Offer implements InputFilterAwareInterface
     public $offerEmail;
     public $offerPhone;
     public $offerImage;
+    public $offerVideo;
+    public $offerVisible;
     public $offerInsert;
     
     protected $inputFilter;
@@ -36,13 +38,15 @@ class Offer implements InputFilterAwareInterface
         $this->offerType       = (!empty($data['offerType'])) ? $data['offerType'] : null;
         $this->offerCountry    = (!empty($data['offerCountry'])) ? $data['offerCountry'] : null;              
         $this->offerCity       = (!empty($data['offerCity'])) ? $data['offerCity'] : null;
-        $this->offerStreet    = (!empty($data['offerStreet'])) ? $data['offerStreet'] : null;
+        $this->offerStreet     = (!empty($data['offerStreet'])) ? $data['offerStreet'] : null;
         $this->offerNumber     = (!empty($data['offerNumber'])) ? $data['offerNumber'] : null;
         $this->offerCategory   = (!empty($data['offerCategory'])) ? $data['offerCategory'] : null;
         $this->offerWebPage    = (!empty($data['offerWebPage'])) ? $data['offerWebPage'] : null;
         $this->offerEmail      = (!empty($data['offerEmail'])) ? $data['offerEmail'] : null;
         $this->offerPhone      = (!empty($data['offerPhone'])) ? $data['offerPhone'] : null;
         $this->offerImage      = (!empty($data['offerImage'])) ? $data['offerImage'] : null;
+        $this->offerVideo      = (!empty($data['offerVideo'])) ? $data['offerVideo'] : null;
+        $this->offerVisible    = (!empty($data['offerVisible'])) ? $data['offerVisible'] : null;
         $this->offerInsert     = (!empty($data['offerInsert'])) ? $data['offerInsert'] : null;
 
     }
@@ -286,13 +290,12 @@ class Offer implements InputFilterAwareInterface
                 ),
             ));
           
-//            
-//            dodac walidacje pliku
-//            $inputFilter->add(array(
-//                'name'     => 'offerImage',
-//                'required' => false,
-//               
-//            ));
+            
+            //dodac walidacje pliku
+            $inputFilter->add(array(
+                'name'     => 'offerImage',
+                'required' => false,               
+            ));
 
             $this->inputFilter = $inputFilter;
         }

@@ -25,20 +25,28 @@ class Module
             $config          = $e->getApplication()->getServiceManager()->get('config');
             if (isset($config['module_layouts'][$moduleNamespace])) {
                 $controller->layout($config['module_layouts'][$moduleNamespace]);
+            }   
+            
+            if(isset($_COOKIE['vwalkMgr'])) {
+                $langFile = $_COOKIE['vwalkMgr'];         
+                $translator = $e->getApplication()->getServiceManager()->get('translator');
+                $translator->setLocale($langFile);
+                try {
+                    if($langFile == 'us') {
+                         $controller->layout()->setVariable('lang',  'en');
+                    } else {
+                         $controller->layout()->setVariable('lang',  'pl');
+                    }
+                } catch (\Exception $ex) {}
+            } else {
+                    $controller->layout()->setVariable('lang',  'pl');
             }
+                       
         }, 100);   
         
         
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
-        
-        //translator globalnie ;)
-         if(isset($_COOKIE['wincklerLang'])) {
-            $langFile = $_COOKIE['wincklerLang'];         
-            $translator = $e->getApplication()->getServiceManager()->get('translator');
-            $translator->setLocale($langFile);
-         }
-        //$translator = $this->getServiceLocator()->get('translator');
         
     }
 

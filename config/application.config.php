@@ -4,11 +4,11 @@ return array(
     'modules' => array(
         'Application',
         'About',
-        'Contact',
-        'Care',
-        //'Staff',
-        'Candidates',
-        'Client',
+      //   'Contact',
+      //  'Care',
+      //  'Staff',
+      //  'Candidates',
+      // 'Client',
         'Search',
         'Admin',
         'News'

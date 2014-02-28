@@ -9,9 +9,7 @@ class News implements InputFilterAwareInterface
 {
     public $newsId;
     public $newsTitlePl;    
-    public $newsTitleDe;
-    public $newsMessagePl;
-    public $newsMessageDe;
+    public $newsMessagePl;    
     public $newsPicture;
     public $newsInsert;
 
@@ -23,9 +21,7 @@ class News implements InputFilterAwareInterface
         
         $this->newsId           = (!empty($data['newsId'])) ? $data['newsId'] : null;
         $this->newsTitlePl      = (!empty($data['newsTitlePl'])) ? $data['newsTitlePl'] : null;
-        $this->newsTitleDe      = (!empty($data['newsTitleDe'])) ? $data['newsTitleDe'] : null;
-        $this->newsMessagePl    = (!empty($data['newsMessagePl'])) ? $data['newsMessagePl'] : null;
-        $this->newsMessageDe    = (!empty($data['newsMessageDe'])) ? $data['newsMessageDe'] : null;
+        $this->newsMessagePl    = (!empty($data['newsMessagePl'])) ? $data['newsMessagePl'] : null;        
         $this->newsPicture      = (!empty($data['newsPicture'])) ? $data['newsPicture'] : null;
         $this->newsInsert       = (!empty($data['newsInsert'])) ? $data['newsInsert'] : null;              
 
@@ -74,25 +70,6 @@ class News implements InputFilterAwareInterface
             ));
             
             $inputFilter->add(array(
-                'name'     => 'newsTitleDe',   
-                'required' => false,
-                'filters'  => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            
-                        ),
-                    ),
-                ),
-            ));
-
-            $inputFilter->add(array(
                 'name'     => 'newsMessagePl',
                 'required' => true,
                 'filters'  => array(
@@ -110,25 +87,7 @@ class News implements InputFilterAwareInterface
                     ),
                 ),
             ));
-            
-            $inputFilter->add(array(
-                'name'     => 'newsMessageDe',
-                'required' => false,
-                'filters'  => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            
-                        ),
-                    ),
-                ),
-            ));
+                   
 //            
 //            dodac walidacje pliku
 //            $inputFilter->add(array(

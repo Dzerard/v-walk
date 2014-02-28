@@ -96,10 +96,8 @@ class NewsTable {
     {
         $data = array(
             
-            'newsTitlePl'     => $news->newsTitlePl,
-            'newsTitleDe'     => $news->newsTitleDe,
-            'newsMessagePl'   => $news->newsMessagePl,
-            'newsMessageDe'   => $news->newsMessageDe,
+            'newsTitlePl'     => $news->newsTitlePl,            
+            'newsMessagePl'   => $news->newsMessagePl,           
             'newsPicture'     => $news->newsPicture,
             'newsInsert'      => time(),            
           

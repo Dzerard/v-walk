@@ -3,7 +3,6 @@ body {
   padding-bottom: 40px;
   background-color: #eee;
 }
-
 .form-signin {
   max-width: 330px;
   padding: 15px;
@@ -48,5 +47,23 @@ hr {
     font-family: 'Roboto', sans-serif;
     font-weight: 100;
 }
-.form-signin .form-signin-heading {font-size: 300%;}
-.alert { font-family: 'Roboto', sans-serif; font-size: 18px; font-weight: 100;}
+.form-signin .form-signin-heading {
+    font-size: 300%;
+}
+.alert { 
+    font-family: 'Roboto', sans-serif; 
+    font-size: 18px; 
+    font-weight: 100;
+}
+.error404,.error404 h1,.error404 h3 {
+     font-family: 'Roboto', sans-serif;
+     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+.error404 h1 {
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    color: #1f8dd6;
+    font-size: 300%;
+}
+.error404 h3 {
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}

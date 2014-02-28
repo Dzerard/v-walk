@@ -1,0 +1,86 @@
+           <div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                   <span class="close-modal-button">                                        
+                        <a href="#" type="button" class="close" data-placement="left" data-dismiss="modal" aria-hidden="true" rel="tooltip" title="<?php echo $this->translate('Zamknij') ?>">&times;</a>                                
+                    </span> 
+                  <h4 class="modal-title"><?php echo $this->translate('Wypełnij formularz') ?></h4>
+                </div>
+                <div class="modal-body">                  
+                  <form role="form" action="" method="post" class="validate contact-form-modal"> 
+                        <div class="formContent"> 
+                            <div class="form-group">
+                              <label for="contactName"><?php echo $this->translate('Imię') ?></label>
+                              <input type="text" class="validate[required] form-control" id="contactName" name="contactName" placeholder="<?php echo $this->translate('Podaj Imię/Nick') ?>" >
+                            </div>
+                            <div class="form-group">
+                              <label for="contactEmail"><?php echo $this->translate('E-mail') ?></label>
+                              <input type="email" class="validate[required,custom[email]] form-control" id="contactEmail"  name="contactEmail" placeholder="<?php echo $this->translate('Wpisz e-mail') ?>" >                              
+                            </div>   
+                            <div class="form-group">
+                              <label for="contactMessage"><?php echo $this->translate('Wiadomość') ?></label>
+                              <textarea class="validate[required] form-control" id="contactMessage" name="contactMessage" ></textarea>
+                            </div>  
+                        </div>                         
+                    </form>                  
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->translate('Anuluj') ?></button>
+                  <button type="button" class="btn btn-primary"><?php echo $this->translate('Wyślij') ?></button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+          
+          <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close-modal-button">                                        
+                        <a href="#" type="button" class="close" data-placement="left" data-dismiss="modal" aria-hidden="true" rel="tooltip" title="<?php echo $this->translate('Zamknij') ?>">&times;</a>                                
+                    </span> 
+<!--                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+                  <h4 class="modal-title"><?php echo $this->translate('Instrukcja') ?></h4>
+                </div>
+                <div class="modal-body">                  
+                  <div class="panel panel-primary">
+                    <div class="panel-heading">
+                      <h3 class="panel-title"><?php echo $this->translate('Podstawowe informacje') ?></h3>
+                    </div>
+                    <div class="panel-body">   
+                        <?php echo $this->translate('Poruszanie') ?>
+                    </div>
+                       <ul class="list-group">
+                            <li class="list-group-item">                             
+                               <span class="label label-info"><i class="fa fa-angle-up"></i></span><span class="label label-default">w</span><br>
+                               <span class="label label-info"><i class="fa fa-angle-left"></i></span><span class="label label-default">a</span>
+                               <span class="label label-info"><i class="fa fa-angle-down"></i></span><span class="label label-default">s</span>                               
+                               <span class="label label-info"><i class="fa fa-angle-right"></i></span><span class="label label-default">d</span>
+                            </li>
+                            <li class="list-group-item"><?php echo $this->translate('Dodatkowe klawisze') ?>
+                                <ul>
+                                    <li><span class="label label-success">q</span> - blokada animacji</li>
+                                    <li><span class="label label-success">r</span> - z-index [góra]</li>
+                                    <li><span class="label label-success">f</span> - z-index [dół]</li>
+                                </ul>                                    
+                            </li>                                
+                        </ul>
+                  </div>              
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->translate('OK') ?></button>                  
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+          
+        <div class="modal fade" id="company-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog company-dialog">
+                <div class="modal-content">               
+                    <div class="modal-body">                  
+                         
+                    </div>             
+                </div> 
+              </div><!-- /.modal-dialog -->
+        </div>

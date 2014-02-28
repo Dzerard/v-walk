@@ -19,7 +19,7 @@ class OfferTable {
     }
     
     //wszystkie wiadomości
-    public function fetchAll($paginated=false, $sort=null)
+    public function fetchAll($paginated=false, $sort=null, $column=null, $search=null)
     {
         if($paginated) {
             
@@ -27,6 +27,11 @@ class OfferTable {
              $select->order('offerId DESC');
              if($sort) {
                   $select->where(array('offerCategory' => $sort ));
+             }
+             if($column && $search) {
+                   
+                   $select->where("$column LIKE '%$search%'");
+                   
              }
              // create a new result set based on the Offer entity
              $resultSetPrototype = new ResultSet();
@@ -71,10 +76,14 @@ class OfferTable {
             $select->order('offerId DESC');
             $select->limit(3);
        });
-       return $resultSet;
-            
+       return $resultSet;            
         
     }
+    
+     public function lastInsertID() {
+         $id = $this->tableGateway->getLastInsertValue(); 
+         return $id;
+     }
     
     public function getOffer($id)
     {
@@ -97,13 +106,15 @@ class OfferTable {
             'offerType'         => $offer->offerType,
             'offerCountry'      => $offer->offerCountry, 
             'offerCity'         => $offer->offerCity,
-            'offerStreet'      => $offer->offerStreet,
+            'offerStreet'       => $offer->offerStreet,
             'offerNumber'       => $offer->offerNumber,
             'offerCategory'     => $offer->offerCategory,
             'offerWebPage'      => $offer->offerWebPage,                    
             'offerEmail'        => $offer->offerEmail,  
             'offerPhone'        => $offer->offerPhone,  
             'offerImage'        => $offer->offerImage,
+            'offerVideo'        => $offer->offerVideo,
+            'offerVisible'      => $offer->offerVisible,
             'offerInsert'       => time(),    
                     
           

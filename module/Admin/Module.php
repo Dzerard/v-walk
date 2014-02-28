@@ -2,21 +2,8 @@
 
 namespace Admin;
 
-//use Admin\Model\AdminTable;
-//use Admin\Model\Admin;
-//use Zend\Db\ResultSet\ResultSet;
-//use Zend\Db\TableGateway\TableGateway;
-
 use Admin\Model\Contact;
 use Admin\Model\ContactTable;
-use Admin\Model\Care;
-use Admin\Model\CareTable;
-use Admin\Model\Client;
-use Admin\Model\ClientTable;
-use Admin\Model\Personel;
-use Admin\Model\PersonelTable;
-use Admin\Model\Candidates;
-use Admin\Model\CandidatesTable;
 use Admin\Model\Notification;
 use Admin\Model\NotificationTable;
 use Admin\Model\News;
@@ -27,6 +14,13 @@ use Admin\Model\User;
 use Admin\Model\UserTable;
 use Admin\Model\Info;
 use Admin\Model\InfoTable;
+use Admin\Model\Visualization;
+use Admin\Model\VisualizationTable;
+use Admin\Model\Design;
+use Admin\Model\DesignTable;
+use Admin\Model\Message;
+use Admin\Model\MessageTable;
+
 
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
@@ -93,37 +87,14 @@ class Module {
                     $tableGateway = $sm->get('ContactTableGateway');
                     $table = new ContactTable($tableGateway);
                     return $table;
-                },
+                },                   
                         
-                'Admin\Model\CareTable' =>  function($sm) {
-                    $tableGateway = $sm->get('CareTableGateway');
-                    $table = new CareTable($tableGateway);
-                    return $table;
-                },
-                        
-                'Admin\Model\ClientTable' =>  function($sm) {
-                    $tableGateway = $sm->get('ClientTableGateway');
-                    $table = new ClientTable($tableGateway);
-                    return $table;
-                },
-                
+                //newsletter
                 'Admin\Model\NotificationTable' =>  function($sm) {
                     $tableGateway = $sm->get('NotificationTableGateway');
                     $table = new NotificationTable($tableGateway);
                     return $table;
-                },
-                     
-                'Admin\Model\PersonelTable' =>  function($sm) {
-                    $tableGateway = $sm->get('PersonelTableGateway');
-                    $table = new PersonelTable($tableGateway);
-                    return $table;
-                },
-                        
-                'Admin\Model\CandidatesTable' =>  function($sm) {
-                    $tableGateway = $sm->get('CandidatesTableGateway');
-                    $table = new CandidatesTable($tableGateway);
-                    return $table;
-                },
+                },               
                         
                 'Admin\Model\NewsTable' =>  function($sm) {
                     $tableGateway = $sm->get('NewsTableGateway');
@@ -143,49 +114,58 @@ class Module {
                     return $table;
                 },
                         
+                'Admin\Model\VisualizationTable' =>  function($sm) {
+                    $tableGateway = $sm->get('VisualizationTableGateway');
+                    $table = new VisualizationTable($tableGateway);
+                    return $table;
+                },   
+                        
+                'Admin\Model\DesignTable' =>  function($sm) {
+                    $tableGateway = $sm->get('DesignTableGateway');
+                    $table = new DesignTable($tableGateway);
+                    return $table;
+                },  
+                        
+                'Admin\Model\MessageTable' =>  function($sm) {
+                    $tableGateway = $sm->get('MessageTableGateway');
+                    $table = new MessageTable($tableGateway);
+                    return $table;
+                },  
+                        
+                'MessageTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Message());
+                    return new TableGateway('message', $dbAdapter, null, $resultSetPrototype);
+                },                    
+                'DesignTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Design());
+                    return new TableGateway('design', $dbAdapter, null, $resultSetPrototype);
+                },
+                       
+                'VisualizationTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Visualization());
+                    return new TableGateway('visualization', $dbAdapter, null, $resultSetPrototype);
+                },
                         
                 'ContactTableGateway' => function ($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new Contact());
                     return new TableGateway('contact', $dbAdapter, null, $resultSetPrototype);
-                },
-                        
-                'CareTableGateway' => function ($sm) {
-                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new Care());
-                    return new TableGateway('care', $dbAdapter, null, $resultSetPrototype);
-                },
-                        
-                'ClientTableGateway' => function ($sm) {
-                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new Client());
-                    return new TableGateway('client', $dbAdapter, null, $resultSetPrototype);
-                },
-                        
+                },       
+             
                 'NotificationTableGateway' => function ($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new Notification());
                     return new TableGateway('notification', $dbAdapter, null, $resultSetPrototype);
                 },
-                        
-                'PersonelTableGateway' => function ($sm) {
-                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new Personel());
-                    return new TableGateway('personel', $dbAdapter, null, $resultSetPrototype);
-                },
-                
-                'CandidatesTableGateway' => function ($sm) {
-                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new Candidates());
-                    return new TableGateway('candidates', $dbAdapter, null, $resultSetPrototype);
-                },
-                        
+                                                
                 'NewsTableGateway' => function ($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $resultSetPrototype = new ResultSet();

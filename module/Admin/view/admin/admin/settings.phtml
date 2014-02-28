@@ -1,12 +1,12 @@
 <?php
-    $title = 'Ustawienia';
+    $title = $this->translate('Ustawienia');
     $this->headTitle($title);
     $form = $this->form;
     $form->setAttribute('action', $this->url('admin', array('action' => 'settings')));
     $form->prepare();
 ?>
+<h1><a href="<?php echo $this->url('admin', array('action'=> 'settings')) ?>" class="btn btn-default btn-lg"><i class="fa fa-wrench"></i>&ensp;<?php echo $title ?></a></h1>
 
-<h1><?php echo $this->translate($title) ?></h1>
 <hr />
 
 <?php 
@@ -309,9 +309,8 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
-  <script>   
-    jQuery(document).ready(function($) { 
-        settingsActions();
-        triggerPanelHidding();
-    });
+  
+  <script>
+      settingsActions();
+      triggerPanelHidding();    
   </script>

@@ -117,7 +117,7 @@ return array(
     ),
     
      'navigation' => array(      
-               
+                        
         'default' => array(
           
           array(
@@ -129,7 +129,7 @@ return array(
               'route' => 'about',
               'pages' => array(
                   array(
-                      'label'  => 'Kariera w Winckler Personal',
+                      'label'  => 'Kariera',
                       'route'  => 'about',
                       'action' => 'career'
                   ),               

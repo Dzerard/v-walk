@@ -15,6 +15,7 @@ class NewsForm extends Form
             'name' => 'newsId',
             'type' => 'Hidden',
         ));
+        
         $this->add(array(
             'name' => 'newsTitlePl',
             'type' => 'Text',
@@ -28,18 +29,7 @@ class NewsForm extends Form
                   'id'            => 'newsTitlePl',
             ),
         ));
-        $this->add(array(
-            'name' => 'newsTitleDe',
-            'type' => 'Text',
-            'options' => array(
-                //'label' => 'Tytuł wiadomości - (niemiecki)',               
-            ),
-            'attributes' => array(
-                  'class'         => 'form-control',
-                  'placeholder'   => '*opcjonalnie ...',
-                  'id'            => 'newsTitleDe',
-            ),
-        ));
+      
         $this->add(array(
             
             'name' => 'newsMessagePl',
@@ -55,20 +45,7 @@ class NewsForm extends Form
                   'id'            => 'newsMessagePl',
             ),
         ));
-        $this->add(array(
-            'name' => 'newsMessageDe',
-            'type' => 'textarea',
-            'options' => array(
-                //'label' => 'Treść wiadomości - (niemiecki)',
-              
-            ),
-            'attributes' => array(
-                  'class'         => 'form-control',
-                  'rows'          => '10',
-                  'placeholder'   => '*opcjonalnie ...',
-                  'id'            => 'newsMessageDe',
-            ),
-        ));
+      
         $this->add(array(
             'name' => 'newsPicture',
             'type' => 'file',
@@ -79,6 +56,7 @@ class NewsForm extends Form
                  'id'   => 'newsPicture',
             ),
         ));
+        
         $this->add(array(
             'name' => 'submit',
             'type' => 'Submit',

@@ -1,28 +1,17 @@
 <?php
 // module/Album/view/news/news/add.phtml:
 
-$title = 'Dodawanie nowej wiadomości';
+$title = $this->translate('Dodawanie nowej wiadomości');
 $this->headTitle($title);
+
+$form = $this->form;
+$form->setAttribute('action', $this->url('admin', array('action' => 'addNews')));
+$form->prepare();
+
 ?>
 <h1><a href="<?php echo $this->url('admin', array('action'=> 'news')) ?>" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-list-alt"></i>&ensp;<?php echo $this->translate('Aktualności') ?></a> - dodawanie nowej wiadomości</h1>
 
 <hr />
-<style>
-    .form-group .form-control { min-width: 400px;   }
-    .form-group span {  display: block;  }
-    .form-group textarea {  min-width: 400px;   }
-    .form-group ul {list-style: none; margin: 0; padding: 0; color: #ff0000; font-size: 10px;}
-    .well .form-group{ margin-bottom: 0px;}
-    #submitbutton {margin-left: 15px;}
-    .col-lg-10 label {padding: 5px; margin: 0px 10px 0 0; }
-</style>
-
-<?php
-$form = $this->form;
-$form->setAttribute('action', $this->url('admin', array('action' => 'addNews')));
-$form->prepare();
-?>
-
         <?php echo $this->form()->openTag($form->setAttribute('class', 'form-horizontal')); ?>       
         <?php echo $this->formHidden($form->get('newsId'));?>        
 
@@ -32,24 +21,14 @@ $form->prepare();
                 <?php echo $this->formRow($form->get('newsTitlePl')); ?>
              </div>
         </div>
-        <div class="form-group">
-             <label for="newsTitleDe" class="col-lg-3 control-label">Tytuł wiadomości - (niemiecki)</label>
-             <div class="col-lg-9">
-                <?php echo $this->formRow($form->get('newsTitleDe')); ?>
-             </div>
-        </div>
+     
         <div class="form-group">
              <label for="newsMessagePl" class="col-lg-3 control-label">Treść wiadomości</label>
              <div class="col-lg-9">
                 <?php echo $this->formRow($form->get('newsMessagePl')); ?>
              </div>
         </div>
-        <div class="form-group">
-             <label for="newsMessageDe" class="col-lg-3 control-label">Treść wiadomości - (niemiecki)</label>
-             <div class="col-lg-9">
-                <?php echo $this->formRow($form->get('newsMessageDe')); ?>
-             </div>
-        </div>
+   
         <div class="form-group">
              <label for="newsPicture" class="col-lg-3 control-label">Dodatkowe zdjęcie</label>
              <div class="col-lg-9">

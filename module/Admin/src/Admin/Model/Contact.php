@@ -8,7 +8,7 @@ class Contact
     public $contactEmail;
 //    public $contactSubject;
     public $contactPosition;
-    public $contactPhone;
+//    public $contactPhone;
     public $contactMessage;
     public $contactInsert;
     public $contactUpdate;
@@ -20,7 +20,7 @@ class Contact
         $this->contactEmail      = (!empty($data['contactEmail'])) ? $data['contactEmail'] : null;
 //        $this->contactSubject    = (!empty($data['contactSubject'])) ? $data['contactSubject'] : null;
         $this->contactPosition   = (!empty($data['contactPosition'])) ? $data['contactPosition'] : null;
-        $this->contactPhone      = (!empty($data['contactPhone'])) ? $data['contactPhone'] : null;
+//        $this->contactPhone      = (!empty($data['contactPhone'])) ? $data['contactPhone'] : null;
         $this->contactMessage    = (!empty($data['contactMessage'])) ? $data['contactMessage'] : null;
         $this->contactInsert     = (!empty($data['contactInsert'])) ? $data['contactInsert'] : null;
         $this->contactUpdate     = (!empty($data['contactUpdate'])) ? $data['contactUpdate'] : null;

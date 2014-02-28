@@ -64,7 +64,7 @@ class ContactTable {
             'contactEmail'    => $contact->contactEmail,
 //            'contactSubject'  => $contact->contactSubject,
             'contactPosition' => $contact->contactPosition,
-            'contactPhone'    => $contact->contactPhone,
+//            'contactPhone'    => $contact->contactPhone,
             'contactMessage'  => $contact->contactMessage,
             'contactInsert'   => time(),
             'contactUpdate'   => time(),
