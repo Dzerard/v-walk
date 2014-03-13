@@ -8,52 +8,13 @@ $this->headTitle($title);
 
 <hr />
 
-<a href="<?php echo $this->url('ajax', array('action'=> 'getElementCode')) ?>"  class="btn btn-default" id="ajax-get-all-elements">test</a>
-
-<script>
+<div class="row-fluid">
+    <h2> 
+    <?php echo $this->translate('Wykonanie') ?>: <a class="btn btn-default btn-myself" href="http://lukaszgielar.com"><i class="fa fa-smile-o"></i>&ensp; Łukasz Gielar</a>
+    </h2> 
     
-    $('#ajax-get-all-elements').click(function(e){
-        
-        
-        var url = $(this).attr('href');
-        var val =  4;
-        url = url+"/"+val;
-        $.getJSON( url, function(data) {
-            //console.log(data[0]);
-        }).done(function(data) {
-               
-            console.log(data);
-        }).fail(function( jqxhr, textStatus, error ) {
-            var err = textStatus + ", " + error;
-            console.log( "Request Failed: " + err );
-        });
- // var data = [{offerid : 4}];
-//  $.ajax({
-//            type : 'GET',                       
-////            url : url,
-//            dataType: "json",
-//            url: url,
-//            //data: data,
-////            success: success
-////             data : contactForm.serialize(),
-//
-//            success : function(result) {
-//                alert('fuck yeah');
-//                
-//                console.log(result);
-//            },
-//            
-//            error: function(xmlHttpRequest, textStatus, errorThrown) {
-//                alert('blad..');
-//                console.log(xmlHttpRequest);
-//                console.log(textStatus);
-//                 console.log(errorThrown);
-//            }
-//    
-//
-//        });
-
-
-        return false;
-    });
-</script>
+    <code>
+        2014.03.01
+    </code>
+</div>
+     

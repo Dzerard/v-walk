@@ -13,7 +13,8 @@ use Zend\View\Model\JsonModel;
 use Zend\Json\Json;
 use Zend\Json\Expr;
 use Admin\Model\Contact;        //Contact
-use Admin\Model\Message;        //Contact
+use Admin\Model\Message;        //Message
+use Admin\Model\File;           //File
 use Admin\Mail\Mailer;          //Sending e-mail
 
 class AjaxController extends AbstractActionController
@@ -23,6 +24,7 @@ class AjaxController extends AbstractActionController
     protected $designTable;
     protected $offerTable;
     protected $messageTable;
+    protected $fileTable;
     
     
     protected $elementType = array(
@@ -362,18 +364,19 @@ class AjaxController extends AbstractActionController
         $offerId = (int) $this->params()->fromRoute('id', 0);   
         
         try {
-            $offer = $this->getOfferTable()->getOffer($offerId);                
+            $offer  = $this->getOfferTable()->getOffer($offerId);                
+            $files  = $this->getFileTable()->getFiles($offerId, false);   
         } catch(Exception $e) {
-            
+            //$error = true;
         } 
-
         
         $htmlViewPart = new ViewModel();
         
         $htmlViewPart->setTerminal(true)
                      ->setTemplate('admin/ajax/default')
                      ->setVariables(array(
-                        'offer' => $offer
+                        'offer' => $offer,
+                        'files' => $files
                      ));
 
         $htmlOutput = $this->getServiceLocator()
@@ -541,6 +544,15 @@ class AjaxController extends AbstractActionController
 //        
 //    }
 //    
+    
+    public function getFileTable()
+    {
+        if (!$this->fileTable) {
+            $sm = $this->getServiceLocator();
+            $this->fileTable = $sm->get('Admin\Model\FileTable');
+        }
+        return $this->fileTable;
+    }
     
     public function getContactTable()
     {

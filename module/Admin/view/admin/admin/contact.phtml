@@ -27,9 +27,9 @@
             <td class="span1"><?php echo  date('d-m-Y G:i',$this->escapeHtml($p->contactInsert));?></td>    
             <td class="span2">
                 <a href="<?php echo $this->url('admin',
-                    array('action'=>'contact', 'id' => $p->contactId));?>" rel="tooltip" title="<?php echo $this->translate('podgląd') ?>"><i class="glyphicon glyphicon-picture"></i></a>
+                    array('action'=>'contact', 'id' => $p->contactId));?>" rel="tooltip" title="<?php echo $this->translate('podgląd') ?>"><i class="fa fa-picture-o"></i></a>
                 <a href="<?php echo $this->url('admin',
-                    array('action'=>'delContact', 'id' => $p->contactId));?>" rel="tooltip" title="<?php echo $this->translate('usuń') ?>"><i class="glyphicon glyphicon-trash"></i></a>
+                    array('action'=>'delContact', 'id' => $p->contactId));?>" rel="tooltip" title="<?php echo $this->translate('usuń') ?>"><i class="fa fa-trash-o"></i></a>
             </td>
         </tr>
     <?php endforeach; ?>
@@ -90,7 +90,7 @@
     </table>
 
     <div class="form-group">
-        <a href="<?php echo $this->url('admin',array('action'=>'contact')) ?>" class="btn btn-default"><i class="glyphicon glyphicon-chevron-left"></i>&ensp;<?php echo $this->translate('Powrót') ?> </a>    
+        <a href="<?php echo $this->url('admin',array('action'=>'contact')) ?>" class="btn btn-default"><i class="fa fa-angle-left"></i>&ensp;<?php echo $this->translate('Powrót') ?> </a>    
     </div>
 
 <?php endif; ?>

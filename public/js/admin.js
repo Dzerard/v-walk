@@ -262,7 +262,7 @@
     
     function fireFancybox(param) {
         
-        $("a#single_image").fancybox({
+        $("a.image-box").fancybox({
 		'transitionIn'	:	'elastic',
 		'transitionOut'	:	'elastic',
 		'speedIn'		:	600, 

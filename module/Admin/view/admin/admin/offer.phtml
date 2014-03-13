@@ -80,11 +80,13 @@
                 <a href="#" type="button" class="" data-toggle="dropdown"  rel="tooltip" title="<?php echo $this->translate('pozostałe akcje') ?>">
                     <i class="fa fa-bars"></i>                  
                 </a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu text-left">
                   <li><a href="<?php echo $this->url('admin',
                     array('action'=>'edit-offer', 'id' => $p->offerId));?>" rel="tooltip" title=""><i class="fa fa-eye"></i>&ensp;&ensp;<?php  echo $this->translate('wizualizacja') ?></a></li>
                   <li><a href="<?php echo $this->url('admin',
                     array('action'=>'message-offer', 'id' => $p->offerId));?>" rel="tooltip" title=""><i class="fa fa-envelope"></i>&ensp;&ensp;<?php  echo $this->translate('wiadomości') ?></a></li>
+                  <li><a href="<?php echo $this->url('admin',
+                    array('action'=>'file', 'id' => $p->offerId));?>" rel="tooltip" title=""><i class="fa fa-file-text-o"></i>&ensp;&ensp;<?php  echo $this->translate('pliki') ?></a></li>
                 </ul>
             </div>
            

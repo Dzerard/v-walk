@@ -21,7 +21,13 @@
          $numPositions[$p['position']] = $p['name'];
     }
 ?>
-<h1><a href="<?php echo $this->url('admin', array('action'=> 'offer')) ?>" class="btn btn-default btn-lg"><i class="fa fa-users"></i>&ensp;<?php echo $this->translate('Firmy') ?></a> - <?php echo $this->translate('wizualizacja firmy') ?> <span class="companyTitle"><?php echo $offer->offerTitle ?></span></h1>
+<h1>
+    <a href="<?php echo $this->url('admin', array('action' => 'offer')) ?>" class="btn btn-default btn-lg">
+        <i class="fa fa-angle-left"></i>&ensp;<?php echo $this->translate('Powrót do listy') ?>
+    </a>
+    <a href="<?php echo $this->url('admin', array('action'=> 'offer')) ?>" class="btn btn-default btn-lg">
+        <i class="fa fa-eye"></i>&ensp;<?php echo $this->translate('Wizualizacja') ?>
+    </a> - <?php echo $this->translate('firmy') ?> <span class="companyTitle"><?php echo $offer->offerTitle ?></span></h1>
 <hr />
 
 <?php 

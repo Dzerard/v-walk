@@ -195,6 +195,7 @@ class OfferForm extends Form
             'type' => 'checkbox',
             'attributes' => array(                  
                   'id'    => 'offerVisible',
+                  //'value' => 0
             ),
         ));
         

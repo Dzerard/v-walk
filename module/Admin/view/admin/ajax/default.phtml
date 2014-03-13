@@ -57,7 +57,11 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="img-relative">
-                                        <img alt="" class="img-responsive" src="<?php echo $this->basePath('img/placeholder_1.png') ?>">
+                                        <?php if($offer->offerImage != '') :?>
+                                            <img alt="" class="img-responsive" src="<?php echo $this->basePath('upload/offer/').$offer->offerImage ?>">
+                                        <?php else : ?>
+                                            <img alt="" class="img-responsive" src="<?php echo $this->basePath('img/placeholder_1.png') ?>">
+                                        <?php endif; ?>
                                         <div class="hover-box">
                                                 <div class="inner-hover-box">
                                                         <h2><?php echo $this->translate('Link do strony domowej') ?></h2>
@@ -103,19 +107,22 @@
                     <div class="modal-body-company-files">
                         <div class="container-fluid triggerAnimation animation bounceIn" data-animate="bounceIn" style="">
                             <div class="row">
-                                <!-- lista plików -->
-                                <?php //if ($files) ?>
-<!--                                <div class="col-md-1">
-                                    <a data-placement="top" rel="tooltip"  title="<?php echo $this->translate('Kliknij aby pobrać') ?>" class="btn btn-default btn-file" href="" target="_blank" ><i class="fa fa-file"></i></a>                               
-                                    <p>nazwa pliku</p>
-                                </div>-->
-                                <?php //else : ?>
+                                <!-- lista plików -->                           
+                                
+                                <?php if (count($files) > 0) : ?>
+                                <?php foreach($files as $file) :?>
+                                <div class="col-md-1">
+                                    <a href="<?php echo $this->basePath().'/'.$file->filePath; ?>" data-placement="top" rel="tooltip"  title="<?php echo $this->translate('Kliknij aby pobrać') ?>" class="btn btn-default btn-file"  target="_blank" ><i class="fa fa-file"></i></a>                               
+                                    <p><?php echo $file->fileName ?></p>
+                                </div>
+                                <?php endforeach; ?>
+                                <?php else : ?>
                                 <div class="col-md-12">                                       
                                     <div class="alert alert-warning">
                                         <?php echo $this->translate('Brak plików ...') ?>
                                     </div>
                                 </div>
-                                <?php //endif; ?>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -150,7 +157,7 @@
                                             </div>
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
-                                                <input name="messageEmail" type="text" class="form-control validate[required,custom[email]]" placeholder="<?php echo $this->translate('e-mail') ?>" required="">
+                                                <input name="messageEmail" type="email" class="form-control validate[required,custom[email]]" placeholder="<?php echo $this->translate('e-mail') ?>" required="">
                                             </div>
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-comment-o"></i></span>

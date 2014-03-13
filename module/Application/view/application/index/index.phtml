@@ -54,7 +54,9 @@ $(document).ready(function($){
    
         container = document.getElementById('container');
         camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 10000 );
-        camera.position.set( 0, 25, 0 );
+        camera.position.set( -100, 25, 300 ); //fix
+        camera.rotation.x = 0.5;
+               
         
         controls = new THREE.FirstPersonControls( camera );
 
@@ -264,8 +266,9 @@ $(document).ready(function($){
                 var oBody  = $(document).find('#company-modal .modal-body'); 
                 oBody.html('');
                 //pobieranie infroamcji url
-                var oItem  = intersects[0].object;                      
-                var oUrl   = 'ajax/company/'+oItem.offerID;
+                var oItem  = intersects[0].object;  
+                
+                var oUrl   = '<?php echo $this->url('ajax', array('action'=> 'company'),null) ?>/'+oItem.offerID;
 
                 $.ajax({
                     dataType : 'json',
@@ -368,7 +371,7 @@ $(document).ready(function($){
      
      function render() {
          var delta = clock.getDelta(); // check
-         var time  = clock.getElapsedTime()*5; //check
+      //   var time  = clock.getElapsedTime()*5; //check
          
          controls.update(delta);
          

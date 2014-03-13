@@ -14,6 +14,7 @@ use Admin\Model\User;           //User
 use Admin\Model\Visualization;  //Visualization
 use Admin\Model\Info;           //Info
 use Admin\Model\Message;        //Message
+use Admin\Model\File;           //File
 
 use Admin\Form\NewsForm;
 use Admin\Form\ViewForm;
@@ -39,6 +40,7 @@ class AdminController extends AbstractActionController
     protected $visualizationTable;
     protected $designTable;
     protected $messageTable;
+    protected $fileTable;
     
 //    <------------------
 //    auth
@@ -162,9 +164,9 @@ class AdminController extends AbstractActionController
             return $this->redirect()->toRoute('admin', array('action' => 'login'));
         }
         
-//        $view = new ViewModel();
+//        $view = 
 //        var_dump($this->getController());
-        return;
+        return new ViewModel();
     }
     
     
@@ -423,13 +425,111 @@ class AdminController extends AbstractActionController
     }
     
     
-    public function fileAction() {
+    public function fileAction() 
+    {
+        if (! $this->getServiceLocator()->get('AuthService')->hasIdentity()){
+            return $this->redirect()->toRoute('admin', array('action' => 'login'));
+        }
         
-        
-        
+        $id = (int) $this->params()->fromRoute('id', 0);
+        if (!$id) {
+            return $this->redirect()->toRoute('admin', array(
+                'action' => 'offer'
+            ));
+        }
+
+        try {
+            $oFiles   = $this->getFileTable()->getFiles($id, false); //dla danej firmy
+            $oPics    = $this->getFileTable()->getFiles($id, true);  //obrazki
+            $oOffer   = $this->getOfferTable()->getOffer($id);
+        }
+        catch (\Exception $ex) {
+            return $this->redirect()->toRoute('admin', array('action' => 'offer'));
+        }
+
+        $request = $this->getRequest();
+        if ($request->isPost()) {              
+
+            //usuwanie zdjecia/pliku
+            if ($request->getPost('del-file')) {
+             
+                try {
+                    $fileID = $request->getPost('fileID');
+                    $oFile  =  $this->getFileTable()->getFile($fileID);
+                    
+                    unlink ('./public/'.$oFile->filePath);
+                    
+                }
+                catch (\Exception $ex) {
+                    $this->flashmessenger()->addMessage('Błąd podczas usuwania pliku ... ');
+                }
+                
+                $this->getFileTable()->deleteFile($fileID);
+                if($request->getPost('type')) {
+                    $this->flashmessenger()->addMessage('Plik został usunięty'); 
+                } else {
+                    $this->flashmessenger()->addMessage('Zdjęcie zostało usunięte');
+                }
+                
+                
+                return $this->redirect()->toRoute('admin', array('action'=>'file', 'id' => $id));
+                      
+            }  
+            if($request->getPost('add-file')) {
+                
+                //id firmy
+                $File     = $request->getFiles()->toArray();                 
+                $offerId  = $request->getPost('offerId');  // offerId
+                $adapter  = new \Zend\File\Transfer\Adapter\Http(); 
+                
+                foreach ($File as $oFile) {
+                    //upload plików   
+                    foreach($oFile as $file) {
+                                              
+                        $opis     = $file['name'];                  
+                        $fileExt  = pathinfo($opis, PATHINFO_EXTENSION); //zmiana nazwy
+                        $fileName = 'file_'.date("d_m_y").'_'.rand(1,999).'_'.$offerId.'.'.$fileExt;
+                        $fileSize = $file['size'];
+                        $filePath = 'upload/files/'.$fileName;                       
+                        
+                        
+                        $adapter->addFilter('Rename', './public/upload/files/'.$fileName, $file['name']);                 
+                                               
+                        $adapter->addValidator('Size', false, array('max' => '5MB')); //maks wielkosc pliku
+                
+                            $adapter->setDestination('./public/upload/files');   
+                            if($adapter->receive($file['name'])) {                            
+
+                                    //save info about file
+                                    $newFile = new File();   
+                                    $newFile->fileType    = $fileExt;    
+                                    $newFile->filePath    = $filePath;    
+                                    $newFile->fileName    = $opis; //  $fileName
+                                    $newFile->fileWeight  = $fileSize;
+                                    $newFile->fileOfferId = $offerId;
+                                    
+                                    $this->getFileTable()->saveFile($newFile);
+                                    $this->flashmessenger()->addMessage('Poprawnie zapisano plik: '.$opis);
+                                    
+                            } else {
+                                $this->flashmessenger()->addMessage('<span>Problem z zapisem pliku (maks. 5MB): '.$opis.'</span>');
+                            }
+                    }
+                }
+                 // Redirect to list of files with messages
+                return $this->redirect()->toRoute('admin', array('action'=>'file', 'id'=> $id));           
+            }              
+        } 
+          
+        return  new ViewModel(array(            
+                'files'     => $oFiles,   
+                'pics'      => $oPics,  
+                'company'   => $oOffer,
+                'id'        => $id,
+                'messages'  => $this->flashmessenger()->getMessages() 
+            ));
     }
-    
-    
+        
     public function notificationAction() 
     {
         //check
@@ -1012,6 +1112,9 @@ class AdminController extends AbstractActionController
                 // Redirect to list of albums
                 return $this->redirect()->toRoute('admin', array('action'=>'offer'));
             }
+//            var_dump($request->getPost());
+//            var_dump($form->getMessages());
+            
         }
         return array('form' => $form);
     }
@@ -1254,6 +1357,14 @@ class AdminController extends AbstractActionController
         
     }
     
+    public function getFileTable()
+    {
+        if (!$this->fileTable) {
+            $sm = $this->getServiceLocator();
+            $this->fileTable = $sm->get('Admin\Model\FileTable');
+        }
+        return $this->fileTable;
+    }
     
     public function getMessageTable()
     {

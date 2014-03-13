@@ -25,7 +25,7 @@ class MessageTable {
              $select = new Select('message'); 
              $select->order('messageId DESC');
              $select->where(array('messageOfferId' => $id));
-             // create a new result set based on the Contact entity
+             // create a new result set based on the Message entity
              $resultSetPrototype = new ResultSet();
              
              $resultSetPrototype->setArrayObjectPrototype(new Message());
@@ -84,7 +84,7 @@ class MessageTable {
         if ($id == 0) {
             $this->tableGateway->insert($data);
         } else {
-            if ($this->getContact($id)) {
+            if ($this->getTable($id)) {
                 unset($data['messageInsert']);
                 $this->tableGateway->update($data, array('messageId' => $id));
             } else {

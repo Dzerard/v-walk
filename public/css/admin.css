@@ -276,3 +276,69 @@ td.span2 a i {
 .table.table-striped.table-hover a {
     text-decoration: none;
 }
+.container h2 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+.alert.alert-info.alert-dismissable span {
+    color: #d2322d;
+}
+.pictures-row .col-lg-2, .files-row .col-lg-2 {
+    padding: 0;
+}
+.pictures-row .image-item {
+    min-height: 265px;
+}
+.pictures-row .image-item,  .files-row .file-item {
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 0px 5px;
+    box-shadow: 0px 0px 1px #999 ;
+    border-radius:2px;
+    
+}
+.pictures-row .image-item input[type="text"], .files-row .file-item  input[type="text"]{
+    font-size:10px;
+    margin: 5px 0;
+    height: 26px;
+    border-radius: 2px;
+}
+.pictures-row .col-lg-2 img{
+    width: 100%;
+}
+.files-row .file-item {
+    text-align:center;
+}
+a.file-box {
+    border: 1px solid #ccc;
+    
+    display: inline-block;
+    border-radius: 24px;
+    width: 48px;
+    height: 48px;
+    font-size: 31px;
+    color: #999;
+    line-height: 45px;
+    -moz-transition: all 0.15s ease-in-out;
+    -webkit-transition: all 0.15s ease-in-out;
+    -o-transition: all 0.15s ease-in-out;
+}
+a.file-box:hover {
+     box-shadow: 0px 0px 5px #999;
+    transform:  scale(1.1);
+    -webkit-transform:  scale(1.1);
+    -moz-transform: scale(1.1);
+    -o-transform:  scale(1.1);
+    color: #fff;
+    background: #666;
+    opacity: 0.9;
+}
+.panel-file h2 {
+    margin: 10px 5px !important;
+    padding: 5px 0 !important;
+    border-bottom: 1px solid #ebebeb !important;
+}
+.dropdown-menu.text-left i {
+    width:10px;
+}

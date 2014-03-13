@@ -552,7 +552,10 @@ canvas { width: 100%; height: 100% }
     
 }
 .modal-body-company-files .col-md-1 {
-    padding: 10px 0;
+    
+    padding: 5px 0;
+    margin: 0px 5px;
+    min-height: 130px;
     border: 1px solid #fff;
     border-radius: 2px;
     text-align: center;
@@ -565,6 +568,8 @@ canvas { width: 100%; height: 100% }
     border-top: 1px solid #999;
     margin: 10px 5px;
     font-size: 10px; 
+    word-break: break-all;
+    
 }
 
 .text-fields .input-group {

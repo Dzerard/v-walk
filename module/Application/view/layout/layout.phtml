@@ -107,10 +107,10 @@
             <!--content-->
             <?php echo $this->content; ?>
 
-        <div id="footer">            
+        <footer id="footer">            
             <?php echo date('Y') ?> &copy; <?php echo $this->translate('Kraków') ?>    
             &ensp;<a href="#" data-toggle="modal" data-target="#contactModal" title="<?php echo $this->translate('Wyślij wiadomość') ?>" rel="tooltip" data-placement="right" class="btn btn-default btn-sm infoo-question"><i class="fa fa-envelope-o"></i>&ensp;<?php echo $this->translate('Kontakt'); ?></a>          
-        </div>         
+        </footer>         
         <?php echo $this->partial('partial/modal_index') ?>       
     </body>
 </html>
