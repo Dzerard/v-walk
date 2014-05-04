@@ -100,9 +100,9 @@
         $('body').on('click', '.companyAboutNav,.companyFilesNav, .companyWorkNav, .companyContactNav', function() {
 
          var scrollTo = $(this).attr('href');           
-         $('#company-modal').animate({
+         $('body #company-modal').animate({
             scrollTop: $(scrollTo).offset().top - 30},
-            'slow');                
+            'medium');                
             return false;
         });        
 

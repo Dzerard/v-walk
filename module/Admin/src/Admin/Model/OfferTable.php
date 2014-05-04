@@ -114,6 +114,7 @@ class OfferTable {
             'offerPhone'        => $offer->offerPhone,  
             'offerImage'        => $offer->offerImage,
             'offerVideo'        => $offer->offerVideo,
+            'offerSocial'       => $offer->offerSocial,
             'offerVisible'      => $offer->offerVisible,
             'offerInsert'       => time(),    
                     

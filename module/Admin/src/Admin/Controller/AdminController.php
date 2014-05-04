@@ -835,7 +835,7 @@ class AdminController extends AbstractActionController
 
             $request = $this->getRequest();
             if ($request->isPost()) {              
-                
+       
                 //usuwanie zdjecia
                 if ($request->getPost('del-picture'))
                 {
@@ -851,18 +851,18 @@ class AdminController extends AbstractActionController
                 }  
                 
                 //zapisywanie 
-                if($request->getPost('submit')) {
+                if($request->getPost('submit')) {                    
                     
                     $form->setInputFilter($offer->getInputFilter());
-                    $form->setData($request->getPost());
-                    
+                    $form->setData($request->getPost());                  
+               
                     if ($form->isValid()) {
                         
                         $nonFile = $request->getPost()->toArray(); 
                         $File = $request->getFiles()->toArray(); 
                         
                         if($File['offerImage']['name'] != '') {    
-                            
+                                                        
                             //validators
                             $size = new Size(array('max'=>5242880));                            
 
@@ -883,7 +883,7 @@ class AdminController extends AbstractActionController
 
                                     if($adapter->receive($File['offerImage']['name'])) {                            
 
-                                           $data = array_merge($nonFile, array('offerImage' => $fileName));
+                                           $data = array_merge($nonFile, array('offerImage' => $fileName, 'offerSocial' => serialize($nonFile['offerSocial'])));
                                            
                                            //save
                                            $offer->exchangeArray($data);  
@@ -905,14 +905,18 @@ class AdminController extends AbstractActionController
                         
                         else {
                             
+                            //taki myk                              
+                            $data = array_merge($nonFile, array('offerSocial' => serialize($nonFile['offerSocial']))); //do walidatora                                                        
+                            $offer->exchangeArray($data);                                           
+                              
                             $this->getOfferTable()->saveOffer($offer);
                             $this->flashmessenger()->addMessage('Poprawnie zapisano.');
-                            // Redirect to list of albums
+                            // Redirect to list of offers
                             return $this->redirect()->toRoute('admin', array('action'=>'offer', 'id'=> $id));
                         }
                     }     
-                    var_dump($form->getMessages());
-                    die;
+//                    var_dump($form->getMessages());
+
                 }  
                 
             }

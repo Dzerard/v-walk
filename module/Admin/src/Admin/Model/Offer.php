@@ -22,6 +22,7 @@ class Offer implements InputFilterAwareInterface
     public $offerPhone;
     public $offerImage;
     public $offerVideo;
+    public $offerSocial;
     public $offerVisible;
     public $offerInsert;
     
@@ -46,6 +47,7 @@ class Offer implements InputFilterAwareInterface
         $this->offerPhone      = (!empty($data['offerPhone'])) ? $data['offerPhone'] : null;
         $this->offerImage      = (!empty($data['offerImage'])) ? $data['offerImage'] : null;
         $this->offerVideo      = (!empty($data['offerVideo'])) ? $data['offerVideo'] : null;
+        $this->offerSocial     = (!empty($data['offerSocial'])) ? $data['offerSocial'] : null;
         $this->offerVisible    = (!empty($data['offerVisible'])) ? $data['offerVisible'] : null;
         $this->offerInsert     = (!empty($data['offerInsert'])) ? $data['offerInsert'] : null;
 

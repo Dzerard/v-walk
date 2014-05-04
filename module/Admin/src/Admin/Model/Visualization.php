@@ -52,6 +52,7 @@ class Visualization
         $this->offerVisible    = (!empty($data['offerVisible'])) ? $data['offerVisible'] : null;
         $this->offerImage      = (!empty($data['offerImage'])) ? $data['offerImage'] : null;
         $this->offerInsert     = (!empty($data['offerInsert'])) ? $data['offerInsert'] : null;  
+        $this->offerVideo      = (!empty($data['offerVideo'])) ? $data['offerVideo'] : null;
     }
   
     public function getArrayCopy()

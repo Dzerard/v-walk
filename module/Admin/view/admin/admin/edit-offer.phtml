@@ -36,7 +36,7 @@
     
 ?>
 <div class="edit-company">
-      
+     
       <?php echo $this->form()->openTag($vForm->setAttribute('class', 'form-horizontal')); ?>        
       <?php echo $this->formHidden($form->get('offerId'));?>      
       <div class="form-group">
@@ -47,7 +47,7 @@
                      <table>                         
                          <tr>
                          
-                         <?php for($grid = 1; $grid <= 25 ; $grid++) :?>                     
+                         <?php for($grid = 1; $grid <= 50 ; $grid++) :?>                     
                             <td>
                                 <?php if($grid == $offer->offerNumber) :?>
                                     <button class="btn btn-default btn-info" title="<?php echo $offer->offerTitle ?>" rel="tooltip" name="gridPlace" value="<?php echo $grid ?>"><i class="fa fa-check-square-o"></i></button>
@@ -57,7 +57,7 @@
                                     <button class="btn btn-default" title="<?php echo $grid ?>" rel="tooltip" name="gridPlace" value="<?php echo $grid ?>"><i class="fa fa-square-o"></i></button>
                                 <?php endif; ?>
                             </td> 
-                            <?php if($grid%5 == 0) : ?>
+                            <?php if($grid%10 == 0) : ?>
                                 </tr><tr> 
                             <?php endif; ?>
                             

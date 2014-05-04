@@ -342,3 +342,10 @@ a.file-box:hover {
 .dropdown-menu.text-left i {
     width:10px;
 }
+.form-group-social .input-group-addon {
+    width: 40px;    
+}
+.form-group-social .input-group {    
+    margin-bottom: 5px;
+    width: 100%;
+}

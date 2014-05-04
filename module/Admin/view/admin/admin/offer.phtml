@@ -72,6 +72,8 @@
         </td>
         <td class="span1 text-center">
             <a href="<?php echo $this->url('admin',
+                    array('action'=>'edit-offer', 'id' => $p->offerId));?>" rel="tooltip" title="<?php  echo $this->translate('wizualizacja') ?>"><i class="fa fa-eye"></i>&ensp;</a>
+            <a href="<?php echo $this->url('admin',
                 array('action'=>'offer', 'id' => $p->offerId));?>" rel="tooltip" title="<?php  echo $this->translate('edycja informacji') ?>"><i class="fa fa-pencil-square-o"></i>&ensp;</a>
             <a href="<?php echo $this->url('admin',
                 array('action'=>'del-offer', 'id' => $p->offerId));?>" rel="tooltip" title="<?php  echo $this->translate('usuń') ?>"><i class="fa fa-trash-o"></i>&ensp;</a>
@@ -80,9 +82,7 @@
                 <a href="#" type="button" class="" data-toggle="dropdown"  rel="tooltip" title="<?php echo $this->translate('pozostałe akcje') ?>">
                     <i class="fa fa-bars"></i>                  
                 </a>
-                <ul class="dropdown-menu text-left">
-                  <li><a href="<?php echo $this->url('admin',
-                    array('action'=>'edit-offer', 'id' => $p->offerId));?>" rel="tooltip" title=""><i class="fa fa-eye"></i>&ensp;&ensp;<?php  echo $this->translate('wizualizacja') ?></a></li>
+                <ul class="dropdown-menu text-left">                  
                   <li><a href="<?php echo $this->url('admin',
                     array('action'=>'message-offer', 'id' => $p->offerId));?>" rel="tooltip" title=""><i class="fa fa-envelope"></i>&ensp;&ensp;<?php  echo $this->translate('wiadomości') ?></a></li>
                   <li><a href="<?php echo $this->url('admin',
@@ -123,6 +123,8 @@
 <?php
     $title = $this->translate('Firmy - edycja');
     $this->headTitle($title);
+    
+    $social = !empty($this->offer->offerSocial) ? unserialize($this->offer->offerSocial) : null;
     
 ?>
 
@@ -232,7 +234,24 @@
              
              </div>
         </div>
-       
+        <div class="form-group form-group-social">
+             <label for="offerSocial" class="col-lg-2 control-label"><?php echo $this->translate('Portale') ?></label>
+             <div class="col-lg-5">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-facebook"></i></span>
+                    <input type="text" class="form-control" placeholder="facebook" value="<?php echo !empty($social['facebook']) ? $social['facebook'] : '' ?>" name="offerSocial[facebook]">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-twitter"></i></span>
+                    <input type="text" class="form-control" placeholder="twitter" value="<?php echo !empty($social['twitter']) ? $social['twitter'] : '' ?>" name="offerSocial[twitter]">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-linkedin"></i></span>
+                    <input type="text" class="form-control" placeholder="linkedin" value="<?php echo !empty($social['linkedin']) ? $social['linkedin'] : '' ?>" name="offerSocial[linkedin]">
+                </div>
+             
+             </div>
+        </div>
         <div class="form-group">
              <label for="offerImage" class="col-lg-2 control-label"><?php echo $this->translate('Logo') ?></label>
              <div class="col-lg-10">

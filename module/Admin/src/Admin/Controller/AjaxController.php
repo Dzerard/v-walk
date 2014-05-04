@@ -199,10 +199,11 @@ class AjaxController extends AbstractActionController
                     $element ['items'][$oCounter]['elementScale']    = $this->giveMeNiceScale($v->visualizationElementScale);   
                     $element ['items'][$oCounter]['offerId']         = $v->visualizationOfferId;   
                     $element ['items'][$oCounter]['offerName']       = $v->offerTitle;   
+                    $element ['items'][$oCounter]['offerVideo']      = $v->offerVideo;   
                     $element ['items'][$oCounter]['elementPosition'] = $this->giveMeNicePosition($v->offerNumber);
                     $element ['items'][$oCounter]['elementMaterial'] = $this->giveMeNiceColor($v->visualizationColor); 
                     $element ['items'][$oCounter]['elementType']     = $this->giveMeNiceElementType($v->visualizationElement);
-
+                    //@todo
                     if($v->visualizationElement == 'other') {
                         $element ['items'][$oCounter]['elementCode'] = $this->giveMeNiceElementCode($v->visualizationElementCode);
                     }
@@ -215,7 +216,7 @@ class AjaxController extends AbstractActionController
             $response->setContent($value);
             $response->setStatusCode(200);
            
-            
+          
         } else {
            $response->setContent('no access'); 
         }        
@@ -291,43 +292,26 @@ class AjaxController extends AbstractActionController
         $zIndex   = 20;
 
         switch ($position) {
-            case ($position < 10):               
-                $oPosition = array(0 => $oNumPos * 50, 2 => 50, 1 => $zIndex);
+
+            case ($position < 10):       
+                $oPosition = array(0 => ($oNumPos * 100) - 550, 1 => $zIndex, 2 => -400 );               
                 break;
             case ($position < 20 && $position > 10):
-                $oPosition = array(0 => $oNumPos * 50, 2=> $oNums * 50,1 => $zIndex);
+                $oPosition = array(0 => ($oNumPos * 100) - 550, 1 => $zIndex, 2 => -200 );               
                 break;
             case ($position < 30 && $position > 20):
-                $oPosition = array(0 => $oNumPos * 50, 2=> $oNums * 50,1 => $zIndex);
+                $oPosition = array(0 => ($oNumPos * 100) - 550, 1 => $zIndex, 2 => 0);
                 break;
             case ($position < 40 && $position > 30):
-                $oPosition = array(0 => $oNumPos * 50, 2=> $oNums * 50,1 => $zIndex);
+                $oPosition = array(0 => ($oNumPos * 100) - 550, 1 => $zIndex, 2 => 200);
                 break;
             case ($position < 50 && $position > 40):
-                $oPosition = array(0 => $oNumPos * 50, 2=> $oNums * 50,1 => $zIndex);
-                break;
-            case ($position < 60 && $position > 50):
-                $oPosition = array(0 => $oNumPos * 50, 2=> $oNums * 50,1 => $zIndex);
-                break;
-            case ($position < 70 && $position > 60):
-                $oPosition = array(0 => $oNumPos * 50, 2=> $oNums * 50,1 => $zIndex);
-                break;
-            case ($position < 80 && $position > 70):
-                $oPosition = array(0 => $oNumPos * 50, 2=> $oNums * 50,1 => $zIndex);
-                break;
-            case ($position < 90 && $position > 80):
-                $oPosition = array(0 => $oNumPos * 50, 2=> $oNums * 50,1 => $zIndex);
-                break;
-            case ($position < 100 && $position > 90):
-                $oPosition = array(0 => $oNumPos * 50, 2=> $oNums * 50,1 => $zIndex);
-                break;
-            case ($position == 100):
-                $oPosition = array(0 => 500, 2 => 500, 1 => $zIndex);
+                $oPosition = array(0 => ($oNumPos * 100) - 550, 1 => $zIndex, 2 => 400);
                 break;
             default :
-                $oPosition = array(0 => 10 * 50, 2 => $oNums* 50, 1 => $zIndex);
-                break;
-          
+                
+                $oPosition = array(0 => 450, 1 => $zIndex, 2 => ($oNums * 200) - 800);       
+                break;          
         }
         return $oPosition;
     }

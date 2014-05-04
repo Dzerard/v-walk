@@ -47,8 +47,8 @@
     
     
     
-jQuery(document).ready(function($) {
-    
+jQuery(document).ready(function($) {    
+   
     function loadInformationCompany() {
         
         $('.show-company').on('click', function() {
@@ -261,7 +261,88 @@ jQuery(document).ready(function($) {
            return false;
         });    
     }
-   
+    function showMap() {
+                
+        $('.map-icon').on('click', '.btn-default', function(){
+            var map    = $('#map');
+            var button = $(this);
+            
+            map.hide();
+            map.removeClass('hidden');          
+            button.tooltip('hide');
+            
+            button.parent().animate({left: "-45px"},300, function(){
+                map.fadeIn();
+            });
+            
+            return false;
+        });
+        
+        $('#map').on('click', '.close', function(){
+            var map       = $('#map');
+            var button    = $('.map-icon .btn-default');
+            
+            map.fadeOut(function(){                
+                button.parent().animate({left: "0px"},300);                    
+            });
+            return false;
+        });
+        
+    }
+    showMap();
+    
+    function showStats() {
+        
+        $('.stats-icon').on('click', '.btn-default', function(){
+            var stats   = $('#stats');
+            var button = $(this);
+            //var close = stats.find('#close-stats');
+            if(!stats.parent().find('.cloosee').length > 0) {
+                
+            
+                var closeBtn = '<a class="close cloosee" id="close-stats" >×</a>';
+
+                stats.after($(closeBtn)
+                        .hide()
+                        .attr('title', 'Ukryj')
+                        .attr('data-placement', 'right')
+                        //.bind('click', function(){ closeStats(stats);})
+                        .tooltip());
+                
+                closeStats();
+            } else {
+               // stats.parent().find('.cloosee').
+            }
+            
+            button.tooltip('hide');
+            button.parent().animate({left: "-45px"},300, function(){
+               stats.fadeIn();
+               stats.next().fadeIn();
+            });
+            
+            return false;
+        });
+        
+        function closeStats() {
+            
+            var item = $('#stats').parent().find('#close-stats');     
+            $(item).on('click', function(e){
+                var closeBtn  = $(this);
+                var stats     = $('#stats');
+                var button    = $('.stats-icon .btn-default');
+                closeBtn.tooltip('hide');
+                closeBtn.hide();
+                stats.fadeOut(function(){                
+                    button.parent().animate({left: "0px"},300);                    
+                });
+                return false;
+            });
+        }
+        
+    }
+    showStats();
+    
+    
    //evolution
 //   $('div.navbar.navbar-default.navbar-fixed-top').mouseover(function(event){
 //        //simulateClick();

@@ -1,11 +1,9 @@
-<?php 
-        echo $this->inlineScript()
-                ->prependFile($this->basePath() . '/js/vwalk-contact.js') ?>
+<?php echo $this->inlineScript()->prependFile($this->basePath() . '/js/vwalk-contact.js') ?>
 
                   <div class="modal-header">
                       <div class="navbar-modal">
                         <div class="navbar navbar-default ">
-                            <div class="container">
+                            <div class="container-fluid">
 
                                 <div class="navbar-header">
                                   <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -177,13 +175,15 @@
                             </div>
                             <div class="col-md-6 triggerAnimation animation fadeInRight" data-animate="fadeInRight" style="">
                                     <div class="contact-info">
-                                            <h1><?php echo $this->translate('Zobacz Nas też tutaj')?></h1>
-                                            <p><?php echo $this->translate('W najbliższym czasie będziemy na targach pracy we Wrocławiu :)') ?></p>
-                                            <span><?php //echo $this->translate('') ?>27.02.2014</span>
-                                            <h4><?php echo $this->translate('Sprawdź nasze profile społecznościowe') ?></h4>								
-                                            <a class="btn btn-default b-twitter" href=""><i class="fa fa-twitter"></i></a>
-                                            <a class="btn btn-default b-faceebok" href=""><i class="fa fa-facebook"></i></a>
-                                            <a class="btn btn-default b-linkedin" href=""><i class="fa fa-linkedin"></i></a>
+                                            <h1><?php echo $this->translate('Kontakt')?></h1>
+<!--                                            <p><?php echo $this->translate('W najbliższym czasie będziemy na targach pracy we Wrocławiu :)') ?></p>
+                                            <span><?php //echo $this->translate('') ?>27.02.2014</span>-->
+                                            <h4><?php echo $this->translate('Nasze profile społecznościowe') ?></h4>								
+           
+                                            <?php $social = !empty($this->offer->offerSocial) ? unserialize($this->offer->offerSocial) : null; ?>
+                                            <a class="btn btn-default b-twitter"  <?php echo !empty($social['twitter']) ? 'href="'.$social['twitter'].'" target="_blank"' : 'href="#"' ?>><i class="fa fa-twitter"></i></a>
+                                            <a class="btn btn-default b-faceebok" <?php echo !empty($social['facebook']) ? 'href="'.$social['facebook'].'" target="_blank"' : 'href="#"' ?> ><i class="fa fa-facebook"></i></a>
+                                            <a class="btn btn-default b-linkedin" <?php echo !empty($social['linkedin']) ? 'href="'.$social['linkedin'].'" target="_blank"' : 'href="#"' ?> ><i class="fa fa-linkedin"></i></a>
                                     </div>
                                     <ul class="contact-info-list">                                                                             
                                             <li><i class="fa fa-envelope"></i>&ensp;<a href="#"><?php echo $this->offer->offerEmail ?></a></li>
