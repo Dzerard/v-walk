@@ -18,7 +18,8 @@
                         'en'        : 'UK',
                         'mail_send' : 'Message has been send',
                         'mail_err'  : 'Error occured',
-                        'loading'   : 'Loading ...'
+                        'loading'   : 'Loading ...',
+                        'Ukryj'     : 'Hide'
                     }
                 };
     //tranalstor
@@ -304,7 +305,7 @@ jQuery(document).ready(function($) {
 
                 stats.after($(closeBtn)
                         .hide()
-                        .attr('title', 'Ukryj')
+                        .attr('title', translator('Ukryj'))
                         .attr('data-placement', 'right')
                         //.bind('click', function(){ closeStats(stats);})
                         .tooltip());

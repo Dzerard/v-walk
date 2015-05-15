@@ -123,8 +123,34 @@
 
                 if(item.elementType === 'SphereGeometry') {
                     oGeometry = new THREE.SphereGeometry(oItemSize[0],oItemSize[1],oItemSize[2]);
+                                    //dodwanie materialu (kolor,siatka, ...) 
+                    oMaterial = new THREE.MeshLambertMaterial({color: oItemMaterial, wireframe:false, shading: THREE.FlatShading });
+                    //tworzenie siatki
+                    oMesh     = new THREE.Mesh(oGeometry, oMaterial);
+                    //pozycja siatki
+                    oMesh.position.set(oItemPosition[0],oItemPosition[1],oItemPosition[2]);
+                    //skalowanie
+                    oMesh.scale.set( oItemScale[0], oItemScale[1], oItemScale[0]);
+                    //dodawanie do sceny
+                    oMesh.offerID = parseInt(item.offerId); // po tym doladowywujemy ajax
+                    scene.add(oMesh);
+                    targetList.push(oMesh);
+                    
                 } if(item.elementType === 'CubeGeometry'){
                     oGeometry = new THREE.CubeGeometry(oItemSize[0],oItemSize[1],oItemSize[2]); 
+                                        //dodwanie materialu (kolor,siatka, ...) 
+                    oMaterial = new THREE.MeshLambertMaterial({color: oItemMaterial, wireframe:false, shading: THREE.FlatShading });
+                    //tworzenie siatki
+                    oMesh     = new THREE.Mesh(oGeometry, oMaterial);
+                    //pozycja siatki
+                    oMesh.position.set(oItemPosition[0],oItemPosition[1],oItemPosition[2]);
+                    //skalowanie
+                    oMesh.scale.set( oItemScale[0], oItemScale[1], oItemScale[0]);
+                    //dodawanie do sceny
+                    oMesh.offerID = parseInt(item.offerId); // po tym doladowywujemy ajax
+                    scene.add(oMesh);
+                    targetList.push(oMesh);
+                    
                 } if(item.elementType === 'other') {
                         
                         var loader    = new THREE.JSONLoader();    
@@ -177,16 +203,7 @@
                 var titleMesh = addTitleonTop(item);
                 scene.add(titleMesh);
                 
-                //dodwanie materialu (kolor,siatka, ...) 
-                oMaterial = new THREE.MeshLambertMaterial({color: oItemMaterial, wireframe:false, shading: THREE.FlatShading });
-                //tworzenie siatki
-                oMesh     = new THREE.Mesh(oGeometry, oMaterial);
-                //pozycja siatki
-                oMesh.position.set(oItemPosition[0],oItemPosition[1],oItemPosition[2]);
-                //skalowanie
-                oMesh.scale.set( oItemScale[0], oItemScale[1], oItemScale[0]);
-                //dodawanie do sceny
-                scene.add(oMesh);
+
             });  
         });        
       

@@ -1,2 +1,7 @@
+#AuthType Basic
+#AuthName "Restricted"
+#AuthUserFile .htpasswd
+#Require valid-user
+
 RewriteEngine on
 RewriteRule ^(.*)$ public/$1 [L]
