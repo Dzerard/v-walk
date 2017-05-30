@@ -1,0 +1,58 @@
+input.parsley-success,
+select.parsley-success,
+textarea.parsley-success {
+  /*  color: #468847;*/
+  /*border: 1px solid #3c763d;*/
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+}
+
+input.parsley-error,
+select.parsley-error,
+textarea.parsley-error {
+  color: #d95e46;
+  border: 1px solid #d95e46;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+}
+
+.parsley-errors-list {
+  color: #d95e46;
+  margin: 2px 0 3px;
+  padding: 0;
+  list-style-type: none;
+  font-size: 0.9em;
+  line-height: 0.9em;
+  text-align: center;
+  font-size: 12px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  /*  transition: all .3s ease-in;
+    -o-transition: all .3s ease-in;
+    -moz-transition: all .3s ease-in;
+    -webkit-transition: all .3s ease-in;*/
+  li {
+    -webkit-animation-name:fadeInDown;
+    animation-name:fadeInDown;
+    -webkit-animation-duration: .2s;
+    animation-duration: .2s;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+  }
+}
+.parsley-errors-list.filled {
+  /*opacity: 1;*/
+}
+
+.input-group {
+  .parsley-error {
+
+    &.form-control {
+      border-color: #d95e46;
+    }
+
+    +.input-group-addon {
+      border-color: #d95e46;
+    }
+  }
+}

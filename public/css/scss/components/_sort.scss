@@ -1,0 +1,59 @@
+.sort-wrapper {
+
+    .nav-tabs {
+
+        >li {
+            margin-bottom: 0;
+
+            &.active {
+
+                > a {
+                    background: transparent;
+                    border-color: transparent;
+                    color: $color-green;
+
+                    &:after {
+                        content: '';
+                        width: 70%;
+                        position: absolute;
+                        left: 15%;
+                        bottom: -3px;
+                        border-bottom: 3px solid $color-yellow;
+                    }
+                }
+            }
+
+            a {
+                color: $color-navi-text;
+                border-radius: 0;
+                padding: 5px 15px;
+                position: relative;
+                border: 0 !important;
+                font-size: 16px;
+            }
+        }
+
+        .dropdown-toggle {
+            padding-right: 30px;
+
+            .arrow {
+                display: inline-block;
+                position: absolute;
+                right: 15px;
+                top: 5px;
+                width: 12px;
+            }
+        }
+
+        .dropdown-menu {
+            
+            > li.active {
+                
+                > a {
+                    color: $color-white;
+                    background: $color-green;
+                }
+            }
+        }
+    }
+}

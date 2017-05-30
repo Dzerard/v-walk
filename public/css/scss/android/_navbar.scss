@@ -1,0 +1,67 @@
+.navbar-mobile {
+    background: $color-white;
+    min-height: 60px;
+
+    @include mobile-xs {
+        min-height: 50px;
+    }
+
+    .navbar-header {
+        float: none;
+        text-align: center;
+    }
+
+    .navbar-brand {
+        color: $color-navi-text;
+        font-size: 40px;
+        font-weight: 700;
+        float: none;
+        display: inline-block;
+        box-sizing: content-box;
+        line-height: 1;
+
+        @include mobile-xs {
+            font-size: 20px;
+            height: 22px;
+        }
+    }
+}
+
+.navbar-navi {
+
+    .col-xs-3 {
+
+        @include mobile-xs {
+            text-align: left;
+            padding-left: 10px;
+        }
+    }
+
+    h2 {
+        text-align: center;
+        margin-top: .6em;
+
+        @include mobile-xs {
+            margin-top: .7em;
+            font-size: 1.3em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        @include mobile-xxs {
+            margin-top: 1em;
+            font-size: 1.1em;
+        }
+    }
+
+    .btn-back {
+        margin-top: .2em;
+
+        @include mobile-xs {
+            padding: .5em 1em;
+            font-size: 1em;
+            margin-top: .5em;
+        }
+    }
+}

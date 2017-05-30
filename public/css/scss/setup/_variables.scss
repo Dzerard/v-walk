@@ -1,0 +1,58 @@
+$color-white:           #fff;
+$color-black:           #000;
+
+
+$color-green:           #91b50d;
+$color-green-dark-2:    #47690b;
+$color-theme-1:         #84d0d3;
+$color-border:          #f0f0f0;
+$gray-color-light:      #ebebeb;
+$color-grey-alt:        $gray-color-light;
+$color-dark-grey:       #666;
+$color-link:            $color-green;
+$color-yellow:          #e8bd05;
+$body-background:       #f4f4f4;
+$color-reddy:           #a32e1e;
+$color-bet-border:      #d7d7d7;
+$color-bet-more:        #e0f889;
+$color-green-dark:      #81a209;
+$border-color-success:  #8aad0a;
+$tag-color:             #a5c606;
+$tag-overlay:           #d7d7d7;
+$color-input-border:    #ccc;
+$color-error:           #d95e46;
+$tag-person-bg:         #edfbba;
+$sidebar-border:        #eaeaea;
+$color-text:            #4b4747;
+$color-navi-text:       #797e7e;
+$color-navabr-border:   #dcdcdc;
+$color-border-focus:    #66afe9;
+$color-text-in-big-bet: #999696;
+$color-light-green:     #bcd65b;
+$color-orange:          #dbb200;
+$color-waiting-bg:      #fffdf3;
+$color-bg-success:      #f9ffe5;
+$color-bg-danger:       #fdece0;
+$color-text-danger:     #ff6100;
+$color-green-2:         #7e9d0b;
+$color-breadcrumbs:     #c4c4c4;
+$color-veryl-green:     #e1e8c8;
+$btn-success-hover:     #bcdd44;
+
+//awesome bootstrap checkbox
+$fa-var-check:      "\e623";
+$font-family-icon:  "icomoon";
+$font-default:      "Lato", 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$icon-font-path:    "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
+
+// MQ breakpoints
+$mqXLarge:        1260px;
+$mqLarge:         1200px;
+$mqMedium:        991px;
+$mqBreak:         925px; //custom
+$mqBreakSm:       800px;
+$mqTablet:        768px;
+$mqMobile:        600px;
+$mqMobileXs:      480px;
+$mqMobileXsNav:   400px;
+$mqMobileXXs:     360px;

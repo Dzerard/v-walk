@@ -1,0 +1,96 @@
+// Sidebar
+
+.sidebar {
+  width: 220px;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: $color-bg-sidebar;
+  color: $color-black;
+  padding: 25px 0;
+  box-shadow: -3px 0px 9px -5px rgba(0, 0, 0, 0.5) inset;
+  overflow: hidden;
+  z-index: 10;
+  /*transition: transform .3s ease-in-out;*/
+  transition: transform .4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  
+  @include tablet-sm {
+    transform: translate(-220px);
+  }
+  
+  &.active {  
+    transform: translate(0px);
+  }
+}
+
+.sidebar-logo {
+  text-align: center;
+  margin-bottom: 35px;
+  
+  @include tablet-sm {
+    margin-left: 20px;
+    margin-top: -20px;
+  }
+  
+  img {
+    display: inline-block;
+    max-width: 100%;
+  }
+}
+
+.siebar-add-new-work {
+  text-align: center;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.sidebar-user {
+  padding: 0 25px 0 50px;
+  margin-bottom: 15px;
+  
+  > div {
+    display: inline-block;
+    float: left;
+  }
+  
+  @include clearfix;
+}
+
+.sidebar-user-avatar {
+  border-radius: 50%;
+  background-color:  $color-dark-red;
+  width: 20px;
+  height: 20px;
+  color: $color-white;
+  text-align: center;
+  font-size: 12px;
+  line-height: 20px;
+  margin-right: 5px;
+  margin-left: -25px;
+}
+
+.sidebar-user-name {
+  color: $color-black;
+  line-height: 20px;
+  vertical-align: bottom;
+  width: 100%;
+}
+
+.sidebar-user-links {
+  font-weight: 700;
+}
+
+//toggle sidebar for mobile
+.navbar-toggle {
+  position: absolute;
+  left: 0;
+  font-size: 18px;
+  line-height: 1;
+  z-index: 11;
+  transition: color .3s ease-in-out;
+  
+  &:hover {
+    color: $color-grey-alt;
+  }
+}

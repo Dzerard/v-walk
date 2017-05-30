@@ -1,0 +1,129 @@
+.comment-wrapper { 
+    
+    .add-comment {
+        margin-top: 5px;
+    }
+
+    .media-body {
+        
+        .comment-message {
+            margin-top: 25px;
+            background: $color-white;        
+            border: 1px solid $color-bet-border;
+            border-radius: 5px;
+            padding: 5px 15px 15px;
+            
+            @include mobile {
+                padding: 5px 10px 15px;
+            }
+        }        
+    }
+
+    .media-heading {
+        font-size: 13px;
+        line-height: 30px;
+        margin-top: 0;
+        font-weight: 700;
+    }
+
+    .media-left {
+        min-width: 95px;
+        
+        @include mobile {
+            vertical-align: middle;
+        }
+
+        .green {
+            font-size: 10px;
+            display: block;
+        }
+
+        > div {
+            text-align: center;
+        }
+    }
+
+    .comments {
+        margin-top: 25px;
+
+        .comment-message {
+            position: relative;
+        }
+
+        .dropdown {
+            position: absolute;
+            right: 0;
+            top: 5px;
+        }        
+    }
+    
+    .comment {
+        
+        +.comment {
+            margin-top: 0;
+        }
+    }
+
+    .comment-content {
+        color: $color-text-in-big-bet;
+        font-size: 14px;        
+        margin-top: 10px;
+        word-break: break-all;
+    }
+    
+    .comment-add-time {
+        color: $color-green;
+        font-size: 12px;
+        font-weight: 700;
+        width: 150px;
+        text-align: right;
+        display: inline-block;
+        position: absolute;
+        top: 12px;
+        right: 15px;
+    }
+    
+    .dropdown-toggle {
+        background: transparent;
+        color: $color-green;
+        font-size: 12px;
+        font-weight: 700;
+        width: 150px;
+        text-align: right;
+    }
+
+    .dropdown-menu {
+        padding: 2px 0;
+        margin-left: 37.5px;
+
+        >li {
+
+            > a {
+                font-size: 12px;
+                padding: 2px 15px;
+
+                i {
+                    display: inline-block;
+                    width: 16px;
+                    text-align: center;
+                }
+            }
+        }
+    }
+    
+    .load-more-comments {
+        margin-top: 20px;
+        margin-left: 95px;
+    }
+    
+    time {
+        visibility: invisible;
+        opacity: 0;
+        transition: all .2s ease-in-out;
+        
+        &.visible {
+            visibility: visible;
+            opacity: 1;
+        }
+    }        
+}

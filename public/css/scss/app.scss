@@ -1,0 +1,58 @@
+// Setup Dependencies
+@import "setup/variables";
+@import "setup/mixins";
+@import "setup/fonts";
+//
+//// Bootstrap overwrite
+//@import "setup/bootstrap/layout";
+//
+///* =========================================================================
+//   Custom Styling
+//   ========================================================================= */
+//
+//// addons
+//@import "addons/_toastr.scss";
+//@import "addons/awesome-bootstrap-checkbox";
+//@import "addons/animations";
+//@import "addons/parsley";
+//@import "addons/tagsinput";
+//@import "addons/datetimepicker";
+//@import "addons/typeahead";
+//@import "addons/perfect-scrollbar";
+//@import "addons/charts";
+//@import "addons/select2";
+//@import "addons/multiselect";
+////@import "cropper/src/scss/cropper";
+//@import "addons/bootstrap-slider";
+//
+
+// Common styles & layouts
+@import "common/base";
+//@import "common/utilities";
+@import "common/layout";
+//
+//// Components
+//@import "components/forms";
+//@import "components/navbar";
+//@import "components/footer";
+//@import "components/categories";
+//@import "components/sections";
+//@import "components/notifications";
+//@import "components/bet";
+//@import "components/user";
+//@import "components/sort";
+//@import "components/slider";
+//@import "components/modal";
+//@import "components/last-man";
+//@import "components/filtrownica";
+//@import "components/tables";
+//@import "components/search";
+//@import "components/comments";
+//@import "components/breadcrumbs";
+//@import "components/messages";
+//@import "components/chat";
+
+body {
+  display: none;
+  background: red;
+}

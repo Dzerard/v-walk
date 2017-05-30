@@ -1,0 +1,224 @@
+.enevelope-message {
+    line-height: 18px;
+
+    /*    &:before {
+            color: $color-yellow;
+            content: "\e959";
+            font-family: 'icomoon';
+        }*/
+}
+
+.navbar-nav>li {
+
+    >.dropdown-menu {
+        z-index: 10;
+        border-color: $color-navabr-border;
+        border-radius: 2px;
+        margin-top: -5px;
+    }
+
+    &.dropdown.open {
+        &:before {
+            margin-top: -8px;
+        }
+    }
+
+    .dropdown-header {
+        background: $color-white;
+        color: $color-green;
+        border: 0;
+
+        h4 {
+            @extend %clearfix;
+
+            margin: 0;
+            text-transform: uppercase;
+            font-size: 14px;
+            text-align: left;
+            padding: 5px 0;
+            border-bottom: 1px solid;
+            position: relative;
+
+            a {
+                color: $color-green;
+                font-size: 12px;
+                line-height: 15px;
+                text-transform: initial;
+                transition: all .2s ease-in-out;
+                position: absolute;
+                right: 0;
+                bottom: 5px;
+
+                &:hover {
+                    text-shadow: 0 0 1px $color-green;
+                }
+            }
+        }
+    }
+}
+
+.dropdown-menu {
+    z-index: 1;
+    border-color: $color-navabr-border;
+    border-radius: 2px;
+
+    > li > a {
+        color: $color-navi-text;
+        padding: 4px 20px;
+    }
+
+    .divider {
+        margin: 0;
+    }
+}
+
+.dropdown-notifications {
+
+    padding-bottom: 5px;
+    width: 400px;
+    border-radius: 0;
+    padding: 0;
+
+    .notification-items-holder {
+
+        &:after {
+            content: '';
+            height: 1px;
+        }
+    }
+
+    a {
+        text-decoration: none;
+        color: $color-text-in-big-bet;
+    }
+
+    .dropdown-header {
+        background-color: $body-background;
+        border-top: 1px solid #eaedf1;
+        border-bottom: 1px solid #eaedf1;
+        text-align: center;
+        padding: 3px 15px;
+    }
+
+    .notification-items-holder {
+        position: relative;
+        max-height: 282px;
+        overflow: hidden;
+
+        .notification-time {
+            display: inline-block;
+            width: 25%;
+            text-align: right;
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            color: $color-text;
+        }
+
+        > .item {
+            position: relative;
+            border-top: 1px solid #eaeaea;
+
+            &:hover {
+                background: #fafafa;
+                /*@include box-shadow(0, 0, 1px, rgba(0, 0, 0, 0.5), inset);*/
+                @include transition(all, 0.2s, ease-in-out);
+            }
+
+            &:first-child {
+                border-top: 0;
+            }
+        }
+
+        &:not(.divider) {
+            padding: 5px 15px;
+            font-size: 11px;
+        }
+    }
+}
+
+.notification-item {
+    color: $color-text;
+    text-transform: none;
+    position: relative;
+    text-decoration: none;
+    display: block;
+
+    &:hover {
+        .notification-content .notification-title {
+            color: $color-green;
+        }
+    }
+
+    .notification-description {
+        color: $color-text-in-big-bet;
+    }
+
+    .notification-content {
+        width: 80%;
+    }
+
+    .btn-sm {
+        padding: 3px 6px;
+    }
+}
+
+.notification-header {
+    position: relative;
+}
+
+.notification-settings {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 4px;
+    font-size: 13px;
+    background: transparent !important;
+    transition: transform .2s ease-in-out;
+
+    &:hover {
+        transform: scale(1.2);
+    }
+
+    &:before {
+        content: "\e91b";
+        font-family: 'icomoon';
+    }
+}
+
+.notification-title {
+    font-weight: bold;
+    margin: 0;
+    font-size: 11px;
+}
+
+.notification-time {
+    font-size: 9px;
+}
+
+.notification-content {
+    padding: 5px;
+    display: inline-block;
+    color: $color-text;
+    font-weight: 400;
+    width: 75%;
+}
+
+.mess-counter {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: bold;
+    color: $color-green;
+    position: absolute;
+    left: 32px;
+    top: 25px;
+
+    @include mobile-xs {
+        margin-left: -5px;
+        font-size: 10px;
+    }
+}

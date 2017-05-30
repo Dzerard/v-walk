@@ -1,0 +1,26 @@
+.breadcrumbs-wrapper {
+    background: $color-white;
+    
+    @include mobile {
+        display: none;
+    }
+}
+
+.breadcrumb {
+    margin-bottom: 10px;
+    padding-left: 0;
+    
+    >li {
+        color: $color-breadcrumbs;
+        font-size: 12px;
+    }
+    
+    a {
+        color: $color-breadcrumbs;
+        transition: color .2s ease-in-out;
+        
+        &:hover, &:focus {
+            color: $color-green;
+        }
+    }
+}

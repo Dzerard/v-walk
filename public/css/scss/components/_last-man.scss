@@ -1,0 +1,192 @@
+.last-man-standing {
+    margin-top: 50px;
+    width: 100%;
+
+    .award-place {
+        padding: 20px;
+        text-align: center;
+        background-image: url('/public/img/award-bg-green.jpg');
+        background-size: cover;
+        background-position: center center;
+        color: $color-white;
+        font-size: 60px;
+        font-weight: 400;
+        line-height: 1;
+    }
+
+    .bet-box-big .btn {
+
+        @include tablet {
+            min-width: inherit;
+            width: 100%;
+        }
+    }
+
+    .bet-box .bet-time-left small {
+        font-size: 85%;
+    }
+
+    .award-first {
+
+        .bet-box {
+            z-index: 1;
+            border-radius: 0;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            background-color:  #e8bd05;
+            border: 0;
+            border-top: 1px solid transparent;
+            margin-left: -1px;
+            margin-right: -1px;
+            background-image: url('/public/img/award-bg-yellow.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+
+            .bet-single-head {
+                margin-top: -50px;
+                margin-bottom: 25px;
+            }
+
+            .bet-versus {
+                margin-top: -25px;
+            }
+        }
+
+        .award-place {
+            background-image: none;
+        }
+
+        .award-bet-details {
+            border-top: 1px solid #fed10f;
+            border-bottom: 1px solid #fed10f;
+
+            span {
+                color: #b08f01;
+            }
+        }
+
+        .bet-title {
+            color: $color-white;
+
+            small {
+                color: $color-white;
+            }
+        }
+    }
+
+    .award-bet-details {
+        border-top: 1px solid #eaeaea;
+        padding: 20px 0;
+        margin-bottom: 15px;
+        border-bottom: 1px solid #eaeaea;
+        font-size: 13px;
+        white-space: nowrap;
+
+        span {
+            color: $color-green;
+        }
+
+        i {
+            font-size: 15px;
+            font-weight: 700;
+            width: 20px;
+            display: inline-block;
+            text-align: center;
+        }
+        ul {
+            margin:0;
+            @extend %clearfix;
+
+            >li {
+                padding: 0;
+                width: 20%;
+                float: left;
+
+                &:first-child {
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    display: inline;
+                    overflow: hidden;
+                }
+
+                &:first-child,
+                    &:last-child {
+                    width:40%;
+                }
+            }
+        }
+    }
+
+    > ul {
+        margin:0;
+        @extend %clearfix;
+
+        @include mobile {
+            display: flex;
+            flex-direction: column;
+        }
+
+        >li {
+            padding: 0;
+            float: left;
+            width: calc(100% / 3);
+
+            @include mobile {
+                width: 100%;
+            }
+
+            order: 1;
+
+            &:first-child {
+                order: 2;
+            }
+
+            &:last-child {
+                order: 3;
+            }
+        }
+    }
+
+
+    .bet-box {
+        border-radius: 0;
+        border-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .award-second {
+
+        .bet-box {
+            border-top-left-radius: 5px;
+        }
+    }
+
+    .award-last {
+
+        .bet-box {
+            border-top-right-radius: 5px;
+        }
+    }
+
+    .bet-details-content {
+        padding: 0 30px 15px;
+
+        @include large {
+            padding: 0 10px 15px;
+        }
+
+        @include mobile {
+            padding: 0 10px 15px;
+        }
+    }
+
+    .bet-box-big .bet-title {
+        text-shadow: 0 0 2px #ccc;
+    }
+
+    .award-type {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+}

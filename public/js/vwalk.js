@@ -1,6 +1,4 @@
-
-    
-     var locale   = $('html').attr('lang');    
+     var locale   = $('html').attr('lang');
      var messages = {'pl': {
                         'switching' : 'Zmieniam język',
                         'ok'        : 'Język został zmieniony',
@@ -22,6 +20,7 @@
                         'Ukryj'     : 'Hide'
                     }
                 };
+
     //tranalstor
     function translator(text) {
         

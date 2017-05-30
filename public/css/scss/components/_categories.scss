@@ -1,0 +1,222 @@
+.categories-dropdown {
+    .mega-categories-menu {
+        animation: fadeOut 2s linear forwards;
+        min-width: 640px;
+        left: -50%;
+
+        @include tablet {
+            min-width: inherit;
+            left: auto;
+        }
+    }
+
+    &.open {
+
+        .mega-categories-menu {
+            animation: fadeIn .2s linear forwards;
+        }
+    }
+
+    .mega-categories-menu {
+
+        >li {
+
+            >a {
+                padding: 4px 10px;
+            }
+        }
+    }
+}
+
+.mega-categories-menu {
+    height: 130px;
+    width: 100%;
+    border-radius: 0;
+    overflow: hidden;
+
+    @include tablet {
+        height: 365px;
+        margin-bottom: 0;
+        list-style-type: none;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 0;
+        position: relative;
+    }
+
+    >li {
+        color: $color-text;
+        font-size: 14px;
+        font-weight: 400;
+
+        @include tablet {
+            margin-bottom: 15px;
+        }
+
+        >a {
+            font-size: 12px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+
+            @include tablet {
+                color: $color-text;
+                text-decoration: none;
+                font-size: 14px;
+            }
+
+            span {
+                vertical-align: middle;
+            }
+
+            &:hover {
+                img {
+                    transform: scale(1.1);
+                    opacity: .8;
+                }
+            }
+        }
+    }
+
+    figure {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        border: 1px solid $tag-overlay;
+        border-radius: 5px;
+        overflow: hidden;
+        position: relative;
+        vertical-align: middle;
+        margin-right: 3px;
+
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            transition: transform .2s ease-in-out, opacity .2s ease-in-out;
+        }
+    }
+}
+
+.categories-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 40px -10px;
+
+    @include tablet {
+        margin-top: 30px;
+    }
+
+    > li {
+        margin-bottom: 20px;
+
+        .media {
+            display: block;
+            color: $color-text;
+            transition: color .2s ease-in-out;
+
+            &:hover {
+                color: $color-text-in-big-bet;
+
+                img {
+                    transform: scale(1.1);
+                    opacity: .8;
+                }
+            }
+        }
+
+        .media-left {
+            padding-right: 15px;
+
+            figure {
+                width: 80px;
+                height: 80px;
+                display: block;
+                border: 1px solid $tag-overlay;
+                border-radius: 5px;
+                overflow: hidden;
+                position: relative;
+
+                @include tablet {
+                    width: 50px;
+                    height: 50px;
+                }
+
+                @include mobile-xs {
+                    width: 40px;
+                    height: 40px;
+                }
+
+                img {
+                    max-width: 100%;
+                    max-height: 100%;
+                    transition: transform .2s ease-in-out, opacity .2s ease-in-out;
+                    border-radius: 5px;
+                }
+            }
+        }
+
+        .media-heading {
+            font-size: 20px;
+            font-weight: 400;
+            margin-bottom: 0;
+
+            @include tablet {
+                font-size: 18px;
+            }
+
+            @include mobile {
+                font-size: 16px;
+            }
+
+            @include mobile-xs {
+                font-size: 14px;
+            }
+        }
+
+        &.small-item {
+
+            .media-left {
+
+                figure {
+                    width: 60px;
+                    height: 60px;
+
+                    @include tablet {
+                        width: 50px;
+                        height: 50px;
+                    }
+
+                    @include mobile-xs {
+                        width: 40px;
+                        height: 40px;
+                    }
+                }
+            }
+
+            .media-heading {
+                font-size: 17px;
+
+                @include tablet {
+                    font-size: 18px;
+                }
+
+                @include mobile {
+                    font-size: 16px;
+                }
+
+                @include mobile-xs {
+                    font-size: 14px;
+                }
+            }
+        }
+
+        .break {
+            height: 20px;
+            display: block;
+
+            @include tablet {
+                height: 0;
+            }
+        }
+    }
+}

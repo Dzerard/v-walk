@@ -1,0 +1,131 @@
+.bet-table-answers  {
+
+    .table-responsive {
+        border: 0;
+    }
+
+    .table {
+
+        @include mobile {
+            min-width: 270px;
+        }
+
+        > tbody {
+
+            > tr {
+
+                > td {
+                    &:first-child,
+                        &:last-child {
+                        @include mobile {
+                            white-space: normal;
+                            max-width: 80px;
+                            font-size: 12px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .table-striped {
+        thead {
+            >tr {
+                >th {
+                    background: $color-white;
+                }
+            }
+        }
+    }
+
+    .table-easydare {
+        >tbody {
+            >tr {
+                >td {
+                    padding-top: 2px;
+                    padding-bottom: 2px;
+                }
+            }
+        }
+
+        thead {
+            >tr {
+                >th {
+                    background: $color-white;
+
+                    &.wide-title {
+                        text-align: left;
+                        padding-left: 20px;
+
+                        &:after {
+                            content: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.table-easydare {
+    thead {
+        th {
+            background: $color-white;
+
+            &.wide-title {
+                width: 55%;
+            }
+        }
+    }
+
+    >tbody {
+        >tr {
+            >th {
+                border-top: 1px solid #dcdcdc;
+                vertical-align: middle;
+                color:  #999696;
+                font-size: 13px;
+                text-align: left;
+                letter-spacing: .4px;
+
+                label {
+                    margin-bottom: 0;
+                    padding-left: 15px;
+                }
+            }
+
+            &:last-child>th {
+                border-bottom: 1px solid #d7d7d7;
+            }
+
+            >td {
+                border-color: #dcdcdc !important;
+            }
+        }
+    }
+
+    >tbody>tr:nth-of-type(even) {
+        background-color: #f8f7f7;
+    }
+
+    >tbody>tr:nth-of-type(odd) {
+        background-color: transparent;
+    }
+}
+
+
+.history-table {
+    margin-top: 1px;
+
+    .bet-list {
+        margin: 0;
+    }
+
+    .table tbody > tr {
+
+        > td {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+    }
+}

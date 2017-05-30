@@ -1,0 +1,98 @@
+.easy-control {
+    border-color: $color-green;
+    border-radius: 3px;
+
+    @include placeholder-attr {
+        color: $color-green;
+    }
+}
+
+.big-search-autocomplete {
+    padding: 60px 0 35px;
+
+    @include tablet {
+        padding: 30px 0 5px;
+    }
+
+    &.all {
+        padding: 0 0 35px;
+
+        @include tablet {
+            padding: 0 0 35px;
+        }
+    }
+
+    .form-control {
+        font-size: 20px;
+        height: 72px;
+        padding: 6px 24px;
+        box-shadow: none;
+        border: 1px solid $color-green;
+        border-radius: 3px;
+        border-right: 0;
+
+        @include tablet {
+            font-size: 18px;
+            height: 55px;
+            padding-left: 14px;
+        }
+
+        @include placeholder-attr {
+            color: $color-green;
+        }
+
+        &:focus {
+            border-color: $color-green-2;
+            /*box-shadow: inset 0 1px 1px $color-green-2;*/
+
+            + .input-group-btn .btn {
+                border-color: $color-green-2;
+                /*box-shadow: inset 0 1px 1px $color-green-2;*/
+            }
+        }
+    }
+
+    .input-group-btn {
+
+        .btn {
+            font-size: 20px;
+            border: 1px solid $color-green;
+            border-left: 0;
+            background: $color-white;
+            height: 72px;
+            color: $color-green;
+            padding-right: 24px;
+            outline: none;
+
+            @include tablet {
+                height: 55px;
+                color: $color-green-dark;
+                padding-right: 14px;
+            }
+        }
+    }
+
+    .align-vertically {
+        margin-bottom: 25px;
+
+        span {
+            color: $color-green;
+            position: relative;
+            font-size: 20px;
+            padding-left: 15px;
+        }
+
+        .btn-warning {
+            height: 60px;
+            vertical-align: middle;
+            text-transform: uppercase;
+            line-height: 38px;
+            margin-left: 30px;
+
+            @include tablet {
+                line-height: 33px;
+                height: 55px;
+            }
+        }
+    }
+}

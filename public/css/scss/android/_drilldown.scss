@@ -1,0 +1,32 @@
+.drilldown a {
+    text-decoration: none;
+}
+
+.drilldown ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.drilldown li {
+    /*border-bottom: 1px dotted #d0d0d0;*/
+}
+
+.drilldown {
+    overflow: hidden;
+    width: 100%;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+
+.drilldown-sub { display: none; }
+
+.drilldown-back { font-weight: bold; }
+
+
+.drilldown-container {
+
+    &.btn-group-bet {
+        text-align: left;
+    }
+}

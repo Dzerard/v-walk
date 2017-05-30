@@ -1,0 +1,224 @@
+.single-mobile-bet {
+    border-radius: 5px;
+    border: 1px solid $color-bet-border;
+    background-color: $color-white;
+    padding: 10px;
+    margin-bottom: 20px;
+    position: relative;
+
+    .time-left {
+        font-size: 20px;
+        margin-top: 10px;
+    }
+
+    em {
+        font-style: normal;
+    }
+
+    .small {
+        margin-bottom: .1em;
+        text-transform: lowercase;
+    }
+
+    .btn-success.btn-lg {
+        margin-top: 20px;
+    }
+
+    .b-label-judge-until {
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+}
+
+.b-rival-answer {
+    padding-bottom: 10px;
+    border-bottom: 1px solid $color-hr;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.b-type-price {
+    position: relative;
+    padding: 5px 5px 10px;
+    border-bottom: 1px solid $color-hr;
+
+    &:before {
+        content: '';
+        width: 1px;
+        border-left: 1px solid $color-hr;
+        position: absolute;
+        height: calc(100% - 10px);
+        left: 50%;
+        min-height: 30px;
+        top: 5px;
+    }
+
+    &.no-border-right {
+        &:before {
+            content: none;
+        }
+    }
+
+    .bet-private b {
+        top: 6px;
+        right: -39px;
+        font-size: 8px;
+        box-shadow: none;
+    }
+}
+
+.b-rival-box {
+    text-align: center;
+    position: relative;
+    border-top: 1px solid $color-hr;
+    border-bottom: 1px solid $color-hr;
+    margin-bottom: 5px;
+    padding: 10px 0;
+
+    &:before {
+        content: '';
+        width: 100px;
+        height: 60px;
+        background-image: url('/public/img/vs.png');
+        z-index: 1;
+        background-repeat: no-repeat;
+        display: block;
+        background-repeat: no-repeat;
+        background-size: contain;
+        position: absolute;
+        left: 50%;
+        margin-left: -50px;
+        top: 15px;
+    }
+
+    h4 {
+        color: $color-text;
+        font-size: 16px;
+    }
+}
+
+
+.b-rival-box-many {
+    text-align: center;
+    position: relative;
+    border-top: 1px solid $color-hr;
+    border-bottom: 1px solid $color-hr;
+    margin-bottom: 5px;
+    padding: 10px 0;
+
+    h4 {
+        color: $color-text;
+        font-size: 16px;
+    }
+}
+
+.b-type {
+
+    span {
+        color: $color-green;
+    }
+
+    i {
+        font-weight: bold;
+        padding: 0 .3em;
+        color: $color-text;
+    }
+}
+
+.b-title {
+    color: $color-text;
+
+    @include mobile-xs {
+        font-size: 18px;
+    }
+}
+
+.btn-show-more {
+    border-radius: 50%;
+    border: 1px solid $color-green;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    margin: 0 auto;
+    padding: 0;
+    display: block;
+    margin-top: 20px;
+    font-weight: bold;
+    transition: all .2s ease-in-out;
+    transform: rotate(180deg);
+
+    &.collapsed {
+        border-color: $color-hr;
+        transform: rotate(0deg);
+
+        &:after {
+            opacity: 1;
+        }
+    }
+
+    &:after {
+        content: attr(data-after);
+        position: absolute;
+        font-size: 11px;
+        font-weight: normal;
+        bottom: -25px;
+        left: 50%;
+        width: 60px;
+        margin-left: -30px;
+        opacity: 0;
+    }
+
+    &:hover, &:focus {
+        background: $color-green;
+        color: $color-white;
+
+        &:after {
+            color: $color-green;
+        }
+    }
+}
+
+.b-more-info-coolapse {
+
+    > div {
+        margin: 5px;
+        padding: 5px 5px 0;
+        border-top: 1px solid $color-hr;
+
+        &:first-child {
+            margin-top: 20px;
+        }
+    }
+
+    ul {
+
+        >li {
+
+            +li {
+                border-top: 1px solid $color-hr;
+            }
+        }
+    }
+}
+
+.b-label-judge-until {
+    background-color: $color-yellow;
+    color: $color-white;
+    text-align: center;
+    padding: .5em;
+    font-size: 1em;
+    margin-bottom: 1em;
+}
+
+.b-accept-flow {
+    margin-top: 20px;
+    text-align: center;
+
+    .btn {
+        + .btn {
+            margin-left: 30px;
+        }
+    }
+
+}

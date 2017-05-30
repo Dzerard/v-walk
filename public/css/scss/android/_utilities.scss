@@ -1,0 +1,78 @@
+.btn {
+    border-radius: 3px;
+    font-size: 1.1em;
+    font-weight: 300;
+    padding: .5em .5em;
+    line-height: 1.3em;
+}
+
+.btn-white {
+    background: $color-white;
+    border: 1px solid $color-yellow;
+    color: $color-text;
+}
+
+.dropdown-toggle {
+
+    .arrow {
+        line-height: 1;
+    }
+}
+
+.dropdown-menu {
+    z-index: 100;
+
+    &:before, &:after {
+        display: none;
+    }
+}
+
+.form-group {
+    margin-bottom: 1.5em;
+}
+
+[data-load] {
+    position: relative;
+}
+
+.text-grey {
+    color: $color-grey-alternative;
+}
+
+.btn-circle {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    padding: 0;
+    font-size: 40px;
+    text-align: center;
+
+    &.btn-danger {
+        color: $color-text-danger;
+        background: $color-white;
+        border-color: $color-text-danger;
+
+        &:hover,&:focus {
+            color: $color-white;
+            background: $color-text-danger;
+            border-color: $color-text-danger;
+        }
+    }
+
+    &.btn-success {
+        color: $color-green;
+        background: $color-white;
+        border-color: $color-green;
+
+        &:hover,&:focus {
+            color: $color-white;
+            background: $color-green;
+            border-color: $color-green;
+        }
+    }
+}
+
+.no-border {
+    border: 0 !important;
+}

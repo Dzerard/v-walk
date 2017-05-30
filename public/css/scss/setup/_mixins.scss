@@ -1,0 +1,142 @@
+
+// Mixins
+//------------------------------------------------------------------------------
+
+// Use with @extend %clearfix;
+%clearfix {
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+@mixin clearfix-new {
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+@mixin tile-color($color) {
+
+    .tile {
+        background: $color;
+
+        &:hover {
+            background: darken($color, 25%);
+        }
+    }
+}
+
+
+@mixin placeholder-attr () {
+    &::-webkit-input-placeholder { @content; }
+    &:-moz-placeholder { @content; }
+    &::-moz-placeholder { @content; }
+    &:-ms-input-placeholder { @content; }
+}
+
+@mixin xlarge() {
+    @media screen and (min-width: $mqXLarge+1) {
+        @content;
+    }
+}
+
+@mixin xlarge-down() {
+    @media screen and (max-width: $mqXLarge) {
+        @content;
+    }
+}
+
+@mixin large() {
+    @media screen and (max-width: $mqLarge) {
+        @content;
+    }
+}
+
+@mixin medium() {
+    @media screen and (max-width: $mqMedium) {
+        @content;
+    }
+}
+
+@mixin medium-mf() {
+    @media screen and (min-width: $mqMedium + 1) {
+        @content;
+    }
+}
+
+@mixin break() {
+    @media screen and (max-width: $mqBreak) {
+        @content;
+    }
+}
+
+@mixin break-mf() {
+    @media screen and (min-width: $mqBreak + 1) {
+        @content;
+    }
+}
+
+@mixin break-sm() {
+    @media screen and (max-width: $mqBreakSm - 1) {
+        @content;
+    }
+}
+
+
+@mixin tablet-mf() {
+    @media screen and (min-width: $mqTablet+1) {
+        @content;
+    }
+}
+
+@mixin tablet() {
+    @media screen and (max-width: $mqTablet) {
+        @content;
+    }
+}
+
+@mixin tablet-sm() {
+    @media screen and (max-width: $mqTablet - 1) {
+        @content;
+    }
+}
+
+@mixin mobile() {
+    @media screen and (max-width: $mqMobile) {
+        @content;
+    }
+}
+
+@mixin mobile-up() {
+    @media screen and (min-width: $mqMobile) {
+        @content;
+    }
+}
+
+@mixin mobile-sm() {
+    @media screen and (max-width: $mqMobile - 1) {
+        @content;
+    }
+}
+
+@mixin mobile-xs() {
+    @media screen and (max-width: $mqMobileXs) {
+        @content;
+    }
+}
+
+@mixin mobile-xs-nav() {
+    @media screen and (max-width: $mqMobileXsNav) {
+        @content;
+    }
+}
+
+@mixin mobile-xxs() {
+    @media screen and (max-width: $mqMobileXXs) {
+        @content;
+    }
+}
